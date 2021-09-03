@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/arnoldsun/CLionProjects/AirSystem/File.h
+iostream
+-
+string
+-
+fstream
+-
+
+/Users/arnoldsun/CLionProjects/AirSystem/Person.h
+iostream
+-
+string
+-
+ctype.h
+-
+File.h
+/Users/arnoldsun/CLionProjects/AirSystem/File.h
+
+/Users/arnoldsun/CLionProjects/AirSystem/main.cpp
+iostream
+-
+Person.h
+/Users/arnoldsun/CLionProjects/AirSystem/Person.h
+
