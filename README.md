@@ -24,3 +24,20 @@ about：added class Person
 3. 订单管理系统
 
 4. 前端GUI
+
+## v2021.9.4.1
+about: transformed from OSX into MSwindows platform (using visual studio 2019)
+
+---
+
+**Todo：**
+
+0. **连接MySQL数据库(URGENT!)**
+
+1. 在用户系统里包含订单信息
+
+2. 航班管理系统
+
+3. 订单管理系统
+
+4. 前端GUI
