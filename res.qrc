@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/loginWidget">
+        <file>images/login.jpg</file>
+        <file>images/login_background.jpg</file>
+    </qresource>
+    <qresource prefix="/welcomeWidget">
+        <file>images/welcome_background.jpg</file>
+    </qresource>
+    <qresource prefix="/main">
+        <file>images/main_background.jpg</file>
+        <file>images/query_background.jpg</file>
+        <file>images/admin_main_background.jpg</file>
+        <file>images/main_widget_background.jpg</file>
+        <file>images/queryWaySelect_background.png</file>
+        <file>images/edging622_46.jpg</file>
+    </qresource>
+    <qresource prefix="/general">
+        <file>images/split.jpg</file>
+        <file>images/arrow.jfif</file>
+        <file>images/edging.jpg</file>
+        <file>images/logo.jfif</file>
+        <file>images/edging300_200.jpg</file>
+        <file>images/edging100_30.jpg</file>
+        <file>images/edging500_50.jpg</file>
+        <file>images/edging450_200.jpg</file>
+        <file>images/edging420_200.jpg</file>
+    </qresource>
+</RCC>
