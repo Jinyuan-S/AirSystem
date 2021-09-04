@@ -1,22 +1,22 @@
 //
 // Created by Jinyuan on 8/31/21.
 //
-
 #include "File.h"
+
 
 int CountLines(string filename)
 {
     ifstream ReadFile;
-    int n=0;
+    int n = 0;
     string tmp;
-    ReadFile.open(filename.c_str());//ios::in 琛ㄧず浠ュ彧璇荤殑鏂瑰紡璇诲彇鏂囦欢
-    if(ReadFile.fail())//鏂囦欢鎵撳紑澶辫触:杩斿洖0
-        {
-        return 0;
-        }
-    else//鏂囦欢瀛樺湪
+    ReadFile.open(filename.c_str());//ios::in 表示以只读的方式读取文件
+    if (ReadFile.fail())//文件打开失败:返回0
     {
-        while(getline(ReadFile,tmp,'\n'))
+        return 0;
+    }
+    else//文件存在
+    {
+        while (getline(ReadFile, tmp, '\n'))
         {
             n++;
         }
@@ -27,8 +27,8 @@ int CountLines(string filename)
 
 Read::Read(string filename) {
     this->ifs.open(filename, ios::binary);
-    if (!ifs.is_open()){
-        cout << filename << "鏂囦欢鎵撳紑澶辫触" << endl;
+    if (!ifs.is_open()) {
+        cout << filename << "文件打开失败" << endl;
     }
 }
 
@@ -38,9 +38,10 @@ Read::~Read() {
 
 string Read::read_line() {
     string line;
-    if(getline(ifs, line)){
+    if (getline(ifs, line)) {
         return line;
-    }else return "EOF";
+    }
+    else return "EOF";
 }
 
 

@@ -1,9 +1,8 @@
 //
 // Created by Jinyuan on 8/31/21.
 //
+#pragma once
 
-#ifndef AIRSYSTEM_FILE_H
-#define AIRSYSTEM_FILE_H
 
 #include <iostream>
 #include <string>
@@ -13,30 +12,27 @@ using namespace std;
 
 /******************************************************************/
 
-int CountLines(string filename);//æ•°æ–‡ä»¶ä¸€å…±æœ‰å¤šå°‘è¡Œ
+int CountLines(string filename);//ÊıÎÄ¼şÒ»¹²ÓĞ¶àÉÙĞĞ
 
-class Write{
-    //å†™æ–‡ä»¶
+class Write {
+    //Ğ´ÎÄ¼ş
 public:
-    Write(string filename); //æ„é€ å‡½æ•°éœ€è¦ä¼ å…¥æ–‡ä»¶å
+    Write(string filename); //¹¹Ôìº¯ÊıĞèÒª´«ÈëÎÄ¼şÃû
     ~Write();
-    void append(string thing);  //åœ¨æ–‡ä»¶å°¾è¿½åŠ ä¸€è¡Œï¼ˆè‡ªåŠ¨æ¢è¡Œï¼‰
+    void append(string thing);  //ÔÚÎÄ¼şÎ²×·¼ÓÒ»ĞĞ£¨×Ô¶¯»»ĞĞ£©
 private:
     ofstream ofs;
 };
 
-class Read{
-    //è¯»æ–‡ä»¶
+class Read {
+    //¶ÁÎÄ¼ş
 public:
-    Read(string filename);  //æ„é€ å‡½æ•°éœ€è¦ä¼ å…¥æ–‡ä»¶å
+    Read(string filename);  //¹¹Ôìº¯ÊıĞèÒª´«ÈëÎÄ¼şÃû
     ~Read();
-    string read_line(); //æ¥ç€ä¸Šæ¬¡çš„ä½ç½®è¯»ä¸‹ä¸€è¡Œï¼Œè¯»åˆ°è¿”å›stringï¼Œè¯»ä¸åˆ°è¿”å›"EOF"
+    string read_line(); //½Ó×ÅÉÏ´ÎµÄÎ»ÖÃ¶ÁÏÂÒ»ĞĞ£¬¶Áµ½·µ»Østring£¬¶Á²»µ½·µ»Ø"EOF"
 private:
     ifstream ifs;
 };
 
 /******************************************************************/
 
-
-
-#endif //AIRSYSTEM_FILE_H

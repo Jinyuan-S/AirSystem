@@ -1,65 +1,46 @@
 #include <iostream>
 #include "Person.h"
-
+#include <mysql.h>
 
 using namespace std;
 int main() {
 
-    Person person;
-//    User user1("1234", "ä¹ è¿‘å¹³", "ç”·", "18710062238", "password", "xjp@outlook.com");
-//    User user2("1222", "å¼ ä¸‰", "ç”·", "18710061111", "password", "zs@outlook.com");
-//    User user3("3456", "å¼ çŽ‹å…«", "ç”·", "18710061111", "password", "zs@outlook.com");
-//    person.add_user(user1);
-//    person.add_user(user2);
-//    person.add_user(user3);
-//    person.print_all_user();
-
-
-//
-//    int a = person.export_user("list.txt");
-//    cout << a << endl;
-    int b = person.import_user("users.txt");
-    cout << b << endl;
-//    person.print_user("1222");
-    person.print_all_user();
-
-
-//    cout << person.user_number << endl;
-//    person.print_user("1222");34");
-//    find->man.change_name("å®‹yl"
-////    user_node *find = person.search_user("12);
-//    person.print_all_user();
-
-//    Write file1("list.txt");
-//    file1.append("12 34");
-//    file1.append("123");
-//    file1.append("1234");
-//    file1.append("12345");
-//    file1.append("123456");
-//
-//    cout << CountLines("list.txt") << endl;
-//
-//    Read read1("list.txt");
-//    string a = read1.read_line();
-//    string b = read1.read_line();
-//    string c = read1.read_line();
-//    string d = read1.read_line();
-//    string e = read1.read_line();
-//    string f = read1.read_line();
-//    string g = read1.read_line();
-//    string h = read1.read_line();
-//
-//    cout << a << endl;
-//    cout << b << endl;
-//    cout << c << endl;
-//    cout << d << endl;
-//    cout << e << endl;
-//    cout << f << endl;
-//    cout << g << endl;
-//    cout << h << endl;
+    MYSQL mysql;    //Ò»¸öÊý¾Ý¿â½á¹¹Ìå
+    MYSQL_RES* res; //Ò»¸ö½á¹û¼¯½á¹¹Ìå
+    MYSQL_ROW row;  //char** ¶þÎ¬Êý×é£¬´æ·ÅÒ»ÌõÌõ¼ÇÂ¼
+    //³õÊ¼»¯Êý¾Ý¿â
+    mysql_init(&mysql);
+    //ÉèÖÃ±àÂë·½Ê½
+    mysql_options(&mysql, MYSQL_SET_CHARSET_NAME, "UTF8");
+    //Á¬½ÓÊý¾Ý¿â
+    //ÅÐ¶ÏÈç¹ûÁ¬½ÓÊ§°Ü¾ÍÊä³öÁ¬½ÓÊ§°Ü¡£
+    //×¢ÒâÄãÁ¬½ÓµÄÕË»§ÃûÃÜÂë    8.136.214.13
+    if (mysql_real_connect(&mysql, "8.136.214.13", "root", "654321", "airsystem", 3306, NULL, 0) == NULL)
+        printf("Á¬½ÓÊ§°Ü£¡\\n");
 
 
 
+
+
+
+
+
+    //Person person;
+    //User user1("1234", "Ï°½üÆ½", "ÄÐ", "18710062238", "password", "xjp@outlook.com");
+    //User user2("1222", "ÕÅÈý", "ÄÐ", "18710061111", "password", "zs@outlook.com");
+    //User user3("3456", "ÕÅÍõ°Ë", "ÄÐ", "18710061111", "password", "zs@outlook.com");
+    //person.add_user(user1);
+    //person.add_user(user2);
+    //person.add_user(user3);
+    //person.print_all_user();
+
+
+    //int a = person.export_user("list.txt");
+    //cout << a << endl;
+    //int b = person.import_user("users.txt");
+    //cout << b << endl;
+    //person.print_user("1222");
+    //person.print_all_user();
 
 
 

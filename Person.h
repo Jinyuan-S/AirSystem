@@ -1,9 +1,8 @@
 //
 // Created by Jinyuan on 8/30/21.
 //
+#pragma once
 
-#ifndef AIRSYSTEM_PERSON_H
-#define AIRSYSTEM_PERSON_H
 
 #include <iostream>
 #include <string>
@@ -12,7 +11,7 @@
 
 using namespace std;
 
-class User{
+class User {
 public:
     string ID;
     string Name;
@@ -27,11 +26,11 @@ public:
     bool change_name(string new_name);
     bool change_gender(string new_gender);
     bool change_tel(string new_tel);
-    bool change_password(string new_password);  //å¯†ç ä½æ•°è¦åœ¨6-20ä½ä¹‹é—´
+    bool change_password(string new_password);  //ÃÜÂëÎ»ÊıÒªÔÚ6-20Î»Ö®¼ä
     bool change_email(string new_email);
 };
 
-class Admin{
+class Admin {
 public:
     string ID;
     string Name;
@@ -47,16 +46,16 @@ public:
     bool change_name(string new_name);
     bool change_gender(string new_gender);
     bool change_tel(string new_tel);
-    bool change_password(string new_password);  //å¯†ç ä½æ•°è¦åœ¨6-20ä½ä¹‹é—´
+    bool change_password(string new_password);  //ÃÜÂëÎ»ÊıÒªÔÚ6-20Î»Ö®¼ä
     bool change_email(string new_email);
 };
 
-typedef struct _user_node{
+typedef struct _user_node {
     User man;
     _user_node* next = nullptr;
 } user_node;
 
-typedef struct _admin_node{
+typedef struct _admin_node {
     Admin man;
     _admin_node* next = nullptr;
 } admin_node;
@@ -68,50 +67,50 @@ typedef struct {
 
 /***********************************************/
 class Person {
-    //æ€»ç±»
+    //×ÜÀà
 public:
     Person();
     ~Person();
 
 
-    //æ–°å»ºuser
-    bool add_user(User &user);
-    //æ–°å»ºadmin
-    bool add_admin(Admin &admin);
-    //åˆ é™¤userå¯¹è±¡ï¼ŒæˆåŠŸè¿”å›trueï¼Œæ²¡æ‰¾åˆ°è¿”å›false
+    //ĞÂ½¨user
+    bool add_user(User& user);
+    //ĞÂ½¨admin
+    bool add_admin(Admin& admin);
+    //É¾³ıuser¶ÔÏó£¬³É¹¦·µ»Øtrue£¬Ã»ÕÒµ½·µ»Øfalse
     bool del_user(string id);
-    //åˆ é™¤adminå¯¹è±¡ï¼ŒæˆåŠŸè¿”å›trueï¼Œæ²¡æ‰¾åˆ°è¿”å›false
+    //É¾³ıadmin¶ÔÏó£¬³É¹¦·µ»Øtrue£¬Ã»ÕÒµ½·µ»Øfalse
     bool del_admin(string id);
-    //æŸ¥è¯¢æŒ‡å®šuserä¿¡æ¯ï¼ŒæˆåŠŸè¿”å›user_nodeæŒ‡é’ˆï¼Œæ²¡æ‰¾åˆ°è¿”å›null
-    user_node *search_user(string id);
-    //æŸ¥è¯¢æŒ‡å®šAdminä¿¡æ¯ï¼ŒæˆåŠŸè¿”å›admin_nodeæŒ‡é’ˆï¼Œæ²¡æ‰¾åˆ°è¿”å›null
-    admin_node *search_admin(string id);
-    //userç™»é™†ï¼Œè¿”å›è¯¥userå¯¹è±¡çš„åœ°å€ï¼Œç™»é™†å¤±è´¥è¿”å›ç©ºæŒ‡é’ˆã€‚flagæ ‡å¿—ï¼šæˆåŠŸè¿”å›1ï¼Œæ²¡æ‰¾åˆ°idè¿”å›2ï¼Œå¯†ç é”™è¯¯è¿”å›3
-    User *user_login(string id, string pw, int *flag);
-    //userç™»é™†ï¼Œè¿”å›è¯¥adminå¯¹è±¡çš„åœ°å€ï¼Œç™»é™†å¤±è´¥è¿”å›ç©ºæŒ‡é’ˆã€‚flagæ ‡å¿—ï¼šæˆåŠŸè¿”å›1ï¼Œæ²¡æ‰¾åˆ°idè¿”å›2ï¼Œå¯†ç é”™è¯¯è¿”å›3
-    Admin *admin_login(string id, string pw, int *flag);
+    //²éÑ¯Ö¸¶¨userĞÅÏ¢£¬³É¹¦·µ»Øuser_nodeÖ¸Õë£¬Ã»ÕÒµ½·µ»Ønull
+    user_node* search_user(string id);
+    //²éÑ¯Ö¸¶¨AdminĞÅÏ¢£¬³É¹¦·µ»Øadmin_nodeÖ¸Õë£¬Ã»ÕÒµ½·µ»Ønull
+    admin_node* search_admin(string id);
+    //userµÇÂ½£¬·µ»Ø¸Ãuser¶ÔÏóµÄµØÖ·£¬µÇÂ½Ê§°Ü·µ»Ø¿ÕÖ¸Õë¡£flag±êÖ¾£º³É¹¦·µ»Ø1£¬Ã»ÕÒµ½id·µ»Ø2£¬ÃÜÂë´íÎó·µ»Ø3
+    User* user_login(string id, string pw, int* flag);
+    //userµÇÂ½£¬·µ»Ø¸Ãadmin¶ÔÏóµÄµØÖ·£¬µÇÂ½Ê§°Ü·µ»Ø¿ÕÖ¸Õë¡£flag±êÖ¾£º³É¹¦·µ»Ø1£¬Ã»ÕÒµ½id·µ»Ø2£¬ÃÜÂë´íÎó·µ»Ø3
+    Admin* admin_login(string id, string pw, int* flag);
 
 
 
-    //ä»æ–‡ä»¶é‡Œè¯»ï¼Œè¿”å›è¯»åˆ°çš„userä¸ªæ•°
+    //´ÓÎÄ¼şÀï¶Á£¬·µ»Ø¶Áµ½µÄuser¸öÊı
     int import_user(string filename);
-    //å†™å…¥æ–‡ä»¶
+    //Ğ´ÈëÎÄ¼ş
     int export_user(string filename);
 
 
 
-public: //è°ƒè¯•ä»£ç 
-    //æ‰“å°æŒ‡å®šuser
+public: //µ÷ÊÔ´úÂë
+    //´òÓ¡Ö¸¶¨user
     void print_user(string id);
     void print_user(User user);
-    //æ‰“å°æ‰€æœ‰user
+    //´òÓ¡ËùÓĞuser
     void print_all_user();
 
 
 public:
     Head heads;
-    int user_number;   //ç°æœ‰çš„useræ•°é‡
-    int admin_number;   //ç°æœ‰çš„adminæ•°é‡
+    int user_number;   //ÏÖÓĞµÄuserÊıÁ¿
+    int admin_number;   //ÏÖÓĞµÄadminÊıÁ¿
 
 private:
 
@@ -119,4 +118,3 @@ private:
 
 
 
-#endif //AIRSYSTEM_PERSON_H

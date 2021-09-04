@@ -16,7 +16,7 @@ User::User() {
 }
 
 User::User(string id, string name, string gender, string tel, string password, string email)
-    :ID(id), Name(name), Gender(gender), Tel(tel), Password(password), Email(email){}
+    :ID(id), Name(name), Gender(gender), Tel(tel), Password(password), Email(email) {}
 
 
 bool User::change_name(string new_name) {
@@ -25,45 +25,46 @@ bool User::change_name(string new_name) {
 }
 
 bool User::change_gender(string new_gender) {
-    if (new_gender == "ç”·" || new_gender == "å¥³"){
+    if (new_gender == "ÄÐ" || new_gender == "Å®") {
         Gender = new_gender;
         return true;
-    }else return false;
+    }
+    else return false;
 }
 
 bool User::change_email(string new_email)
 {
     int cnt = 0;
-    int at =0;
-    int po=0;
-    for(int i=0; i <new_email.size();i++) {
-        if(isalnum(new_email[i]) != 0) {
+    int at = 0;
+    int po = 0;
+    for (int i = 0; i < new_email.size(); i++) {
+        if (isalnum(new_email[i]) != 0) {
             cnt++;
             //	printf("cnt = %d\n",cnt);
         }
     }
-    cnt = cnt+2;
-    for(int j=0; j <new_email.size();j++) {
-        if(new_email.at(j) == '@') {
+    cnt = cnt + 2;
+    for (int j = 0; j < new_email.size(); j++) {
+        if (new_email.at(j) == '@') {
             at = j;
             //	printf("at = %d\n",at);
             break;
         }
     }
-    for(int k=0; k <new_email.size();k++) {
-        if(new_email.at(k) == '.') {
+    for (int k = 0; k < new_email.size(); k++) {
+        if (new_email.at(k) == '.') {
             po = k;
             //	printf("po = %d\n",po);
             break;
         }
     }
-    if(   ((at<po)&&(at<(po+1))&&(at!=1)&&(po!=new_email.size())&&(cnt == new_email.size()) )   )
+    if (((at < po) && (at < (po + 1)) && (at != 1) && (po != new_email.size()) && (cnt == new_email.size())))
     {
         Email = new_email;
         return 1;
     }
-    else{
-        printf("è¾“å…¥é‚®ç®±æ ¼å¼é”™è¯¯ï¼è¯·é‡æ–°è¾“å…¥ï¼š");
+    else {
+        printf("ÊäÈëÓÊÏä¸ñÊ½´íÎó£¡ÇëÖØÐÂÊäÈë£º");
         return 0;
     }
 
@@ -74,8 +75,8 @@ bool User::change_password(string new_password)
 {
     int num1 = 0;
     num1 = new_password.length();
-    if(num1 < 6 || num1 > 20) {
-        cout << "å¯†ç ä½æ•°è¦åœ¨6-20ä½ä¹‹é—´!è¯·é‡æ–°è¾“å…¥" << endl;
+    if (num1 < 6 || num1 > 20) {
+        cout << "ÃÜÂëÎ»ÊýÒªÔÚ6-20Î»Ö®¼ä!ÇëÖØÐÂÊäÈë" << endl;
         return 0;
     }
     else {
@@ -87,15 +88,15 @@ bool User::change_password(string new_password)
 bool User::change_tel(string new_tel) {
     int num = 0;
     num = new_tel.length();
-    if (num!=11) /////////åˆ¤æ–­ç”µè¯å·ç ä½æ•°
-        {
-        printf("ç”µè¯å·ç ä¸º11ä½æ•°å­—ï¼è¯·é‡æ–°è¾“å…¥\n");
+    if (num != 11) /////////ÅÐ¶Ïµç»°ºÅÂëÎ»Êý
+    {
+        printf("µç»°ºÅÂëÎª11Î»Êý×Ö£¡ÇëÖØÐÂÊäÈë\n");
         return 0;
-        }
+    }
     else {
-        for (int i=0;i<new_tel.size() ;i++ ) {
-            if((new_tel.at(i)>'9' ) || (new_tel.at(i)<'0')) {
-                printf("ç”µè¯å·ç åº”å…¨ä¸ºæ•°å­—!è¯·é‡æ–°è¾“å…¥\n");
+        for (int i = 0; i < new_tel.size(); i++) {
+            if ((new_tel.at(i) > '9') || (new_tel.at(i) < '0')) {
+                printf("µç»°ºÅÂëÓ¦È«ÎªÊý×Ö!ÇëÖØÐÂÊäÈë\n");
                 return 0;
             }
         }
@@ -119,28 +120,31 @@ Admin::Admin() {
 }
 
 Admin::Admin(string id, string name, string gender, string tel, string password, string email, string company)
-:ID(id), Name(name), Gender(gender), Tel(tel), Password(password), Email(email), Company(company){}
+    :ID(id), Name(name), Gender(gender), Tel(tel), Password(password), Email(email), Company(company) {}
 
 bool Admin::change_name(string new_name) {
     Name = new_name;
+    return true;
 }
 
 bool Admin::change_gender(string new_gender) {
-    if (new_gender == "ç”·" || new_gender == "å¥³"){
+    if (new_gender == "ÄÐ" || new_gender == "Å®") {
         Gender = new_gender;
         return true;
-    }else return false;
+    }
+    else return false;
 }
 
 bool Admin::change_email(string new_email) {
     Email = new_email;
+    return true;
 }
 
 bool Admin::change_password(string new_password) {
     int num1 = 0;
     num1 = new_password.length();
-    if(num1 < 6 || num1 > 20) {
-        cout << "å¯†ç ä½æ•°è¦åœ¨6-20ä½ä¹‹é—´!è¯·é‡æ–°è¾“å…¥" << endl;
+    if (num1 < 6 || num1 > 20) {
+        cout << "ÃÜÂëÎ»ÊýÒªÔÚ6-20Î»Ö®¼ä!ÇëÖØÐÂÊäÈë" << endl;
         return 0;
     }
     else {
@@ -152,15 +156,15 @@ bool Admin::change_password(string new_password) {
 bool Admin::change_tel(string new_tel) {
     int num = 0;
     num = new_tel.length();
-    if (num!=11) /////////åˆ¤æ–­ç”µè¯å·ç ä½æ•°
-        {
-        printf("ç”µè¯å·ç ä¸º11ä½æ•°å­—ï¼è¯·é‡æ–°è¾“å…¥\n");
+    if (num != 11) /////////ÅÐ¶Ïµç»°ºÅÂëÎ»Êý
+    {
+        printf("µç»°ºÅÂëÎª11Î»Êý×Ö£¡ÇëÖØÐÂÊäÈë\n");
         return 0;
-        }
+    }
     else {
-        for (int i=0;i<new_tel.size() ;i++ ) {
-            if((new_tel.at(i)>'9' ) || (new_tel.at(i)<'0')) {
-                printf("ç”µè¯å·ç åº”å…¨ä¸ºæ•°å­—!è¯·é‡æ–°è¾“å…¥\n");
+        for (int i = 0; i < new_tel.size(); i++) {
+            if ((new_tel.at(i) > '9') || (new_tel.at(i) < '0')) {
+                printf("µç»°ºÅÂëÓ¦È«ÎªÊý×Ö!ÇëÖØÐÂÊäÈë\n");
                 return 0;
             }
         }
@@ -172,7 +176,7 @@ bool Admin::change_tel(string new_tel) {
 
 
 Person::Person() {
-    //ä»Žæ–‡ä»¶ä¸­è¯»æ•°æ®ï¼Ÿï¼Ÿ
+    //´ÓÎÄ¼þÖÐ¶ÁÊý¾Ý£¿£¿
 
     this->heads.admin_head = nullptr;
     this->heads.user_head = nullptr;
@@ -181,28 +185,28 @@ Person::Person() {
 }
 
 Person::~Person() {
-    if (heads.user_head){
-        user_node *p, *q = nullptr;
-        for (q = heads.user_head, p = heads.user_head->next; p; q = p, p = p->next){
+    if (heads.user_head) {
+        user_node* p, * q = nullptr;
+        for (q = heads.user_head, p = heads.user_head->next; p; q = p, p = p->next) {
             delete q;
         }
         delete q;
     }
-    if (heads.admin_head){
-        admin_node *p, *q = nullptr;
-        for (q = heads.admin_head, p = heads.admin_head->next; p; q = p, p = p->next){
+    if (heads.admin_head) {
+        admin_node* p, * q = nullptr;
+        for (q = heads.admin_head, p = heads.admin_head->next; p; q = p, p = p->next) {
             delete q;
         }
         delete q;
     }
 }
 
-bool Person::add_user(User &user) {
+bool Person::add_user(User& user) {
 
-    user_node *p1 = nullptr;
-    for (p1 = heads.user_head; p1; p1 = p1->next){
-        if (p1->man.ID == user.ID ){
-            printf("æ­¤è´¦æˆ·å·²ç»å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥:");
+    user_node* p1 = nullptr;
+    for (p1 = heads.user_head; p1; p1 = p1->next) {
+        if (p1->man.ID == user.ID) {
+            printf("´ËÕË»§ÒÑ¾­´æÔÚ£¬ÇëÖØÐÂÊäÈë:");
             return false;
         }
     }
@@ -210,13 +214,14 @@ bool Person::add_user(User &user) {
     user_node* p = new user_node;
     p->man = user;
     p->next = nullptr;
-    if (heads.user_head){
-        user_node *last = heads.user_head;
-        while(last->next){
+    if (heads.user_head) {
+        user_node* last = heads.user_head;
+        while (last->next) {
             last = last->next;
         }
         last->next = p;
-    }else{
+    }
+    else {
         heads.user_head = p;
     }
     this->user_number++;
@@ -224,11 +229,11 @@ bool Person::add_user(User &user) {
 }
 
 
-bool Person::add_admin(Admin &admin) {
-    admin_node *p1 = nullptr;
-    for (p1 = heads.admin_head; p1; p1 = p1->next){
-        if (p1->man.ID == admin.ID ){
-            printf("æ­¤è´¦æˆ·å·²ç»å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥:");
+bool Person::add_admin(Admin& admin) {
+    admin_node* p1 = nullptr;
+    for (p1 = heads.admin_head; p1; p1 = p1->next) {
+        if (p1->man.ID == admin.ID) {
+            printf("´ËÕË»§ÒÑ¾­´æÔÚ£¬ÇëÖØÐÂÊäÈë:");
             return false;
         }
     }
@@ -236,13 +241,14 @@ bool Person::add_admin(Admin &admin) {
     admin_node* p = new admin_node;
     p->man = admin;
     p->next = nullptr;
-    if (heads.admin_head){
-        admin_node *last = heads.admin_head;
-        while(last->next){
+    if (heads.admin_head) {
+        admin_node* last = heads.admin_head;
+        while (last->next) {
             last = last->next;
         }
         last->next = p;
-    }else{
+    }
+    else {
         heads.admin_head = p;
     }
     this->admin_number++;
@@ -250,20 +256,20 @@ bool Person::add_admin(Admin &admin) {
 }
 
 
-user_node *Person::search_user(string id) {
-    user_node *p = nullptr;
-    for (p = heads.user_head; p; p = p->next){
-        if (p->man.ID == id){
+user_node* Person::search_user(string id) {
+    user_node* p = nullptr;
+    for (p = heads.user_head; p; p = p->next) {
+        if (p->man.ID == id) {
             return p;
         }
     }
     return nullptr;
 }
 
-admin_node *Person::search_admin(string id) {
-    admin_node *p = nullptr;
-    for (p = heads.admin_head; p; p = p->next){
-        if (p->man.ID == id){
+admin_node* Person::search_admin(string id) {
+    admin_node* p = nullptr;
+    for (p = heads.admin_head; p; p = p->next) {
+        if (p->man.ID == id) {
             return p;
         }
     }
@@ -271,12 +277,13 @@ admin_node *Person::search_admin(string id) {
 }
 
 bool Person::del_user(string id) {
-    user_node *p, *q = nullptr;
-    for (p = heads.user_head; p; q = p, p = p->next){
-        if (p->man.ID == id){
-            if (q){  //pä¸æ˜¯å¤´ç»“ç‚¹
+    user_node* p, * q = nullptr;
+    for (p = heads.user_head; p; q = p, p = p->next) {
+        if (p->man.ID == id) {
+            if (q) {  //p²»ÊÇÍ·½áµã
                 q->next = p->next;
-            }else{   //pæ˜¯å¤´ç»“ç‚¹
+            }
+            else {   //pÊÇÍ·½áµã
                 heads.user_head = p->next;
             }
             delete p;
@@ -288,12 +295,13 @@ bool Person::del_user(string id) {
 }
 
 bool Person::del_admin(string id) {
-    admin_node *p, *q = nullptr;
-    for (p = heads.admin_head; p; q = p, p = p->next){
-        if (p->man.ID == id){
-            if (q){  //pä¸æ˜¯å¤´ç»“ç‚¹
+    admin_node* p, * q = nullptr;
+    for (p = heads.admin_head; p; q = p, p = p->next) {
+        if (p->man.ID == id) {
+            if (q) {  //p²»ÊÇÍ·½áµã
                 q->next = p->next;
-            }else{   //pæ˜¯å¤´ç»“ç‚¹
+            }
+            else {   //pÊÇÍ·½áµã
                 heads.admin_head = p->next;
             }
             delete p;
@@ -304,10 +312,10 @@ bool Person::del_admin(string id) {
     return false;
 }
 
-User* Person::user_login(string id, string pw, int *flag) {
-    user_node *p = search_user(id);
-    if (p){
-        if (p->man.Password == pw){
+User* Person::user_login(string id, string pw, int* flag) {
+    user_node* p = search_user(id);
+    if (p) {
+        if (p->man.Password == pw) {
             *flag = 1;
             return &(p->man);
         }
@@ -315,16 +323,17 @@ User* Person::user_login(string id, string pw, int *flag) {
             *flag = 3;
             return nullptr;
         };
-    }else{
+    }
+    else {
         *flag = 2;
         return nullptr;
     }
 }
 
-Admin* Person::admin_login(string id, string pw, int *flag) {
-    admin_node *p = search_admin(id);
-    if (p){
-        if (p->man.Password == pw){
+Admin* Person::admin_login(string id, string pw, int* flag) {
+    admin_node* p = search_admin(id);
+    if (p) {
+        if (p->man.Password == pw) {
             *flag = 1;
             return &(p->man);
         }
@@ -332,7 +341,8 @@ Admin* Person::admin_login(string id, string pw, int *flag) {
             *flag = 3;
             return nullptr;
         };
-    }else{
+    }
+    else {
         *flag = 2;
         return nullptr;
     }
@@ -353,7 +363,7 @@ void Person::print_user(User user) {
 
 void Person::print_all_user() {
     int cnt = 0;
-    for (user_node *p = heads.user_head; p; p = p->next){
+    for (user_node* p = heads.user_head; p; p = p->next) {
         cout << ++cnt << endl;
         print_user(p->man);
         cout << endl;
@@ -362,10 +372,10 @@ void Person::print_all_user() {
 
 int Person::import_user(string filename) {
     Read read(filename);
-    user_node *tmp = new user_node;
-    int cnt = 0; //ç»Ÿè®¡ä¸€ä¸‹è¯»äº†å¤šå°‘è¿›åŽ»
+    user_node* tmp = new user_node;
+    int cnt = 0; //Í³¼ÆÒ»ÏÂ¶ÁÁË¶àÉÙ½øÈ¥
 
-    //è¦æ±‚æ–‡ä»¶ä¸­è‡³å°‘æœ‰ä¸€å¥—æ•°æ®
+    //ÒªÇóÎÄ¼þÖÐÖÁÉÙÓÐÒ»Ì×Êý¾Ý
     cnt++;
     tmp->man.ID = read.read_line();
     tmp->man.Name = read.read_line();
@@ -374,11 +384,11 @@ int Person::import_user(string filename) {
     tmp->man.Password = read.read_line();
     tmp->man.Email = read.read_line();
     heads.user_head = tmp;
-    user_node *p = heads.user_head;
+    user_node* p = heads.user_head;
 
     string test = read.read_line();
-    while (test != "EOF"){
-        user_node *tmp2 = new user_node;
+    while (test != "EOF") {
+        user_node* tmp2 = new user_node;
         cnt++;
         tmp2->man.ID = test;
         tmp2->man.Name = read.read_line();
@@ -395,9 +405,9 @@ int Person::import_user(string filename) {
 
 int Person::export_user(string filename) {
     Write write(filename);
-    user_node *p = heads.user_head;
+    user_node* p = heads.user_head;
     int cnt = 0;
-    for (p = heads.user_head; p; p = p->next){
+    for (p = heads.user_head; p; p = p->next) {
         cnt++;
         write.append(p->man.ID);
         write.append(p->man.Name);
