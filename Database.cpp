@@ -56,14 +56,14 @@ int Database::query(char* sql) {
     //char a[200] = "select airline,company,origin,destination,time from air where company=\"Air China\";";
     char* b = new char[1000];
     b = Gb2312ToUtf8(sql);
-    0 == mysql_query(&mysql, b);
+    int rowcount = 0;
+    mysql_query(&mysql, b);
     this->res = mysql_store_result(&mysql);//获取结果集
-   
+    if(res)
+        //一共查询到多少行（返回记录集总数）
+        rowcount = mysql_num_rows(res);
     //free
     delete[] b;
-    //一共查询到多少行（返回记录集总数）
-    int rowcount = mysql_num_rows(res);
-  
     return rowcount;
 }
 
@@ -73,7 +73,7 @@ unsigned int Database::field_num() {
     return fieldcount;
 }
 
-void Database::fetchdata(char *sql, vector<vector<string>> &vec) {
+void Database::fetch_data(char *sql, vector<vector<string>> &vec) {
     int rownum = query(sql);
     unsigned int columnnum = field_num();
     
@@ -92,3 +92,28 @@ void Database::fetchdata(char *sql, vector<vector<string>> &vec) {
     }
 
 }
+
+
+//void Database::push_data(char* sql) {
+//    char* b = new char[1000];
+//    b = Gb2312ToUtf8(sql);
+//    0 == mysql_query(&mysql, b);
+//    return;
+//}
+
+
+//int Database::query(char* sql) {
+//    //查询数据
+//    //char a[200] = "select airline,company,origin,destination,time from air where company=\"Air China\";";
+//    char* b = new char[1000];
+//    b = Gb2312ToUtf8(sql);
+//    int rowcount = 0;
+//    if (0 == mysql_query(&mysql, b)) {
+//        this->res = mysql_store_result(&mysql);//获取结果集
+//        //一共查询到多少行（返回记录集总数）
+//        rowcount = mysql_num_rows(res);
+//    }
+//    //free
+//    delete[] b;
+//    return rowcount;
+//}

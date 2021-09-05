@@ -3,6 +3,9 @@
 #include <mysql.h>
 #include <stdlib.h>
 #include "Database.h"
+#include "Admin.h" 
+#include "Buyer.h"
+#include "Person.h"
 
 using namespace std;
 
@@ -11,7 +14,7 @@ using namespace std;
 
 int main() {
 
-    Database db;
+    /*Database db;
     vector<vector<string>> vec;
     vector<vector<string>>::iterator i;
     char a[500] = "SELECT airline,origin,destination,company,time FROM air WHERE origin=\'BEIJING\' AND destination=\'XIAN\'; ";
@@ -23,7 +26,20 @@ int main() {
             cout << str << endl;
         }
 
-    }
+    }*/
+    Person p;
+    string id = "dj123";
+    string name = "´÷æ÷";
+    string gender = "ÄÐ";
+    string tel = "12345678909";
+    string pw = "daiji12345";
+    string email = "daiji@163.com";
+    string com = "Air China";
+       
+    Buyer br(id, name, gender, tel, pw, email);
+
+    p.add_buyer(br);
+    //p.del_buyer("dj123");
 
     return 0;
 }

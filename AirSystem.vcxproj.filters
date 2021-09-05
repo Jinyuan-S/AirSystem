@@ -27,6 +27,12 @@
     <ClCompile Include="Database.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Buyer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Admin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Person.h">
@@ -36,6 +42,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Database.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Buyer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Admin.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

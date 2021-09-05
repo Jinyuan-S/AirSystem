@@ -20,13 +20,14 @@ public:
 	Database();
 	~Database();
 	
-	void fetchdata(char* sql, vector<vector<string>>& vec); //传入sql语句(char[1000])，和二维vector接受返回值
+	void fetch_data(char* sql, vector<vector<string>>& vec); //传入sql语句(char[1000])，和二维vector接受返回值
+	//void push_data(char* sql);
+	int query(char* sql); //传入sql语句，返回查找到的个数（行数）
 
 private:
 	const char* U2G(const char* utf8);
 	char* Gb2312ToUtf8(char* p);
-	int query(char *sql); //传入sql语句，返回查找到的个数（行数）
+	
 	unsigned int field_num();//取得表的列数，！！！先quary再调用！！！
-
 };
 
