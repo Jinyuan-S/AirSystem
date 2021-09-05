@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 #include <ctype.h>
-#include "File.h"
 
 using namespace std;
 
