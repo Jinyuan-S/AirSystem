@@ -12,6 +12,7 @@ Database::Database() {
     //注意你连接的账户名密码    8.136.214.13
     if (mysql_real_connect(&mysql, "8.136.214.13", "root", "654321", "airsystem", 3306, NULL, 0) == NULL)
         cout << "连接失败！" << endl;
+    
     return;
 }
 
@@ -53,7 +54,7 @@ char* Database::Gb2312ToUtf8(char* p) {
 int Database::query(char* sql) {
     //查询数据
     //char a[200] = "select airline,company,origin,destination,time from air where company=\"Air China\";";
-    char* b = new char[200];
+    char* b = new char[1000];
     b = Gb2312ToUtf8(sql);
     0 == mysql_query(&mysql, b);
     this->res = mysql_store_result(&mysql);//获取结果集

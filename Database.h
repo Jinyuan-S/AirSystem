@@ -20,7 +20,7 @@ public:
 	Database();
 	~Database();
 	
-	void fetchdata(char* sql, vector<vector<string>>& vec);
+	void fetchdata(char* sql, vector<vector<string>>& vec); //传入sql语句(char[1000])，和二维vector接受返回值
 
 private:
 	const char* U2G(const char* utf8);
