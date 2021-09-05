@@ -7,6 +7,9 @@
 #include <QPixmap>
 #include <QDebug>
 #include <QPalette>
+#include "Database.h"
+#include <vector>
+#include <string>
 
 //TODO: 实时检测输入是否符合格式
 
@@ -16,6 +19,18 @@ LoginWidget::LoginWidget(QWidget *parent, int roleNumber) //roleNum 是用户还
 {
     ui->setupUi(this);
 
+    Database db;
+        vector<vector<string>> vec;
+        vector<vector<string>>::iterator i;
+        char a[500] = "SELECT airline,origin,destination,company,time FROM air WHERE origin=\'BEIJING\' AND destination=\'XIAN\'; ";
+        db.fetchdata(a, vec);
+        for (i = vec.begin(); i != vec.end(); i++) {
+            for (auto str : *i)
+            {
+                qDebug() << str.c_str();
+            }
+
+        }
 
     //初始化时固定大小
     setFixedSize(400, 600);
