@@ -142,3 +142,31 @@ int Person::admin_login(string& id, string& pw, Admin& admin) {
 	}
 
 }
+
+void Person::renew(Buyer& buyer) {
+	//UPDATE `user` SET gender = '', tel = '', `password`='', email = '' WHERE ID = '';
+	string s1 = "UPDATE `user` SET gender='";
+	string s2 = "',tel='";
+	string s3 = "',`password`='";
+	string s4 = "',email='";
+	string s5 = "' WHERE ID='";
+	string s6 = "';";
+	string sql = s1 + buyer.Gender + s2 + buyer.Tel + s3 + buyer.Password + s4 + buyer.Email + s5 + s6;
+
+	db.query((char*)sql.c_str());
+	return;
+}
+
+void Person::renew(Admin& admin) {
+	//UPDATE admin SET gender = '', tel = '', `password`='', email = '' WHERE ID = '';
+	string s1 = "UPDATE admin SET gender='";
+	string s2 = "',tel='";
+	string s3 = "',`password`='";
+	string s4 = "',email='";
+	string s5 = "' WHERE ID='";
+	string s6 = "';";
+	string sql = s1 + admin.Gender + s2 + admin.Tel + s3 + admin.Password + s4 + admin.Email + s5 + s6;
+
+	db.query((char*)sql.c_str());
+	return;
+}

@@ -35,6 +35,11 @@ public:
     //admin登录
     int admin_login(string& id, string& pw, Admin& admin);
 
+    //更新buyer数据
+    void renew(Buyer& buyer);
+    //更新admin数据
+    void renew(Admin& admin);
+
 public: 
     Database db;
 
