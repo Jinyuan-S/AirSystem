@@ -3,7 +3,7 @@
 #include <mysql.h>
 #include <stdlib.h>
 #include "Database.h"
-#include "Admin.h" 
+#include "Admin.h"
 #include "Buyer.h"
 #include "Person.h"
 
@@ -25,21 +25,23 @@ int main() {
         {
             cout << str << endl;
         }
-
     }*/
-    Person p;
-    string id = "dj123";
-    string name = "´÷æ÷";
-    string gender = "ÄÐ";
-    string tel = "12345678909";
-    string pw = "daiji12345";
-    string email = "daiji@163.com";
-    string com = "Air China";
-       
-    Buyer br(id, name, gender, tel, pw, email);
+    //Person p;
+    //string id = "dj123";
+    //string name = "Â´Ã·Ã¦Ã·";
+    //string gender = "Ã„Ã";
+    //string tel = "12345678909";
+    //string pw = "daiji12345";
+    //string email = "daiji@163.com";
+    //string com = "Air China";
+    //
+    //Buyer br(id, name, gender, tel, pw, email);
 
-    p.add_buyer(br);
-    //p.del_buyer("dj123");
+    //p.add_buyer(br);
+    ////p.del_buyer("dj123");
+
+
+
 
     return 0;
 }

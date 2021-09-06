@@ -18,12 +18,12 @@ WelcomeWidget::WelcomeWidget(QWidget *parent) :
 
     //connect——把label和loginWidget连接
     connect(ui->label_user, &ClickableLabel::clicked, [=](){
-        LoginWidget *widget = new LoginWidget(nullptr, LoginWidget::RoleAsUser);
+        LoginWidget *widget = new LoginWidget(nullptr/*, LoginWidget::RoleAsUser*/);
         widget->show();
         this->hide();
     });
     connect(ui->label_admin, &ClickableLabel::clicked, [=](){
-        LoginWidget *widget = new LoginWidget(nullptr, LoginWidget::RoleAsAdmin);
+        LoginWidget *widget = new LoginWidget(nullptr/*, LoginWidget::RoleAsAdmin*/);
         widget->show();
         this->hide();
     });

@@ -71,20 +71,31 @@ INCLUDEPATH += include/ \
 #    -Llib/ -lmysqlrouter_io_component \
 #    -Llib/ -lmysqlrouter_lib
 
+#LIBS += \
+#    -L./lib/libmysql.lib \
+#    -L./lib/libprotobuf-lite.lib \
+#    -L./lib/mysqlclient.lib \
+#    -L./lib/mysqlharness_stdx.lib \
+#    -L./lib/mysqlharness_tls.lib \
+#    -L./lib/mysqlrouter_http.lib \
+#    -L./lib/mysqlrouter_http.lib \
+#    -L./lib/mysqlrouter_http.lib \
+#    -L./lib/mysqlrouter_http_auth_realm.lib \
+#    -L./lib/mysqlrouter_io_component.lib \
+#    -L./lib/mysqlrouter_lib.lib
+
 LIBS += \
-    -L/lib/libmysql.lib \
-    -L/lib/libprotobuf-lite.lib \
-    -L/lib/mysqlclient.lib \
-    -L/lib/mysqlharness_stdx.lib \
-    -L/lib/mysqlharness_tls.lib \
-    -L/lib/mysqlrouter_http.lib \
-    -L/lib/mysqlrouter_http.lib \
-    -L/lib/mysqlrouter_http.lib \
-    -L/lib/mysqlrouter_http_auth_realm.lib \
-    -L/lib/mysqlrouter_io_component.lib \
-    -L/lib/mysqlrouter_lib.lib
-
-
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/libmysql.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/libprotobuf-lite.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlclient.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlharness_stdx.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlharness_tls.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlrouter_http.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlrouter_http.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlrouter_http.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlrouter_http_auth_realm.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlrouter_io_component.lib' \
+    'C:/Program Files/MySQL/MySQL Server 8.0/lib/mysqlrouter_lib.lib'
 
 TRANSLATIONS += \
     AirTicketingSystem_zh_CN.ts
