@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-using namespace std;
+using std::vector;
 
 class Database
 {
@@ -19,7 +19,7 @@ private:
 public:
 	Database();
     ~Database();
-    void fetch_data(char* sql, vector<vector<string>>& vec); //传入sql语句(char[1000])，和二维vector接受返回值
+    void fetch_data(char* sql, vector<vector<std::string>>& vec); //传入sql语句(char[1000])，和二维vector接受返回值
     //void push_data(char* sql);
     int query(char* sql); //传入sql语句，返回查找到的个数（行数）
 

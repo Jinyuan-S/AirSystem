@@ -2,12 +2,13 @@
 #include "Person.h"
 #include <mysql.h>
 #include <stdlib.h>
+#include <vector>
 #include "Database.h"
 #include "Admin.h"
 #include "Buyer.h"
 #include "Person.h"
 
-using namespace std;
+using std::vector;
 
 
 

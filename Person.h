@@ -10,9 +10,9 @@
 #include "Admin.h"
 #include "Buyer.h"
 #include "Database.h"
+#include <vector>
 
-
-using namespace std;
+using std::vector;
 
 /***********************************************/
 class Person {

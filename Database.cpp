@@ -1,5 +1,5 @@
 #include "Database.h"
-using namespace std;
+
 
 Database::Database() {
 
@@ -11,7 +11,7 @@ Database::Database() {
     //判断如果连接失败就输出连接失败。
     //注意你连接的账户名密码    8.136.214.13
     if (mysql_real_connect(&mysql, "8.136.214.13", "root", "654321", "airsystem", 3306, NULL, 0) == NULL)
-        cout << "连接失败！" << endl;
+        std::cout << "连接失败！" << std::endl;
     
     return;
 }
@@ -73,7 +73,7 @@ unsigned int Database::field_num() {
     return fieldcount;
 }
 
-void Database::fetch_data(char *sql, vector<vector<string>> &vec) {
+void Database::fetch_data(char *sql, vector<vector<std::string>> &vec) {
     int rownum = query(sql);
     unsigned int columnnum = field_num();
     
@@ -82,13 +82,13 @@ void Database::fetch_data(char *sql, vector<vector<string>> &vec) {
     //行指针 遍历行
     while (NULL != (row = mysql_fetch_row(res))) //while (j=0 ,j<行数 ，j++）
     {
-        vec.push_back(vector<string>());
+        vec.push_back(vector<std::string>());
         for (int i = 0; i < columnnum; i++)
         {
             vec[j].push_back(U2G(row[i]));
         }
         ++j;
-        cout << endl;
+        std::cout << std::endl;
     }
 
 }
