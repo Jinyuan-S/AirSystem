@@ -24,6 +24,8 @@
     <ClCompile Include="Children_order.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="Flight.cpp" />
+    <ClCompile Include="Inquiry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mother_order.cpp" />
     <ClCompile Include="Order.cpp" />
@@ -35,6 +37,8 @@
     <ClInclude Include="Children_order.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="Flight.h" />
+    <ClInclude Include="Inquiry.h" />
     <ClInclude Include="Mother_order.h" />
     <ClInclude Include="Order.h" />
     <ClInclude Include="Person.h" />

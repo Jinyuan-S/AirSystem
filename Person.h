@@ -32,7 +32,7 @@ public:
     bool del_admin(string id);
     //用户登录,1:用户名不存在   2:密码错误
     int buyer_login(string& id, string& pw, Buyer& buyer);
-    //admin登录
+    //admin登录,1:用户名不存在   2:密码错误
     int admin_login(string& id, string& pw, Admin& admin);
 
     //更新buyer数据
