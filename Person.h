@@ -12,7 +12,7 @@
 #include "Database.h"
 
 
-using namespace std;
+//using namespace std;
 
 /***********************************************/
 class Person {
