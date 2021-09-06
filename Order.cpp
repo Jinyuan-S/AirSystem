@@ -77,6 +77,20 @@ bool Order::add_order(Mother_order& mo, vector<Children_order>& vec) {
 		string sql = head + vec[j].Who + "','" + vec[j].Airline + "','" + vec[j].Date + "','" + vec[j].Seat + "','" + vec[j].Cabin + "','" + vec[j].Money + tail;
 		db.query((char*)sql.c_str());
 		
+		//SELECT A_remain,A_sold,total_buyer,total_fare FROM air WHERE airline='CA8214' AND date='9.2';
+		//string s1 = "SELECT ";
+		//string s2 = "_remain,";
+		//string s3 = "_sold,total_buyer,total_fare FROM air WHERE airline='";
+		//string s4 = "' AND date='";
+		//string s5 = "';";
+		//string sql2 = s1 + i->Cabin + s2 + i->Cabin + s3 + i->Airline + s4 + i->Date + s5;
+		//vector<vector<string>> v;
+		//db.fetch_data((char*)sql2.c_str(), v);
+
+		//for (auto i = v.begin(); i != v.end(); i++) {
+		//	//这块要拿到原来的数据进行更改，然后再提交，还没来及写
+		//}
+
 		sv.push_back(vec[j].Children);
 	}
 	while (j < 5) {

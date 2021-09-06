@@ -92,7 +92,7 @@ int Buyer::change_email(string &new_email)
 	{
 		Email = new_email;
 		jud = 1;
-		return 1;
+		return 0;
 	}
 	}
 	

@@ -8,9 +8,25 @@
 #include "Buyer.h"
 #include "Person.h"
 
+
+#include <algorithm>
 using std::vector;
 
 
+
+bool cmp(string & s1, string & s2) {
+    //s1<s2返回ture
+    string p = s1.substr(0, 2);
+    string q = s2.substr(0, 2);
+    if (p > q) return false;
+    else if (p < q) return true;
+    else {
+        string m = s1.substr(3, 2);
+        string n = s2.substr(3, 2);
+        if (m > n) return false;
+        else return true;  //没有做等于的判定，可能出bug
+    }
+}
 
 
 int main() {
@@ -27,20 +43,24 @@ int main() {
             cout << str << endl;
         }
     }*/
-    //Person p;
-    //string id = "dj123";
-    //string name = "戴骥";
-    //string gender = "男";
-    //string tel = "12345678909";
-    //string pw = "daiji12345";
-    //string email = "daiji@163.com";
-    //string com = "Air China";
-    //
-    //Buyer br(id, name, gender, tel, pw, email);
+ 
 
-    //p.add_buyer(br);
-    ////p.del_buyer("dj123");
+    string s1 = "06:25:00";
+    string s2 = "00:35:00";
+    string s3 = "06:35:00";
 
+    bool a = cmp(s1, s2);
+    std::cout << a << std::endl;
+    vector<string> v;
+    v.push_back(s1);
+    v.push_back(s2);
+    v.push_back(s3);
+
+    std::sort(v.begin(), v.end(), cmp);
+    
+    std::cout << v[0] << std::endl;
+    std::cout << v[1] << std::endl;
+    std::cout << v[2] << std::endl;
 
     return 0;
 }

@@ -14,17 +14,16 @@ public:
 	/*
 	增加订单:传入一个母订单和子订单vector，自动填满母订单，并且添加到数据库，返回bool
 	传入的母订单需要填写Time、Contain和sub1-5之外的其他信息
-	*********注意：所有日期格式都是2021-9-03 ***********
+	子订单的舱位必须是A,B,C格式，否则出错
+	子订单日期必须是 9.03 的格式，否则出错
 	*/
 	bool add_order(Mother_order& mo, vector<Children_order>& vec);
-	
 	
 	//更新mother_order：只允许更新is_paid和is_cancel
 	bool renew(Mother_order& mo);
 	//更新mother_order：只允许更新seat
 	bool renew(Children_order& co);
 
-	//*********订单号如何确定？？？？？？没有写订单号的判断
 
 private:
 	Database db;
