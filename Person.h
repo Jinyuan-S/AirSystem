@@ -10,9 +10,14 @@
 #include "Admin.h"
 #include "Buyer.h"
 #include "Database.h"
+#include <vector>
 
+<<<<<<< HEAD
 
 //using namespace std;
+=======
+using std::vector;
+>>>>>>> 5755a5932a942033dec5f099e0664774ac29a993
 
 /***********************************************/
 class Person {

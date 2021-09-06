@@ -1,4 +1,5 @@
 #include "Database.h"
+
 Database::Database() {
 
     //初始化数据库
@@ -71,7 +72,8 @@ unsigned int Database::field_num() {
     return fieldcount;
 }
 
-void Database::fetch_data(char *sql, std::vector<std::vector<std::string>> &vec) {
+
+void Database::fetch_data(char *sql, vector<vector<std::string>> &vec) {
     int rownum = query(sql);
     unsigned int columnnum = field_num();
     
@@ -80,7 +82,7 @@ void Database::fetch_data(char *sql, std::vector<std::vector<std::string>> &vec)
     //行指针 遍历行
     while (NULL != (row = mysql_fetch_row(res))) //while (j=0 ,j<行数 ，j++）
     {
-        vec.push_back(std::vector<std::string>());
+        vec.push_back(vector<std::string>());
         for (int i = 0; i < columnnum; i++)
         {
             vec[j].push_back(U2G(row[i]));
