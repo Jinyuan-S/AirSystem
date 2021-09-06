@@ -41,3 +41,27 @@ about: transformed from OSX into MSwindows platform (using visual studio 2019)
 3. 订单管理系统
 
 4. 前端GUI
+
+## v2021.9.5.1
+about：refactor the backend to suit database, connected front and backend
+
+---
+
+**already have：**
+
+1. 前端和后端已经结合
+
+2. 支持用户的增删改查，用户登录
+
+3. 数据库接口（轮子已造好）
+
+**Todo：**
+
+1. 飞机座位数据
+
+2. 订单的后端
+
+3. 航班查询的后端
+
+4. 测试
+

@@ -28,8 +28,8 @@ int main() {
     }*/
     //Person p;
     //string id = "dj123";
-    //string name = "Â´Ã·Ã¦Ã·";
-    //string gender = "Ã„Ã";
+    //string name = "´÷æ÷";
+    //string gender = "ÄĞ";
     //string tel = "12345678909";
     //string pw = "daiji12345";
     //string email = "daiji@163.com";
@@ -39,8 +39,6 @@ int main() {
 
     //p.add_buyer(br);
     ////p.del_buyer("dj123");
-
-
 
 
     return 0;

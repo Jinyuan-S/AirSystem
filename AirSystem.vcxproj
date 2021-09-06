@@ -21,16 +21,22 @@
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Buyer.cpp" />
+    <ClCompile Include="Children_order.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mother_order.cpp" />
+    <ClCompile Include="Order.cpp" />
     <ClCompile Include="Person.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Buyer.h" />
+    <ClInclude Include="Children_order.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="Mother_order.h" />
+    <ClInclude Include="Order.h" />
     <ClInclude Include="Person.h" />
   </ItemGroup>
   <ItemGroup>
