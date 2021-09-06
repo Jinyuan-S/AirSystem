@@ -1,6 +1,5 @@
 #include "Database.h"
 
-
 Database::Database() {
 
     //初始化数据库
@@ -72,6 +71,7 @@ unsigned int Database::field_num() {
     unsigned int fieldcount = mysql_num_fields(res);
     return fieldcount;
 }
+
 
 void Database::fetch_data(char *sql, vector<vector<std::string>> &vec) {
     int rownum = query(sql);
