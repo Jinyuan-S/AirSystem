@@ -3,8 +3,16 @@ QT       += core gui \
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+#CONFIG += gnu++11
+#CONFIG += gnu++11
+##CONFIG -= gnu++2a
 
+CONFIG += fsd2f342fsdf
+CONFIG += c++1y
+#QMAKE_CXXFLAGS += -std=c++11
+
+
+#QMAKE_CXXFLAGS += QMAKE_CXXFLAGS_CXX14
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -24,8 +32,10 @@ SOURCES += \
     ordersitem.cpp \
     querywidget.cpp \
     welcomewidget.cpp \
-#    Person.cpp \
-    Database.cpp
+    Person.cpp \
+    Database.cpp \
+    Admin.cpp \
+    Buyer.cpp
 
 HEADERS += \
     adminmainwidget.h \
@@ -40,8 +50,10 @@ HEADERS += \
     ordersitem.h \
     querywidget.h \
     welcomewidget.h \
-#    Person.h \
-    Database.h
+    Person.h \
+    Database.h \
+    Admin.h \
+    Buyer.h
 
 FORMS += \
     adminmainwidget.ui \

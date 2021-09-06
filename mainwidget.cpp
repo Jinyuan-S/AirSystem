@@ -4,11 +4,16 @@
 #include <QDebug>
 #include <QMessageBox>
 
-MainWidget::MainWidget(QWidget *parent) :
+MainWidget::MainWidget(QWidget *parent, Buyer *buyer) :
     QWidget(parent),
     ui(new Ui::MainWidget)
 {
     ui->setupUi(this);
+
+    if(buyer == nullptr)
+    {
+        QMessageBox::critical(this, "严重错误", "用户没有成功登录！");
+    }
 
 
     //1.设置自动填充背景
@@ -45,11 +50,31 @@ MainWidget::MainWidget(QWidget *parent) :
 
 
         //connect 把一级菜单和对应stackedWidget中的page联系起来
-        connect(ui->pushButton_query, &QPushButton::clicked, [=](){
-            ui->stackedWidget->setCurrentIndex(2);
+        connect(ui->pushButton_query, &QPushButton::clicked, [=](){//当切换到其他页面时，个人页面询问是否更改
+            if(ui->widget_3->statusOfLabel == 1)
+            {
+                if(ui->widget_3->changeToNormal())
+                {
+                    ui->stackedWidget->setCurrentIndex(2);
+                }
+            }
+            else
+            {
+                ui->stackedWidget->setCurrentIndex(2);
+            }
         });
-        connect(ui->pushButton_order, &QPushButton::clicked, [=](){
-            ui->stackedWidget->setCurrentIndex(0);
+        connect(ui->pushButton_order, &QPushButton::clicked, [=](){//当切换到其他页面时，个人页面询问是否更改
+            if(ui->widget_3->statusOfLabel == 1)
+            {
+                if(ui->widget_3->changeToNormal())
+                {
+                    ui->stackedWidget->setCurrentIndex(0);
+                }
+            }
+            else
+            {
+                ui->stackedWidget->setCurrentIndex(0);
+            }
         });
         connect(ui->pushButton_mine, &QPushButton::clicked, [=](){
             ui->stackedWidget->setCurrentIndex(1);
@@ -99,8 +124,7 @@ MainWidget::MainWidget(QWidget *parent) :
         }
 
         //3.我的部分
-        ui->widget_3->setUserType(0); //0为购票用户 1为管理员
-
+        ui->widget_3->setBuyer(buyer);
         //购票用户部分结束-------------
     }
 

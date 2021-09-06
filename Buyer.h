@@ -3,7 +3,8 @@
 #include <utility>
 #include <iostream>
 
-using namespace std;
+//using namespace std::;
+using std::string;
 
 class Buyer
 {

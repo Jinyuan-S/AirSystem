@@ -3,6 +3,9 @@
 
 #include <QDialog>
 
+#include "Admin.h"
+#include "Buyer.h"
+#include "Person.h"
 
 namespace Ui {
 class ModifyPasswordDialog;
@@ -15,9 +18,15 @@ class ModifyPasswordDialog : public QDialog
 public:
     explicit ModifyPasswordDialog(QWidget *parent = nullptr);
     ~ModifyPasswordDialog();
+    void setAdmin(Admin *adminTemp);
+    void setBuyer(Buyer *buyerTemp);
 
 private:
     Ui::ModifyPasswordDialog *ui;
+    Admin *admin;
+    Buyer *buyer;
+    Person *person;
+
 };
 
 #endif // MODIFYPASSWORDDIALOG_H

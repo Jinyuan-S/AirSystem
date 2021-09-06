@@ -3,7 +3,7 @@
 //
 
 #include "Person.h"
-
+using std::vector;
 
 Person::Person() {
 }
@@ -25,13 +25,13 @@ bool Person::add_buyer(Buyer& buyer) {
 
 	//cout << db.query((char*)sql2.c_str()) << endl;
 	if (db.query((char*)sql2.c_str()) != 0) {  //如果存在就不添加
-		cout << "ng" << endl;
+        std::cout << "ng" << std::endl;
 		return false;
 	}
 	else {
 		//cout << sql << endl;
 		db.query((char*)sql1.c_str());
-		cout << "good" << endl;
+        std::cout << "good" << std::endl;
 		return true;
 	}
 	return true;
@@ -51,13 +51,13 @@ bool Person::add_admin(Admin& admin) {
 
 	//cout << !db.query((char*)sql2.c_str()) << endl;
 	if (db.query((char*)sql2.c_str()) != 0) {
-		cout << "ng" << endl;
+        std::cout << "ng" << std::endl;
 		return false;
 	}
 	else {
 		//cout << sql << endl;
 		db.query((char*)sql1.c_str());
-		cout << "good" << endl;
+        std::cout << "good" << std::endl;
 		return true;
 	}
 	return true;
@@ -96,14 +96,18 @@ int Person::buyer_login(string& id, string& pw, Buyer& buyer) {
 
 		db.fetch_data((char*)sql1.c_str(), vec);
 
-		if (vec[0][3] != pw)
+        if (vec[0][4] != pw)
+        {
+            std::cout << "vec" << vec[0][4] << ", pw" << pw << std::endl;
 			return 2;
+        }
 		else {
 			buyer.ID = vec[0][0];
 			buyer.Name = vec[0][1];
-			buyer.Tel = vec[0][2];
-			buyer.Password = vec[0][3];
-			buyer.Email = vec[0][4];
+            buyer.Gender = vec[0][2];
+            buyer.Tel = vec[0][3];
+            buyer.Password = vec[0][4];
+            buyer.Email = vec[0][5];
 
 			return 0;
 		}
@@ -126,15 +130,16 @@ int Person::admin_login(string& id, string& pw, Admin& admin) {
 
 		db.fetch_data((char*)sql1.c_str(), vec);
 
-		if (vec[0][3] != pw)
+        if (vec[0][4] != pw)
 			return 2;
 		else {
 			admin.ID = vec[0][0];
 			admin.Name = vec[0][1];
-			admin.Tel = vec[0][2];
-			admin.Password = vec[0][3];
-			admin.Email = vec[0][4];
-			admin.Company = vec[0][5];
+            admin.Gender = vec[0][2];
+            admin.Tel = vec[0][3];
+            admin.Password = vec[0][4];
+            admin.Email = vec[0][5];
+            admin.Company = vec[0][6];
 
 			return 0;
 		}
@@ -151,7 +156,7 @@ void Person::renew(Buyer& buyer) {
 	string s4 = "',email='";
 	string s5 = "' WHERE ID='";
 	string s6 = "';";
-	string sql = s1 + buyer.Gender + s2 + buyer.Tel + s3 + buyer.Password + s4 + buyer.Email + s5 + s6;
+    string sql = s1 + buyer.Gender + s2 + buyer.Tel + s3 + buyer.Password + s4 + buyer.Email + s5 + buyer.ID + s6;
 
 	db.query((char*)sql.c_str());
 	return;
@@ -165,7 +170,7 @@ void Person::renew(Admin& admin) {
 	string s4 = "',email='";
 	string s5 = "' WHERE ID='";
 	string s6 = "';";
-	string sql = s1 + admin.Gender + s2 + admin.Tel + s3 + admin.Password + s4 + admin.Email + s5 + s6;
+    string sql = s1 + admin.Gender + s2 + admin.Tel + s3 + admin.Password + s4 + admin.Email + s5 + admin.ID + s6;
 
 	db.query((char*)sql.c_str());
 	return;

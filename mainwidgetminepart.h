@@ -4,6 +4,9 @@
 #include <QWidget>
 
 #include "modifypassworddialog.h"
+#include "Admin.h"
+#include "Buyer.h"
+#include "Person.h"
 
 namespace Ui {
 class MainWidgetMinePart;
@@ -14,13 +17,24 @@ class MainWidgetMinePart : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainWidgetMinePart(QWidget *parent = nullptr, int userType = 0);  //0为用户 1为管理员
+    explicit MainWidgetMinePart(QWidget *parent = nullptr);
     ~MainWidgetMinePart();
-    void setUserType(int userType);
+    void setBuyer(Buyer *buyerTemp);
+    void setAdmin(Admin *adminTemp);
+    bool changeToNormal();
+    bool statusOfLabel = 0;
 
 private:
+    bool isTeleLegal = 0;
+    bool isEmailLegal = 0;
     ModifyPasswordDialog *passwordDialog;
     Ui::MainWidgetMinePart *ui;
+    Buyer *buyer = nullptr;
+    Admin *admin = nullptr;
+    Person *person = nullptr;
+    void basicInit();
+    void userInfoLoad(Buyer *user);
+    void cancleInfoChange();
 };
 
 #endif // MAINWIDGETMINEPART_H

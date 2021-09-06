@@ -1,5 +1,7 @@
 #include "Buyer.h"
 
+using std::cout;
+using std::endl;
 
 Buyer::Buyer() {
     this->ID = "empty";
@@ -25,11 +27,9 @@ int Buyer::change_id(string &new_id) {
     }
     else {
         for (int i = 0; i < new_id.size(); i++) {
-            if ((new_id.at(i) > '9') || (new_id.at(i) < '0'))
-                return 2;
-            else if ((new_id.at(i) > 'Z') || (new_id.at(i) < 'A'))
-                return 2;
-            else if ((new_id.at(i) > 'z') || (new_id.at(i) < 'a'))
+            if (((new_id.at(i) > '9') || (new_id.at(i) < '0'))
+                    && ((new_id.at(i) > 'Z') || (new_id.at(i) < 'A'))
+                    && ((new_id.at(i) > 'z') || (new_id.at(i) < 'a')))
                 return 2;
         }
         ID = new_id;
@@ -98,11 +98,11 @@ int Buyer::change_password(string &new_password)
     num1 = new_password.length();
     if (num1 < 6 || num1 > 20) {
         cout << "密码位数要在6-20位之间!请重新输入" << endl;
-        return 0;
+        return 1;
     }
     else {
         Password = new_password;
-        return 1;
+        return 0;
     }
 }
 

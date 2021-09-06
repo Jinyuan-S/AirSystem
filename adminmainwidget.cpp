@@ -3,7 +3,7 @@
 
 #include <QStringList>
 
-AdminMainWidget::AdminMainWidget(QWidget *parent) :
+AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *admin) :
     QWidget(parent),
     ui(new Ui::AdminMainWidget)
 {
@@ -24,10 +24,31 @@ AdminMainWidget::AdminMainWidget(QWidget *parent) :
 
     //初始化时把按钮和对应的一级菜单连接起来
     connect(ui->pushButton_order, &QPushButton::clicked, [=](){
-        ui->stackedWidget->setCurrentIndex(1);
+        //当切换到其他页面时，个人页面询问是否更改
+        if(ui->widget_3->statusOfLabel == 1)
+        {
+            if(ui->widget_3->changeToNormal())
+            {
+                ui->stackedWidget->setCurrentIndex(1);
+            }
+        }
+        else
+        {
+            ui->stackedWidget->setCurrentIndex(1);
+        }
     });
-    connect(ui->pushButton_flight, &QPushButton::clicked, [=](){
-        ui->stackedWidget->setCurrentIndex(2);
+    connect(ui->pushButton_flight, &QPushButton::clicked, [=](){//当切换到其他页面时，个人页面询问是否更改
+        if(ui->widget_3->statusOfLabel == 1)
+        {
+            if(ui->widget_3->changeToNormal())
+            {
+                ui->stackedWidget->setCurrentIndex(2);
+            }
+        }
+        else
+        {
+            ui->stackedWidget->setCurrentIndex(2);
+        }
     });
     connect(ui->pushButton_mine, &QPushButton::clicked, [=](){
         ui->stackedWidget->setCurrentIndex(0);
@@ -40,7 +61,7 @@ AdminMainWidget::AdminMainWidget(QWidget *parent) :
 //    ui->tableView_flight->setHorizontalHeader();
 
     //3.我的部分
-    ui->widget_3->setUserType(1);
+    ui->widget_3->setAdmin(admin);
 
 
 }
