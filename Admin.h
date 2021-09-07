@@ -17,6 +17,10 @@ public:
     //按已购买人数排序,返回begin到end时间段内的flight数据（老师要求排序未起飞的航班，后端不做判定）
     void order_by_total_buyer(string& begin, string& end, vector<Flight>& res);
 
+    //添加航班：成功返回0，找不到飞行员返回1，时间冲突返回2，航班号重复返回3
+    //前端需要提供：airline,origin,destination,company,time_on,time_off,tomorrow,model,A_remain,B_remain,C_remain,date,price,pilot
+    int add(Flight& f);
+
 private:
     Database db;
     inline void atd_sql(string& begin, string& end, string& sql);//attendance

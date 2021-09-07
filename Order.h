@@ -24,6 +24,7 @@ public:
 	bool renew(Mother_order& mo);
 	//更新mother_order：只允许更新seat
 	bool renew(Children_order& co);
+	
 	//根据机型查找起飞地目的地：返回vector：origin,destination,time_on,time_off,tomorrow
 	void where2where(vector<string>airline, vector<vector<string>> res);
 

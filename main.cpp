@@ -31,31 +31,43 @@ int main() {
         }
     }*/
 
-    string date = "2021-10-01";
-    //8 2021-08-20
-    string d1 = date.substr(8, 2);
-    string m = date.substr(5, 2);
-    string y = date.substr(0, 4);
 
-    int a = std::stoi(d1);
-    //std::cout << a << std::endl;
-    string d = "";
-    if (d1 > "01") {
-        a--;
-        d = std::to_string(a);
-        if (d.length() < 2)
-            d = "0" + d;
-    }
-    else {
-        d = "31";
-        int b = std::stoi(m);
-        b--;
-        m = std::to_string(b);
-        if (m.length() < 2)
-            m = "0" + m;
-    }
-    string out = y + "-" + m + "-" + d;
-    std::cout << out << std::endl;
+    string time = "01:55";
+    string h = time.substr(0, 2);
+    string m = time.substr(2, 3);
+
+    h = std::to_string(std::stoi(h) + 24);
+
+    time = h + m;
+    std::cout << time << std::endl;
+    
+
+
+    //string date = "01:55:00";
+    ////8 2021-08-20
+    //string d1 = date.substr(8, 2);
+    //string m = date.substr(5, 2);
+    //string y = date.substr(0, 4);
+
+    //int a = std::stoi(d1);
+    ////std::cout << a << std::endl;
+    //string d = "";
+    //if (d1 > "01") {
+    //    a--;
+    //    d = std::to_string(a);
+    //    if (d.length() < 2)
+    //        d = "0" + d;
+    //}
+    //else {
+    //    d = "31";
+    //    int b = std::stoi(m);
+    //    b--;
+    //    m = std::to_string(b);
+    //    if (m.length() < 2)
+    //        m = "0" + m;
+    //}
+    //string out = y + "-" + m + "-" + d;
+    //std::cout << out << std::endl;
     
     return 0;
 }
