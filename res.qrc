@@ -13,6 +13,7 @@
         <file>images/main_widget_background.jpg</file>
         <file>images/queryWaySelect_background.png</file>
         <file>images/edging622_46.jpg</file>
+        <file>images/edging270_170.jpg</file>
     </qresource>
     <qresource prefix="/general">
         <file>images/split.jpg</file>

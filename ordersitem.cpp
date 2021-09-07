@@ -11,14 +11,24 @@ OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
 {
     ui->setupUi(this);
 
-    motherOrder = orderTemp;
+    motherOrder = new Mother_order();
+
+    *motherOrder = *orderTemp;
+
+    qDebug() << "items NOW!";
+    qDebug() << motherOrder;
+    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
+//            item->setParent(ui->scrollAreaWidgetContents);
 
     qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
     qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
 
     order = new Order();
-
-    updateOrderInUi();
 
     //初始化背景图片
     setAutoFillBackground(true);
@@ -26,18 +36,33 @@ OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
     palette.setBrush(QPalette::Window, QBrush(QPixmap(":/general/images/edging420_200.jpg")));
     setPalette(palette);
 
+
+    detailWidget = new OrdersDetailWidget(nullptr, motherOrder/*, this*/);
+
+    //当detail界面关闭时，刷新状态
+    connect(detailWidget, &OrdersDetailWidget::closed, [=](){
+        qDebug() << "You are running now.";
+        updateOrderInUi();
+    });
+
     //connect 连接详细信息label与详细信息Widget
     connect(ui->label_detail, &ClickableLabel::clicked, [=](){
-        detailWidget = new OrdersDetailWidget(nullptr, motherOrder);
+        if(detailWidget)
+        {
+            delete detailWidget;
+            detailWidget = new OrdersDetailWidget(nullptr, motherOrder/*, this*/);
+        }
         detailWidget->setWindowModality(Qt::ApplicationModal);
         detailWidget->show();
     });
 
     //connect 支付功能
     connect(ui->label_pay, &ClickableLabel::clicked, [=](){
+        qDebug() << "item支付准备";
         if(QMessageBox::Ok
                 == QMessageBox::question(this, "订单信息", "您确定要付款吗？", QMessageBox::Ok|QMessageBox::Cancel))
         {
+            qDebug() << "item支付准备2";
             motherOrder->Is_paid = "1";
             if(order->renew(*motherOrder))
             {
@@ -57,9 +82,12 @@ OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
 
     //connect 取消功能
     connect(ui->label_refund, &ClickableLabel::clicked, [=](){
+        qDebug() << "item取消准备";
         if(QMessageBox::Ok
                 == QMessageBox::question(this, "订单信息", "您确定要取消订单吗？", QMessageBox::Ok|QMessageBox::Cancel))
         {
+
+            qDebug() << "item取消准备2";
             motherOrder->Is_cancel = "1";
             if(order->renew(*motherOrder))
             {
@@ -72,6 +100,8 @@ OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
             }
         }
     });
+    updateOrderInUi();
+
 }
 
 OrdersItem::~OrdersItem()
@@ -81,6 +111,20 @@ OrdersItem::~OrdersItem()
 
 void OrdersItem::updateOrderInUi()
 {
+
+    qDebug() << "itemsUpdating NOW!";
+    qDebug() << motherOrder;
+    qDebug() << QString::fromLocal8Bit(motherOrder->Mother);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
+//            item->setParent(ui->scrollAreaWidgetContents);
+
+    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
+    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
 
 
     //如果订单已经完成支付或者已经退票，则不显示退票和支付
@@ -136,4 +180,6 @@ void OrdersItem::updateOrderInUi()
     //下单时间显示
     ui->label_time->setText("下单时间：" + QString::fromLocal8Bit(motherOrder->Time));
     qDebug() << QString::fromLocal8Bit(motherOrder->Time);
+
+    //TODO:目的地显示
 }

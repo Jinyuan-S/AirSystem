@@ -62,6 +62,7 @@ int Database::query(char* sql) {
         //һ����ѯ�������У����ؼ�¼��������
         rowcount = mysql_num_rows(res);
     //free
+//    free(b);
     delete[] b;
     return rowcount;
 }

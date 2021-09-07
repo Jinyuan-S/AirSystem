@@ -19,13 +19,13 @@ class OrdersItem : public QWidget
 public:
     explicit OrdersItem(QWidget *parent = nullptr, Mother_order *orderTemp = nullptr);
     ~OrdersItem();
+    void updateOrderInUi();
 
 private:
     Ui::OrdersItem *ui;
     OrdersDetailWidget *detailWidget;
     Mother_order *motherOrder;
     Order *order;
-    void updateOrderInUi();
 };
 
 #endif // ORDERSITEM_H

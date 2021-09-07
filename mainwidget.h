@@ -27,7 +27,7 @@ private:
 //    void createAdminBasicUi(Ui::MainWidget ui);
     Buyer *buyer;
     Order *order;
-    void newQueryWidget();
+    void newQueryWidget(int type);
     void buyInit();
     void orderInit();
     void mineInit();

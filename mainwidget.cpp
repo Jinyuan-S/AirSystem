@@ -93,17 +93,13 @@ MainWidget::~MainWidget()
     delete ui;
 }
 
-
-void MainWidget::newQueryWidget()  //TODO: 这里要航班的信息
-{
-    QueryWidget *widget = new QueryWidget();
-    widget->setWindowModality(Qt::ApplicationModal);
-    widget->show();
-}
-
 //购买初始化
 void MainWidget::buyInit()
 {
+    //初始化dateEdit
+    ui->dateEdit->setDate(QDate().currentDate());
+    ui->dateEdit1->setDate(QDate().currentDate());
+
     //connect 把查询方式和对应的stack联系起来
     connect(ui->pushButton_queryByNumber, &QPushButton::clicked, [=](){
         ui->stackedWidget_3->setCurrentIndex(0);
@@ -123,10 +119,10 @@ void MainWidget::buyInit()
 
     //connect 把完成和进入查询界面连接起来
     connect(ui->pushButton_city_complete, &QPushButton::clicked, [=](){
-        newQueryWidget();
+        newQueryWidget(0);
     });
     connect(ui->pushButton_number_complete, &QPushButton::clicked, [=](){
-        newQueryWidget();
+        newQueryWidget(1);
     });
 }
 
@@ -150,6 +146,11 @@ void MainWidget::orderInit()
         qDebug() << ui->scrollAreaWidgetContents->geometry();
         for(int i = 0; i < orderNum; ++i)
         {
+            qDebug() << QString::fromLocal8Bit(motherVec.at(i).Contain);
+            qDebug() << QString::fromLocal8Bit(motherVec.at(i).Is_paid);
+            qDebug() << QString::fromLocal8Bit(motherVec.at(i).Is_cancel);
+            qDebug() << QString::fromLocal8Bit(motherVec.at(i).Sub1);
+            qDebug() << QString::fromLocal8Bit(motherVec.at(i).Sub5);
             OrdersItem *item = new OrdersItem(ui->scrollAreaWidgetContents, &motherVec.at(i));
 //            item->setParent(ui->scrollAreaWidgetContents);
     //        qDebug() << item->geometry();
@@ -159,8 +160,26 @@ void MainWidget::orderInit()
 
 }
 
+
 //个人信息初始化
 void MainWidget::mineInit()
 {
     ui->widget_3->setBuyer(buyer);
 }
+
+
+void MainWidget::newQueryWidget(int type)  //TODO: 这里要航班的信息
+{
+    QueryWidget *widget = new QueryWidget(nullptr, type);
+    if(type == 0)
+    {
+        widget->setFromAndTo(ui->lineEdit_from->text(), ui->lineEdit_to->text(), ui->dateEdit->date());
+    }
+    else
+    {
+        widget->setNumber(ui->lineEdit_num->text(), ui->dateEdit->date());
+    }
+    widget->setWindowModality(Qt::ApplicationModal);
+    widget->show();
+}
+

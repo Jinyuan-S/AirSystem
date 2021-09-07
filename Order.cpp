@@ -24,7 +24,10 @@ int Order::get_all_order(string& id, vector<Mother_order>& vec) {
 			mo.Sub3 = svec[j][9];
 			mo.Sub4 = svec[j][10];
 			mo.Sub5 = svec[j][11];
-
+            std::cout << mo.Contain;
+            std::cout << mo.Sub1;
+            std::cout << mo.Is_cancel;
+            std::cout << mo.Sub5;
 			vec.push_back(mo);
 			j++;
 		}
@@ -125,11 +128,12 @@ bool Order::add_order(Mother_order& mo, vector<Children_order>& vec) {
 
 bool Order::renew(Mother_order& mo) {
 	//UPDATE mother_order SET is_paid=0,is_cancel=1 WHERE mother=0000000001;
-	string s1 = "UPDATE mother_order SET is_paid=";
-	string s2 = ",is_cancel=";
-	string s3 = " WHERE mother=";
-	string s4 = ";";
+    string s1 = "UPDATE mother_order SET is_paid='";
+    string s2 = "',is_cancel='";
+    string s3 = "' WHERE mother='";
+    string s4 = "';";
     string sql = s1 + mo.Is_paid + s2 + mo.Is_cancel + s3 + mo.Mother + s4;
+    std::cout << sql;
 	db.query((char*)sql.c_str());
 	return true;
 }
@@ -140,7 +144,7 @@ bool Order::renew(Children_order& co) {
 	string s1 = "UPDATE children_order SET seat='";
 	string s2 = "' WHERE children=";
 	string s3 = ";";
-	string sql = s1 + co.Seat + s2 + s3;
+    string sql = s1 + co.Seat + s2 + co.Children +s3;
 	db.query((char*)sql.c_str());
 	return true;
 }

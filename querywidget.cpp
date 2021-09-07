@@ -3,14 +3,29 @@
 
 #include <QDebug>
 #include <QScrollArea>
+#include <QDate>
 
-QueryWidget::QueryWidget(QWidget *parent) :
+QueryWidget::QueryWidget(QWidget *parent, int type) : //type == 0 起降地 type == 1 航班号
     QWidget(parent),
     ui(new Ui::QueryWidget)
 {
     ui->setupUi(this);
 
-    this->setWindowTitle("");
+    this->setWindowTitle("航班具体信息查询界面");
+
+    //隐藏航班号或起降地
+    if(type == 0)
+    {
+        ui->label_num->hide();
+        ui->lineEdit_num->hide();
+    }
+    else
+    {
+        ui->label_from->hide();
+        ui->lineEdit_from->hide();
+        ui->label_to->hide();
+        ui->lineEdit_to->hide();
+    }
 
     //设置scrollArea widget自动设置背景白色
     ui->scrollArea->setAutoFillBackground(true);
@@ -43,4 +58,17 @@ QueryWidget::QueryWidget(QWidget *parent) :
 QueryWidget::~QueryWidget()
 {
     delete ui;
+}
+
+void QueryWidget::setFromAndTo(QString from, QString to, QDate date)
+{
+    ui->lineEdit_from->setText(from);
+    ui->lineEdit_to->setText(to);
+    ui->dateEdit->setDate(date);
+}
+
+void QueryWidget::setNumber(QString str, QDate date)
+{
+    ui->lineEdit_num->setText(str);
+    ui->dateEdit->setDate(date);
 }

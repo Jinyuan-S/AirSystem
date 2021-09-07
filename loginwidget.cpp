@@ -80,7 +80,8 @@ void LoginWidget::basicInit()
     //初始化comboBox
     ui->comboBox_type->addItems(QStringList() << "用户" << "管理员");
     ui->comboBox_type_signup->addItems(QStringList() << "用户" << "管理员");
-    ui->comboBox_airlines->addItems(QStringList() << "请选择" << "Air China" << "China Eastern");
+    ui->comboBox_airlines->addItems(QStringList() << "请选择" << "中国国航" << "东方航空" << "首都航空"  \
+                                    << "南方航空" << "海南航空" << "河北航空" << "吉祥航空" << "山东航空" << "厦门航空");
 
     //初始化隐藏注册界面有误提示
     ui->label_error_id->hide();
@@ -412,7 +413,7 @@ void LoginWidget::loginComplete()
             }
             else if(ret == 1)
             {
-                QMessageBox::warning(this, "账户登录", "您的用户名不存在！");
+                QMessageBox::warning(this, "账户登录", "您的用户名不存在或者您没有连接网络！");
             }
             else if(ret == 2)
             {
@@ -426,7 +427,15 @@ void LoginWidget::loginComplete()
     }
     else
     {
-        QMessageBox::warning(this, "账户登录", "请填写您的账号和密码！");
+        //TODO: delete this
+        buyer->ID = "zhangsan1";
+        buyer->Password = "123456";
+        person->buyer_login(buyer->ID, buyer->Password, *buyer);
+        MainWidget *mainW = new MainWidget(nullptr, buyer);
+        mainW->show();
+        this->close();
+        //TODO: add this
+//        QMessageBox::warning(this, "账户登录", "请填写您的账号和密码！");
     }
 }
 
