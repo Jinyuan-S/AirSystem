@@ -3,30 +3,17 @@
 #include <mysql.h>
 #include <stdlib.h>
 #include <vector>
+#include <string>
 #include "Database.h"
 #include "Admin.h"
 #include "Buyer.h"
 #include "Person.h"
+#include "Inquiry.h"
+
 
 
 #include <algorithm>
 using std::vector;
-
-
-
-bool cmp(string & s1, string & s2) {
-    //s1<s2返回ture
-    string p = s1.substr(0, 2);
-    string q = s2.substr(0, 2);
-    if (p > q) return false;
-    else if (p < q) return true;
-    else {
-        string m = s1.substr(3, 2);
-        string n = s2.substr(3, 2);
-        if (m > n) return false;
-        else return true;  //没有做等于的判定，可能出bug
-    }
-}
 
 
 int main() {
@@ -43,24 +30,32 @@ int main() {
             cout << str << endl;
         }
     }*/
- 
 
-    string s1 = "06:25:00";
-    string s2 = "00:35:00";
-    string s3 = "06:35:00";
+    string date = "2021-10-01";
+    //8 2021-08-20
+    string d1 = date.substr(8, 2);
+    string m = date.substr(5, 2);
+    string y = date.substr(0, 4);
 
-    bool a = cmp(s1, s2);
-    std::cout << a << std::endl;
-    vector<string> v;
-    v.push_back(s1);
-    v.push_back(s2);
-    v.push_back(s3);
-
-    std::sort(v.begin(), v.end(), cmp);
+    int a = std::stoi(d1);
+    //std::cout << a << std::endl;
+    string d = "";
+    if (d1 > "01") {
+        a--;
+        d = std::to_string(a);
+        if (d.length() < 2)
+            d = "0" + d;
+    }
+    else {
+        d = "31";
+        int b = std::stoi(m);
+        b--;
+        m = std::to_string(b);
+        if (m.length() < 2)
+            m = "0" + m;
+    }
+    string out = y + "-" + m + "-" + d;
+    std::cout << out << std::endl;
     
-    std::cout << v[0] << std::endl;
-    std::cout << v[1] << std::endl;
-    std::cout << v[2] << std::endl;
-
     return 0;
 }

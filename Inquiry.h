@@ -20,8 +20,17 @@ public:
 	void sort_by_price_dec(vector<Flight>& vec);
 	//按航空公司筛选，传入公司名，原始vector，空结果vector
 	void filter_by_company(string& company,vector<Flight>& vec, vector<Flight>& res);
-	//按照时间段筛选，传入时间只有小时，格式：06（两位）
+	//按照时间段筛选，传入时间只有小时，格式:（两位）
 	void filter_by_time(string& begin, string& end, vector<Flight>& vec, vector<Flight>& res);
+	//按照航班号进行筛选
+	void filter_by_airline(string& airline, vector<Flight>& vec, vector<Flight>& res);
+
+
+
+	//首页推荐
+	void recommand(string& date, vector<Flight>& res);
+	
+
 
 private:
 	Database db;

@@ -149,3 +149,16 @@ bool Order::renew(Children_order& co) {
 	return true;
 }
 
+void Order::where2where(vector<string>airline, vector<vector<string>> res) {
+	for (auto i = airline.begin(); i != airline.end(); i++) {
+		//SELECT origin,destination,time_on,time_off,tomorrow FROM air WHERE airline='CA1222' AND date='2021-09-01';
+		string s1 = "SELECT origin,destination,time_on,time_off,tomorrow FROM air WHERE airline='";
+		string s2 = "' AND date='2021-09-01';";
+		string sql = s1 + *i + s2;
+
+		vector<vector<string>> v;
+		db.fetch_data((char*)sql.c_str(), v);
+		res.push_back(v[0]);
+	}
+
+}
