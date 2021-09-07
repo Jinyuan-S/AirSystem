@@ -26,8 +26,10 @@ public:
 	void filter_by_airline(string& airline, vector<Flight>& vec, vector<Flight>& res);
 
 
+
 	//Ê×Ò³ÍÆ¼ö
 	void recommand(string& date, vector<Flight>& res);
+	
 
 
 private:
