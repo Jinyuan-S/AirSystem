@@ -35,7 +35,10 @@ SOURCES += \
     Person.cpp \
     Database.cpp \
     Admin.cpp \
-    Buyer.cpp
+    Buyer.cpp \
+    Children_order.cpp \
+    Mother_order.cpp \
+    Order.cpp
 
 HEADERS += \
     adminmainwidget.h \
@@ -53,7 +56,10 @@ HEADERS += \
     Person.h \
     Database.h \
     Admin.h \
-    Buyer.h
+    Buyer.h \
+    Children_order.h \
+    Mother_order.h \
+    Order.h
 
 FORMS += \
     adminmainwidget.ui \

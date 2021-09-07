@@ -398,7 +398,7 @@ void LoginWidget::loginComplete()
             }
             else
             {
-                QMessageBox::critical(this, "账户登录", "程序出bug了，不知道存在什么错误，无法完成登录。");
+                QMessageBox::critical(this, "账户登录", "您可能没有连接网络！");
             }
         }
         else

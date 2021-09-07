@@ -1,7 +1,7 @@
 #include "ordersdetailwidget.h"
 #include "ui_ordersdetailwidget.h"
 
-OrdersDetailWidget::OrdersDetailWidget(QWidget *parent) :
+OrdersDetailWidget::OrdersDetailWidget(QWidget *parent, Mother_order *orderTemp) :
     QWidget(parent),
     ui(new Ui::OrdersDetailWidget)
 {

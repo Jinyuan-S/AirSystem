@@ -10,7 +10,7 @@ int Order::get_all_order(string& id, vector<Mother_order>& vec) {
 		db.fetch_data((char*)sql.c_str(), svec);
 		int j = 0;
 
-		for (auto i = svec.begin(); i < svec.end(); i++) {
+        for (auto i = svec.begin(); i != svec.end(); i++) {
 			Mother_order mo;
 			mo.Mother = svec[j][0];
 			mo.Who = svec[j][1];
@@ -18,9 +18,9 @@ int Order::get_all_order(string& id, vector<Mother_order>& vec) {
 			mo.Is_cancel = svec[j][3];
 			mo.Is_paid = svec[j][4];
 			mo.Money = svec[j][5];
-			mo.Contain = svec[j][6];
+            mo.Contain = svec[j][6];
 			mo.Sub1 = svec[j][7];
-			mo.Sub2 = svec[j][8];
+            mo.Sub2 = svec[j][8];
 			mo.Sub3 = svec[j][9];
 			mo.Sub4 = svec[j][10];
 			mo.Sub5 = svec[j][11];
@@ -78,7 +78,7 @@ bool Order::add_order(Mother_order& mo, vector<Children_order>& vec) {
 		db.query((char*)sql.c_str());
 		
 		sv.push_back(vec[j].Children);
-	}
+    }
 	while (j < 5) {
 		sv.push_back("empty");
 		j++;
@@ -115,7 +115,7 @@ bool Order::renew(Mother_order& mo) {
 	string s2 = ",is_cancel=";
 	string s3 = " WHERE mother=";
 	string s4 = ";";
-	string sql = s1 + mo.Is_paid + s2 + mo.Is_cancel + mo.Mother + s4;
+    string sql = s1 + mo.Is_paid + s2 + mo.Is_cancel + s3 + mo.Mother + s4;
 	db.query((char*)sql.c_str());
 	return true;
 }

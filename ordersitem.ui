@@ -26,8 +26,8 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="5">
-    <widget class="QLabel" name="label_2">
+   <item row="0" column="0" colspan="3">
+    <widget class="QLabel" name="label_from">
      <property name="maximumSize">
       <size>
        <width>230</width>
@@ -36,55 +36,35 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>15</pointsize>
+       <pointsize>20</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>上海虹桥</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="label">
-     <property name="maximumSize">
-      <size>
-       <width>230</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>北京大兴</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QLabel" name="label_6">
-     <property name="maximumSize">
-      <size>
-       <width>150</width>
-       <height>23</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>Calibri</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>座位号 XX</string>
+      <string>北京</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="4" column="3" colspan="4">
+   <item row="0" column="3" colspan="2">
+    <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>-&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3" colspan="4">
     <widget class="QWidget" name="widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -92,9 +72,12 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>196</width>
+          <width>20</width>
           <height>20</height>
          </size>
         </property>
@@ -124,7 +107,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="ClickableLabel" name="label_8">
+       <widget class="ClickableLabel" name="label_pay">
         <property name="text">
          <string>支付 &gt;</string>
         </property>
@@ -147,7 +130,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="ClickableLabel" name="label_4">
+       <widget class="ClickableLabel" name="label_refund">
         <property name="text">
          <string>退票 &gt;</string>
         </property>
@@ -156,39 +139,40 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QLabel" name="label_5">
+   <item row="0" column="5" colspan="2">
+    <widget class="QLabel" name="label_to">
      <property name="maximumSize">
       <size>
-       <width>150</width>
-       <height>23</height>
+       <width>230</width>
+       <height>40</height>
       </size>
      </property>
      <property name="font">
       <font>
-       <family>Calibri</family>
-       <pointsize>16</pointsize>
+       <pointsize>20</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>15：05出发</string>
+      <string>上海</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="2" column="4" colspan="3">
-    <widget class="QLabel" name="label_7">
+   <item row="3" column="5" colspan="2">
+    <widget class="QLabel" name="label_status">
      <property name="palette">
       <palette>
        <active>
         <colorrole role="WindowText">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>20</red>
-           <green>14</green>
-           <blue>206</blue>
+           <red>17</red>
+           <green>165</green>
+           <blue>17</blue>
           </color>
          </brush>
         </colorrole>
@@ -197,9 +181,9 @@
         <colorrole role="WindowText">
          <brush brushstyle="SolidPattern">
           <color alpha="255">
-           <red>20</red>
-           <green>14</green>
-           <blue>206</blue>
+           <red>17</red>
+           <green>165</green>
+           <blue>17</blue>
           </color>
          </brush>
         </colorrole>
@@ -231,24 +215,65 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="3">
-    <widget class="QLabel" name="label_3">
+   <item row="3" column="0" colspan="5">
+    <widget class="QLabel" name="label_total">
      <property name="maximumSize">
       <size>
-       <width>30</width>
+       <width>10000</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>共5人</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="3">
+    <widget class="QLabel" name="label_time">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
        <height>20</height>
       </size>
      </property>
      <property name="font">
       <font>
+       <family>Calibri</family>
+      </font>
+     </property>
+     <property name="text">
+      <string>下单时间：</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3">
+    <widget class="QLabel" name="label_dynamic">
+     <property name="maximumSize">
+      <size>
+       <width>1000</width>
+       <height>15</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Calibri</family>
        <pointsize>9</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>-&gt;</string>
+      <string>订单号:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
