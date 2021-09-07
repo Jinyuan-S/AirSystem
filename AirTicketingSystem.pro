@@ -38,7 +38,9 @@ SOURCES += \
     Buyer.cpp \
     Children_order.cpp \
     Mother_order.cpp \
-    Order.cpp
+    Order.cpp \
+    Flight.cpp \
+    Inquiry.cpp
 
 HEADERS += \
     adminmainwidget.h \
@@ -59,7 +61,9 @@ HEADERS += \
     Buyer.h \
     Children_order.h \
     Mother_order.h \
-    Order.h
+    Order.h \
+    Flight.h \
+    Inquiry.h
 
 FORMS += \
     adminmainwidget.ui \

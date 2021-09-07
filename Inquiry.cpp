@@ -43,7 +43,7 @@ int Inquiry::search(string& origin, string& destination, string& date, vector<Fl
 	return j;
 }
 
-bool Inquiry::cmp_timei(Flight& f1, Flight& f2) {
+bool Inquiry::cmp_timei(Flight f1, Flight f2) {
 	//s1<s2返回ture(从小到大）
 	string p = f1.Time_on.substr(0, 2);
 	string q = f2.Time_on.substr(0, 2);
@@ -58,10 +58,10 @@ bool Inquiry::cmp_timei(Flight& f1, Flight& f2) {
 }
 
 void Inquiry::sort_by_time_inc(vector<Flight>& vec) {
-	sort(vec.begin(), vec.end(), cmp_timei);
+    sort(vec.begin(), vec.end(), cmp_timei);
 }
 
-bool Inquiry::cmp_timed(Flight& f1, Flight& f2) {
+bool Inquiry::cmp_timed(Flight f1, Flight f2) {
 	//s1<s2返回ture(从小到大）
 	string p = f1.Time_on.substr(0, 2);
 	string q = f2.Time_on.substr(0, 2);
@@ -79,7 +79,7 @@ void Inquiry::sort_by_time_dec(vector<Flight>& vec) {
 	sort(vec.begin(), vec.end(), cmp_timed);
 }
 
-bool Inquiry::cmp_pricei(Flight& f1, Flight& f2) {
+bool Inquiry::cmp_pricei(Flight f1, Flight f2) {
 	return (f1.Price < f2.Price);
 }
 
@@ -87,7 +87,7 @@ void Inquiry::sort_by_price_inc(vector<Flight>& vec) {
 	sort(vec.begin(), vec.end(), cmp_pricei);
 }
 
-bool Inquiry::cmp_priced(Flight& f1, Flight& f2) {
+bool Inquiry::cmp_priced(Flight f1, Flight f2) {
 	return (f1.Price < f2.Price);
 }
 

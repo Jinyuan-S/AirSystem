@@ -25,9 +25,9 @@ public:
 
 private:
 	Database db;
-	bool cmp_timei(Flight& f1, Flight& f2);
-	bool cmp_timed(Flight& f1, Flight& f2);
-	bool cmp_priced(Flight& f1, Flight& f2);
-	bool cmp_pricei(Flight& f1, Flight& f2);
+    static bool cmp_timei(Flight f1, Flight f2);
+    static bool cmp_timed(Flight f1, Flight f2);
+    static bool cmp_priced(Flight f1, Flight f2);
+    static bool cmp_pricei(Flight f1, Flight f2);
 };
 

@@ -2,24 +2,24 @@
 
 Database::Database() {
 
-    //初始化数据库
+    //��ʼ�����ݿ�
     mysql_init(&mysql);
-    //设置编码方式
+    //���ñ��뷽ʽ
     mysql_options(&mysql, MYSQL_SET_CHARSET_NAME, "utf8");
-    //连接数据库
-    //判断如果连接失败就输出连接失败。
-    //注意你连接的账户名密码    8.136.214.13
+    //�������ݿ�
+    //�ж���������ʧ�ܾ���������ʧ�ܡ�
+    //ע�������ӵ��˻�������    8.136.214.13
     if (mysql_real_connect(&mysql, "8.136.214.13", "root", "654321", "airsystem", 3306, NULL, 0) == NULL)
-        std::cout << "连接失败！" << std::endl;
-    
+        std::cout << "����ʧ�ܣ�" << std::endl;
+
     return;
 }
 
 Database::~Database() {
 
-    //释放结果集
+    //�ͷŽ�����
     mysql_free_result(res);
-    //关闭数据库
+    //�ر����ݿ�
     mysql_close(&mysql);
     return;
 }
@@ -51,15 +51,15 @@ char* Database::Gb2312ToUtf8(char* p) {
 }
 
 int Database::query(char* sql) {
-    //查询数据
+    //��ѯ����
     //char a[200] = "select airline,company,origin,destination,time from air where company=\"Air China\";";
     char* b = new char[1000];
     b = Gb2312ToUtf8(sql);
     int rowcount = 0;
     mysql_query(&mysql, b);
-    this->res = mysql_store_result(&mysql);//获取结果集
+    this->res = mysql_store_result(&mysql);//��ȡ������
     if(res)
-        //一共查询到多少行（返回记录集总数）
+        //һ����ѯ�������У����ؼ�¼��������
         rowcount = mysql_num_rows(res);
     //free
     delete[] b;
@@ -67,7 +67,7 @@ int Database::query(char* sql) {
 }
 
 unsigned int Database::field_num() {
-    //取得表的字段数组 数量
+    //ȡ�ñ����ֶ����� ����
     unsigned int fieldcount = mysql_num_fields(res);
     return fieldcount;
 }
@@ -76,11 +76,11 @@ unsigned int Database::field_num() {
 void Database::fetch_data(char *sql, vector<vector<std::string>> &vec) {
     int rownum = query(sql);
     unsigned int columnnum = field_num();
-    
+
     int j = 0;
-    
-    //行指针 遍历行
-    while (NULL != (row = mysql_fetch_row(res))) //while (j=0 ,j<行数 ，j++）
+
+    //��ָ�� ������
+    while (NULL != (row = mysql_fetch_row(res))) //while (j=0 ,j<���� ��j++��
     {
         vec.push_back(vector<std::string>());
         for (int i = 0; i < columnnum; i++)
@@ -103,14 +103,14 @@ void Database::fetch_data(char *sql, vector<vector<std::string>> &vec) {
 
 
 //int Database::query(char* sql) {
-//    //查询数据
+//    //��ѯ����
 //    //char a[200] = "select airline,company,origin,destination,time from air where company=\"Air China\";";
 //    char* b = new char[1000];
 //    b = Gb2312ToUtf8(sql);
 //    int rowcount = 0;
 //    if (0 == mysql_query(&mysql, b)) {
-//        this->res = mysql_store_result(&mysql);//获取结果集
-//        //一共查询到多少行（返回记录集总数）
+//        this->res = mysql_store_result(&mysql);//��ȡ������
+//        //һ����ѯ�������У����ؼ�¼��������
 //        rowcount = mysql_num_rows(res);
 //    }
 //    //free

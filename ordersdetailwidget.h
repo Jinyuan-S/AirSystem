@@ -22,6 +22,8 @@ private:
     Mother_order *motherOrder;
     Order *order;
     Ui::OrdersDetailWidget *ui;
+    void basicInit();
+    void childrenInit();
 };
 
 #endif // ORDERSDETAILWIDGET_H

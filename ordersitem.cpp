@@ -28,7 +28,7 @@ OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
 
     //connect 连接详细信息label与详细信息Widget
     connect(ui->label_detail, &ClickableLabel::clicked, [=](){
-        detailWidget = new OrdersDetailWidget(/*这里需要订单具体信息*/);
+        detailWidget = new OrdersDetailWidget(nullptr, motherOrder);
         detailWidget->setWindowModality(Qt::ApplicationModal);
         detailWidget->show();
     });
