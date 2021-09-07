@@ -4,6 +4,18 @@ about：BUPT小学期作业：航空售票系统
 
 ---
 
+## v2021.9.7.1
+**about：** added airline inquiry, UI login&regester fully complete, fixed bugs
+
+**Todo：**
+
+1. 航班推荐（个性化）
+2. 管理员统计的后端
+3. 测试
+4. 飞机座位后端（暂鸽）
+
+---
+
 ## v2021.9.6.2
 **about：** added user regester, fixed bugs, update func change_email
 
@@ -13,8 +25,9 @@ about：BUPT小学期作业：航空售票系统
 2. 航班查询后端
 3. 航班排序
 4. 航班推荐（个性化）
-5. 测试
-6. 飞机座位后端（暂鸽）
+5. 管理员统计的后端
+6. 测试
+7. 飞机座位后端（暂鸽）
 
 
 ## v2021.9.6.1

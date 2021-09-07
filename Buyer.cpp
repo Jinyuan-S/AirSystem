@@ -91,7 +91,7 @@ int Buyer::change_email(string &new_email)
 		if(   ((at<po)&&(at<(po+1))&&(at!=1)&&((po+1)!=new_email.size())&&(cnt == new_email.size()) )   ) 
 	{
 		Email = new_email;
-		jud = 1;
+        jud = 1;
         return 0;
 	}
 	}
