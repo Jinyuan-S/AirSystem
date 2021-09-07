@@ -119,3 +119,63 @@ void Inquiry::filter_by_airline(string& airline, vector<Flight>& vec, vector<Fli
 	}
 }
 
+void Inquiry::recommand(string& date, vector<Flight>& res) {
+	//8 2021-08-20
+	string d1 = date.substr(8, 2);
+	string m = date.substr(5, 2);
+	string y = date.substr(0, 4);
+
+	int a = std::stoi(d1);
+	//std::cout << a << std::endl;
+	string d = "";
+	if (d1 > "01") {
+		a--;
+		d = std::to_string(a);
+		if (d.length() < 2)
+			d = "0" + d;
+	}
+	else {
+		d = "31";
+		int b = std::stoi(m);
+		b--;
+		m = std::to_string(b);
+		if (m.length() < 2)
+			m = "0" + m;
+	}
+	string out = y + "-" + m + "-" + d;
+
+	//SELECT * FROM air WHERE date='2021-08-26' ORDER BY attendance DESC LIMIT 0,5;
+	string s1 = "SELECT * FROM air WHERE date='";
+	string s2 = "' ORDER BY attendance DESC LIMIT 0,5;";
+	string sql = s1 + out + s2;
+
+	vector<vector<string>> v;
+	db.fetch_data((char*)sql.c_str(), v);
+	
+	int j = 0;
+	for (auto i = v.begin(); i != v.end(); i++, j++) {
+		Flight f;
+		f.Airline = v[j][1]; //下标0是index不要，从1开始取
+		f.Origin = v[j][2];
+		f.Destination = v[j][3];
+		f.Company = v[j][4];
+		f.Time_on = v[j][5];
+		f.Time_off = v[j][6];
+		f.Tomorrow = v[j][7];
+		f.Model = v[j][8];
+		f.A_remain = v[j][9];
+		f.B_remain = v[j][10];
+		f.C_remain = v[j][11];
+		f.A_sold = v[j][12];
+		f.B_sold = v[j][13];
+		f.C_sold = v[j][14];
+		f.Total_buyer = v[j][15];
+		f.Attendance = v[j][16];
+		f.Total_fare = v[j][17];
+		f.Date = v[j][18];
+		f.Rate = v[j][19];
+		f.Price = v[j][20]; //price
+
+		res.push_back(f);
+	}
+}
