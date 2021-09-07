@@ -110,3 +110,12 @@ void Inquiry::filter_by_time(string& begin, string& end, vector<Flight>& vec, ve
 			res.push_back(*i);
 	}
 }
+
+void Inquiry::filter_by_airline(string& airline, vector<Flight>& vec, vector<Flight>& res) {
+	sort_by_time_inc(vec);
+	for (auto i = vec.begin(); i != vec.end(); i++) {
+		if (i->Airline == airline)
+			res.push_back(*i);
+	}
+}
+
