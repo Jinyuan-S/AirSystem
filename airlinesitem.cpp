@@ -42,7 +42,7 @@ AirlinesItem::AirlinesItem(QWidget *parent, Flight *flightTemp) :
         ui->label_toTime->setText(QString::fromLocal8Bit(flight->Time_off.substr(0, 5)));
         ui->label_flightNum->setText("航班号:" + QString::fromLocal8Bit(flight->Airline));
         ui->label_flightType->setText("机型:" + QString::fromLocal8Bit(flight->Model));
-        ui->label_att->setText("准点率:" + QString::fromLocal8Bit(flight->Attendance) + "%");
+        ui->label_att->setText("准点率:" + QString::fromLocal8Bit(flight->Rate) + "%");
     }
 
 }
@@ -59,7 +59,7 @@ void AirlinesItem::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
     {
-        detailWidget = new AirlinesDetailWidget(/*这里需要传入航班信息*/);
+        detailWidget = new AirlinesDetailWidget(nullptr, flight);
         detailWidget->setWindowModality(Qt::ApplicationModal);
         detailWidget->show();
     }

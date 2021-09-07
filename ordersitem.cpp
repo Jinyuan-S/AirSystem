@@ -174,6 +174,16 @@ void OrdersItem::updateOrderInUi()
     qstr += "人";
     ui->label_total->setText(qstr);
 
+    //如果为1人，则不显示“等订单”
+    if(motherOrder->Contain == "1")
+    {
+        ui->label_etc->hide();
+    }
+    else
+    {
+        ui->label_etc->show();
+    }
+
     //订单号显示
     ui->label_dynamic->setText("订单号：" + QString::fromLocal8Bit(motherOrder->Mother));
 

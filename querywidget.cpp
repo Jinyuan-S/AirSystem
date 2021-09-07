@@ -154,10 +154,17 @@ void QueryWidget::setFromAndTo(QString from, QString to, QDate date)
     qDebug() << "setFromAndTo4";
 }
 
-void QueryWidget::setNumber(QString str, QDate date)
+void QueryWidget::setNumber(QString number, QDate date)
 {
-    ui->lineEdit_num->setText(str);
+    ui->lineEdit_num->setText(number);
     ui->dateEdit->setDate(date);
+    //转为string
+    string numberStr = std::string(number.toLocal8Bit());
+    string dateStr = std::string(date.toString("yyyy-MM-dd").toLocal8Bit());
+    deleteFlight();
+    flightVec.clear();
+    inq->search(numberStr, dateStr, flightVec);
+    addFlight(flightVec);
 }
 
 
@@ -210,6 +217,7 @@ void QueryWidget::changeSortFilter()
 {
     deleteFlight();
 
+    //判断按哪一种排序方式
     if(ui->radioButton_timeEarly->isChecked() == true)
     {
         inq->sort_by_time_inc(flightVec);

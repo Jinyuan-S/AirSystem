@@ -9,7 +9,9 @@ class Inquiry
 {
 public:
 	//根据，起飞地，目的地，日期查询，返回一个vector（默认按起飞时间排序）
-	int search(string& origin, string& destination, string& date, vector<Flight>& vec);
+    int search(string& origin, string& destination, string& date, vector<Flight>& vec);
+    //根据，航班号，日期查询，返回一个vector（默认按起飞时间排序）
+    int search(string& airline, string& date, vector<Flight>& vec);
 	//按照起飞时间从早到晚排序（默认）
 	void sort_by_time_inc(vector<Flight>& vec);
 	//按照起飞时间从晚到早排序
