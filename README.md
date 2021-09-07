@@ -1,6 +1,18 @@
 # AirSystem
 
-about：BUPT小学期作业：航空售票系统
+**about：BUPT小学期作业：航空售票系统**
+
+---
+
+## v2021.9.7.2
+**about：** added Order manage UI, added admin operations, added recommand algorithm, fixed bugs, upadated airline tables
+
+**Todo：**
+
+1. 航班查询前端UI
+2. 管理员的前后端衔接，前端UI
+3. 测试（ing）
+4. 飞机选座（暂鸽）
 
 ---
 
@@ -60,7 +72,7 @@ about：BUPT小学期作业：航空售票系统
 ---
 
 ## v2021.9.4.1
-**about: ** transformed from OSX into MSwindows platform (using visual studio 2019)
+**about：** transformed from OSX into MSwindows platform (using visual studio 2019)
 
 
 **Todo：**
