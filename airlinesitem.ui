@@ -525,7 +525,7 @@
     </widget>
    </item>
    <item row="3" column="3">
-    <widget class="QLabel" name="label_totalTime">
+    <widget class="QLabel" name="label_att">
      <property name="text">
       <string>准点率50%</string>
      </property>
@@ -995,10 +995,10 @@
       </font>
      </property>
      <property name="text">
-      <string>17：25</string>
+      <string>17:25</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -1014,7 +1014,7 @@
       <string>上海虹桥</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -1079,7 +1079,7 @@
       </font>
      </property>
      <property name="text">
-      <string>15：05</string>
+      <string>15:05</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

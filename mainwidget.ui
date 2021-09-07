@@ -2679,23 +2679,7 @@
                   <height>291</height>
                  </rect>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_9">
-                 <item>
-                  <widget class="AirlinesItem" name="widget_7" native="true"/>
-                 </item>
-                 <item>
-                  <widget class="AirlinesItem" name="widget_11" native="true"/>
-                 </item>
-                 <item>
-                  <widget class="AirlinesItem" name="widget_10" native="true"/>
-                 </item>
-                 <item>
-                  <widget class="AirlinesItem" name="widget_8" native="true"/>
-                 </item>
-                 <item>
-                  <widget class="AirlinesItem" name="widget_9" native="true"/>
-                 </item>
-                </layout>
+                <layout class="QVBoxLayout" name="verticalLayout_9"/>
                </widget>
               </widget>
              </item>
@@ -3211,12 +3195,6 @@
    <class>MainWidgetMinePart</class>
    <extends>QWidget</extends>
    <header>mainwidgetminepart.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>AirlinesItem</class>
-   <extends>QWidget</extends>
-   <header>airlinesitem.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

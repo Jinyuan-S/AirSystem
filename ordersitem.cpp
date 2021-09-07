@@ -15,18 +15,18 @@ OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
 
     *motherOrder = *orderTemp;
 
-    qDebug() << "items NOW!";
-    qDebug() << motherOrder;
-    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
-//            item->setParent(ui->scrollAreaWidgetContents);
+//    qDebug() << "items NOW!";
+//    qDebug() << motherOrder;
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
+////            item->setParent(ui->scrollAreaWidgetContents);
 
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
 
     order = new Order();
 
@@ -154,7 +154,7 @@ void OrdersItem::updateOrderInUi()
         palette.setColor(QPalette::WindowText, QColor(217, 123, 16));
         ui->label_status->setPalette(palette);
     }
-    else if(0)
+    else if(0) //TODO: 判断时间
     {
         ui->label_status->setText("已出发"); //蓝色
         palette.setColor(QPalette::WindowText, QColor(20, 14, 206));
@@ -181,5 +181,18 @@ void OrdersItem::updateOrderInUi()
     ui->label_time->setText("下单时间：" + QString::fromLocal8Bit(motherOrder->Time));
     qDebug() << QString::fromLocal8Bit(motherOrder->Time);
 
-    //TODO:目的地显示
+    //始发地、目的地显示
+    vector<Children_order> childVec;
+    order->get_sub_order(*motherOrder, childVec);
+    vector<std::string> childNumberVec;
+    vector<vector<std::string>> childFromAndToVec;
+    for(auto i = childVec.begin(); i != childVec.end(); ++i)
+    {
+        childNumberVec.push_back(i->Airline);
+    }
+    order->where2where(childNumberVec, childFromAndToVec);
+    ui->label_from->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(0)));
+    ui->label_to->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(1)));
+    ui->label_fromTime->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(2)));
+    ui->label_toTime->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(3)));
 }

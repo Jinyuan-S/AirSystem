@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "airlinesitem.h"
+#include "Flight.h"
+#include "Inquiry.h"
+using std::vector;
 
 namespace Ui {
 class QueryWidget;
@@ -19,7 +22,16 @@ public:
     void setNumber(QString str, QDate date);
 
 private:
+    vector<AirlinesItem *> flightWidgetVec;
+    vector<Flight> flightVec;
+    Flight *flight;
+    Inquiry *inq;
     Ui::QueryWidget *ui;
+    void addFlight(vector<Flight> &flightVec);
+    void deleteFlight();
+    void changeSortFilter();
+    void returnToNormal();
+
 };
 
 #endif // QUERYWIDGET_H

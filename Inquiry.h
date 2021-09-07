@@ -24,6 +24,8 @@ public:
 	void filter_by_time(string& begin, string& end, vector<Flight>& vec, vector<Flight>& res);
 	//按照航班号进行筛选
 	void filter_by_airline(string& airline, vector<Flight>& vec, vector<Flight>& res);
+    //按照机型进行筛选
+    void filter_by_model(string& model, vector<Flight>& vec, vector<Flight>& res);
 
 
 
