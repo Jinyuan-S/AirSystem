@@ -4,6 +4,20 @@
 
 ---
 
+## v2021.9.9.1
+**about：user mode fully completed, added admin mode(needs bug fixing)
+
+**already have：**
+
+除了todo的其他都完成了
+
+
+**Todo：**
+1. 管理员查询航班显示的bug
+2. 添加飞行员的前端（后端逻辑已经完善）
+
+---
+
 ## v2021.9.7.2
 **about：** added Order manage UI, added admin operations, added recommand algorithm, fixed bugs, upadated airline tables
 
