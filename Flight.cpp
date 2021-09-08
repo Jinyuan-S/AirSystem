@@ -22,5 +22,6 @@ Flight::Flight() {
 	Date = "empty";
 	Rate = "empty";
 	Price = "empty";
-	Pilot = "empty";
+	Pilot1 = "empty";
+	Pilot2 = "empty";
 }

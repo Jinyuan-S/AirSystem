@@ -27,7 +27,8 @@ public:
 	string Date;
 	string Rate;
 	string Price;
-	string Pilot;
+	string Pilot1;
+	string Pilot2;
 
 public:
 	Flight();

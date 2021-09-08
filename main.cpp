@@ -9,7 +9,7 @@
 #include "Buyer.h"
 #include "Person.h"
 #include "Inquiry.h"
-
+#include "Order.h"
 
 
 #include <algorithm>
@@ -31,15 +31,24 @@ int main() {
         }
     }*/
 
+    Mother_order mo;
+    mo.Who = "fuck";
+    mo.Is_cancel = "0";
+    mo.Is_paid = "0";
+    mo.Money = "100";
+    mo.Contain = "1";
+    mo.Sub1 = "10086";
 
-    string time = "01:55";
-    string h = time.substr(0, 2);
-    string m = time.substr(2, 3);
+    Database db;
 
-    h = std::to_string(std::stoi(h) + 24);
-
-    time = h + m;
-    std::cout << time << std::endl;
+    //INSERT INTO mother_order(mother,who,time,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES();
+    string head = "INSERT INTO mother_order(who,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES('";
+    string tail = "');";
+    string sql = head + mo.Who + "','" + mo.Is_cancel + "','" + mo.Is_paid + "','" + mo.Money + "','"
+        + mo.Contain + "','" + mo.Sub1 + "','" + mo.Sub2 + "','" + mo.Sub3 + "','" + mo.Sub4 + "','" + mo.Sub5 + tail;
+    
+    std::cout << sql << std::endl;
+    //db.query((char*)sql.c_str());
     
 
 
