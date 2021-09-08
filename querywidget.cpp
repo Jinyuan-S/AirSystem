@@ -120,10 +120,16 @@ QueryWidget::QueryWidget(QWidget *parent, int type) : //type == 0 起降地 type
 
     connect(ui->timeEdit_from, &QTimeEdit::timeChanged, [=](){
         changeSortFilter();
+        QTime time = ui->timeEdit_from->time();
+        time.setHMS(time.hour(), 0, time.second());
+        ui->timeEdit_from->setTime(time);
     });
 
     connect(ui->timeEdit_to, &QTimeEdit::timeChanged, [=](){
         changeSortFilter();
+        QTime time = ui->timeEdit_to->time();
+        time.setHMS(time.hour(), 59, time.second());
+        ui->timeEdit_to->setTime(time);
     });
 }
 

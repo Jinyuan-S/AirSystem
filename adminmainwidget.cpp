@@ -1,9 +1,13 @@
 #include "adminmainwidget.h"
 #include "ui_adminmainwidget.h"
 
+#include <QString>
 #include <QStringList>
+#include <QSqlDatabase>
+#include <QSqlTableModel>
+#include <string>
 
-AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *admin) :
+AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
     QWidget(parent),
     ui(new Ui::AdminMainWidget)
 {
@@ -16,6 +20,12 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *admin) :
     this->setAutoFillBackground(true);
     ui->widget_2->setAutoFillBackground(true);
     ui->widget->setAutoFillBackground(true);
+
+    admin = new Admin();
+
+    *admin = *adminTemp;
+
+    db = new QSqlDatabase();
 
     //初始化背景图片
     QPalette palette2;
@@ -54,19 +64,65 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *admin) :
         ui->stackedWidget->setCurrentIndex(0);
     });
 
-    //初始化订单tabelView
-//    ui->tableView_order->setHorizontalHeaderLabels(QStringList() << "航班号" << "购买用户ID" << "座位号");
+    //初始化数据库
+    *db = QSqlDatabase::addDatabase("QMYSQL");
+    db->setPort(3306);
+    db->setHostName("8.136.214.13");    //数据库主机名
+    db->setDatabaseName("airsystem");    //数据库名
+    db->setUserName("root");        //数据库用户名
+    db->setPassword("654321");        //数据库密码
+    bool isOpen = db->open();
+    qDebug() << isOpen;
 
-    //初始化航班tabelView
-//    ui->tableView_flight->setHorizontalHeader();
+    airlineInit();
+    orderInit();
 
     //3.我的部分
     ui->widget_3->setAdmin(admin);
-
-
 }
 
 AdminMainWidget::~AdminMainWidget()
 {
     delete ui;
+}
+
+
+void AdminMainWidget::airlineInit()
+{
+    QSqlTableModel *model = new QSqlTableModel(this, *db);
+    model->setTable("air");
+    QString qstr = QString::fromLocal8Bit(admin->Company);
+    model->setFilter("company = '" + qstr + "'");
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->select(); //选取整个表的所有行
+    model->removeColumn(0); //隐藏第1行
+    ui->tableView_flight->setModel(model);
+    ui->tableView_flight->show();
+}
+
+void AdminMainWidget::orderInit()
+{
+    QSqlTableModel *model = new QSqlTableModel(this, *db);
+    model->setTable("air");
+    QString qstr = QString::fromLocal8Bit(admin->Company);
+    model->setFilter("company = '" + qstr + "'");
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->select(); //选取整个表的所有行
+    model->removeColumn(0); //隐藏第1行
+    model->removeColumns(8, 9); //隐藏各种上座信息
+    model->removeColumn(9); //隐藏准点率
+    QStringList strList = QStringList() << "航班号" << "始发地" << "目的地" << "航空公司" << "起飞时间" << "到达时间" << "是否跨天"
+                                        << "机型" << "日期" << "基准价格" << "飞行员1";
+    for(auto i = strList.begin(); i != strList.end(); ++i)
+    {
+        model->setHeaderData((i - strList.begin()), Qt::Orientation::Horizontal, *i);
+    }
+    ui->tableView_flight->setModel(model);
+    ui->tableView_flight->show();
+
+}
+
+void AdminMainWidget::changeSortFliter()
+{
+
 }

@@ -8,6 +8,7 @@
 #include "Order.h"
 #include "Mother_order.h"
 #include "Children_order.h"
+#include "cartwidget.h"
 
 namespace Ui {
 class MainWidget;
@@ -27,6 +28,8 @@ private:
 //    void createAdminBasicUi(Ui::MainWidget ui);
     Buyer *buyer;
     Order *order;
+
+    CartWidget *cWidget;
     void newQueryWidget(int type);
     void buyInit();
     void orderInit();

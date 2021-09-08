@@ -80,8 +80,7 @@ void LoginWidget::basicInit()
     //初始化comboBox
     ui->comboBox_type->addItems(QStringList() << "用户" << "管理员");
     ui->comboBox_type_signup->addItems(QStringList() << "用户" << "管理员");
-    ui->comboBox_airlines->addItems(QStringList() << "请选择" << "中国国航" << "东方航空" << "首都航空"  \
-                                    << "南方航空" << "海南航空" << "河北航空" << "吉祥航空" << "山东航空" << "厦门航空");
+    ui->comboBox_airlines->addItems(QStringList() << "请选择" << "中国国航" << "东方航空" << "首都航空" << "南方航空" << "海南航空" << "河北航空" << "吉祥航空" << "山东航空" << "厦门航空");
 
     //初始化隐藏注册界面有误提示
     ui->label_error_id->hide();
@@ -110,6 +109,7 @@ void LoginWidget::pushedInit()
         buyer->change_id(text);
         ui->lineEdit_id->setText(ui->lineEdit->text()); //把ID复制过去
         ui->lineEdit_2->setText(""); //把登录的密码清空
+        isPasswordAddedInLogin = 0;
     });
 
     //当在注册界面点击我已经有账号时，转入登录界面
@@ -118,6 +118,10 @@ void LoginWidget::pushedInit()
         ui->lineEdit->setText(ui->lineEdit_id->text()); //把ID复制过去
         ui->lineEdit_password->setText(""); //把这里的密码清空
         ui->lineEdit_repeat->setText(""); //把这里的重复密码清空
+        isPasswordAdded = 0;
+        isRepeatAdded = 0;
+        isPasswordLegal = 1;
+        isRepeatLegal = 1;
         //重构admin和buyer
         delete admin;
         delete buyer;
@@ -321,7 +325,7 @@ void LoginWidget::signupPushedInit()
         else
         {
             isAirlinesAdded = 1;
-            admin->Company = ui->comboBox_airlines->currentText().toStdString();
+            admin->Company = ui->comboBox_airlines->currentText().toLocal8Bit();
         }
 
     });
@@ -450,10 +454,12 @@ void LoginWidget::signupComplete()
         if(ui->comboBox_type_signup->currentIndex() == 0) //用户
         {
             ret = person->add_buyer(*buyer);
+            ui->comboBox_type->setCurrentIndex(0);
         }
         else
         {
             ret = person->add_admin(*admin);
+            ui->comboBox_type->setCurrentIndex(1);
         }
         //判定是否成功
         if(ret)

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "Mother_order.h"
 #include "Order.h"
-#include "Children_order.h".
+#include "Children_order.h"
 
 namespace Ui {
 class OrdersDetailWidget;
