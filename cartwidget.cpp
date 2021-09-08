@@ -45,7 +45,15 @@ CartWidget::CartWidget(QWidget *parent, Buyer *buyer) :
             qDebug() << QString::fromLocal8Bit(motherOrder.Money);
 
             //买票判定
-            if(order->add_order(motherOrder, tempChildOrderVec))
+            int rec;
+            Children_order recOrder;
+            int ret = order->add_order(motherOrder, tempChildOrderVec, rec, recOrder);
+//            返回值：
+//                0：成功购买
+//                1：当前正在飞机上
+//                2：不能及时从上一趟航班落地地赶到新加航班起飞地
+//                3：来不及从新加航班目的地赶往下一班航班出发地
+            if(ret == 0)
             {
                 QMessageBox::information(this, "购物车", "下单成功，清前往订单页面支付！");
                 deleteAllOrder();
@@ -53,9 +61,17 @@ CartWidget::CartWidget(QWidget *parent, Buyer *buyer) :
                 emit closed();
                 close();
             }
+            else if(ret == 1)
+            {
+                QMessageBox::warning(this, "购物车", "有航班和您已经购买的航班时间冲突！无法完成购买。");
+            }
+            else if(ret == 2)
+            {
+                QMessageBox::warning(this, "购物车", "您可能无法及时从您的上一趟航班落地地赶到新加航班起飞地！无法完成购买。");
+            }
             else
             {
-                QMessageBox::warning(this, "购物车", "下单失败！");
+                QMessageBox::warning(this, "购物车", "您可能无法及时从您的新加航班落地地赶到下一班航班的起飞地！无法完成购买。");
             }
         }
 

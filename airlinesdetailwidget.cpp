@@ -47,8 +47,8 @@ AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) 
     ui->label_model->setText("机型:" + QString::fromLocal8Bit(flight->Model));
     ui->label_att->setText("上座率:" + QString::fromLocal8Bit(flight->Attendance) + "%");
     ui->label_rate->setText("准点率:" + QString::fromLocal8Bit(flight->Rate) + "%");
-    ui->label_pilot1->setText("飞行员1:" + QString::fromLocal8Bit(flight->Pilot));
-    ui->label_pilot2->setText("飞行员2:" + QString::fromLocal8Bit(flight->Pilot)); //TODO: 修改这里
+    ui->label_pilot1->setText("飞行员1:" + QString::fromLocal8Bit(flight->Pilot1));
+    ui->label_pilot2->setText("飞行员2:" + QString::fromLocal8Bit(flight->Pilot2)); //TODO: 修改这里
     ui->label_remain_A->setText("剩余票数:" + QString::fromLocal8Bit(flight->A_remain));
     ui->label_remain_B->setText("剩余票数:" + QString::fromLocal8Bit(flight->B_remain));
     ui->label_remain_C->setText("剩余票数:" + QString::fromLocal8Bit(flight->C_remain));
