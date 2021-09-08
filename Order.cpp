@@ -70,7 +70,7 @@ int Order::get_sub_order(Mother_order& mo, vector<Children_order>& vec) {
 
 
 bool Order::add_order(Mother_order& mo, vector<Children_order>& vec) {
-	//添加的时候与没有做是否已存在的判定！！！
+
 	int j = 0;
 	vector<string> sv;
 	for (auto i = vec.begin(); i != vec.end(); i++, j++) {
@@ -81,18 +81,48 @@ bool Order::add_order(Mother_order& mo, vector<Children_order>& vec) {
 		db.query((char*)sql.c_str());
 		
 		//SELECT A_remain,A_sold,total_buyer,total_fare FROM air WHERE airline='CA8214' AND date='9.2';
-		//string s1 = "SELECT ";
-		//string s2 = "_remain,";
-		//string s3 = "_sold,total_buyer,total_fare FROM air WHERE airline='";
-		//string s4 = "' AND date='";
-		//string s5 = "';";
-		//string sql2 = s1 + i->Cabin + s2 + i->Cabin + s3 + i->Airline + s4 + i->Date + s5;
-		//vector<vector<string>> v;
-		//db.fetch_data((char*)sql2.c_str(), v);
+		string s1 = "SELECT ";
+		string s2 = "_remain,";
+		string s3 = "_sold,total_buyer,total_fare FROM air WHERE airline='";
+		string s4 = "' AND date='";
+		string s5 = "';";
+		string sql2 = s1 + i->Cabin + s2 + i->Cabin + s3 + i->Airline + s4 + i->Date + s5;
+		vector<vector<string>> v;
+		db.fetch_data((char*)sql2.c_str(), v);
 
-		//for (auto i = v.begin(); i != v.end(); i++) {
-		//	//这块要拿到原来的数据进行更改，然后再提交，还没来及写
-		//}
+		string remain = "empty";
+		string sold = "empty";
+		string ttbuyer = "empty";
+		string ttfare = "empty";
+
+		for (auto k = v.begin(); k != v.end(); k++) {
+			//这块要拿到原来的数据进行更改
+			int tmp = std::stoi((*k)[0]);
+			tmp--;
+			remain = std::to_string(tmp);
+			tmp = std::stoi((*k)[1]);
+			tmp++;
+			sold = std::to_string(tmp);
+			tmp = std::stoi((*k)[2]);
+			tmp++;
+			ttbuyer = std::to_string(tmp);
+			tmp = std::stoi((*k)[3]);
+			tmp += std::stoi((*i).Money);
+			ttfare = std::to_string(tmp);
+
+		}
+
+		//UPDATE air SET A_remain='9' WHERE airline='CA111' AND date='2021-8-26';
+		string tl = "' WHERE airline='" + i->Airline + "' AND date='" + i->Date + "';";
+		//string a = "UPDATE air SET " + i->Cabin + "_remain='" + remain + "' WHERE airline='" + i->Airline + "' AND date='" + i->Date + "';";
+		string a = "UPDATE air SET " + i->Cabin + "_remain='" + remain + tl;
+		db.query((char*)a.c_str());
+		a = "UPDATE air SET " + i->Cabin + "_sold='" + sold + tl;
+		db.query((char*)a.c_str());
+		a = "UPDATE air SET total_buyer='" + ttbuyer + tl;
+		db.query((char*)a.c_str());
+		a = "UPDATE air SET total_fare='" + ttfare + tl;
+		db.query((char*)a.c_str());
 
 		sv.push_back(vec[j].Children);
     }

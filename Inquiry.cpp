@@ -172,7 +172,29 @@ void Inquiry::recommand(string& date, vector<Flight>& res) {
 		f.Total_buyer = v[j][15];
 		f.Attendance = v[j][16];
 		f.Total_fare = v[j][17];
-		f.Date = v[j][18];
+		//f.Date = v[j][18];
+
+		string dd = date.substr(8, 2);
+		string mm = date.substr(5, 2);
+		string yy = date.substr(0, 4);
+		int a = std::stoi(dd);
+		string ddd = "";
+		if (dd < "31") {
+			a++;
+			ddd = std::to_string(a);
+			if (ddd.length() < 2)
+				ddd = "0" + ddd;
+		}
+		else {
+			dd = "01";
+			int b = std::stoi(mm);
+			b++;
+			mm = std::to_string(b);
+			if (mm.length() < 2)
+				mm = "0" + mm;
+		}
+		f.Date = yy + "-" + mm + "-" + ddd;
+
 		f.Rate = v[j][19];
 		f.Price = v[j][20]; //price
 
