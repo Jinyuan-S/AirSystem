@@ -32,6 +32,7 @@ private:
     QString totalTime;
     QString price;
     Flight *flight;
+    bool isTookOff;
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event);

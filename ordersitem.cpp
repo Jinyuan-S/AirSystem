@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QPalette>
 #include <QString>
+#include <QDateTime>
 
 OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
     QWidget(parent),
@@ -150,7 +151,7 @@ void OrdersItem::updateOrderInUi()
     }
     else if(motherOrder->Is_paid == "1")
     {
-        ui->label_status->setText("待出发"); //橙色
+        ui->label_status->setText("已支付"); //橙色
         palette.setColor(QPalette::WindowText, QColor(217, 123, 16));
         ui->label_status->setPalette(palette);
     }

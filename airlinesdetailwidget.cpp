@@ -1,6 +1,9 @@
 #include "airlinesdetailwidget.h"
 #include "ui_airlinesdetailwidget.h"
 
+#include <QDate>
+#include <algorithm>
+
 
 AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) :
     QWidget(parent),
@@ -19,8 +22,15 @@ AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) 
     ui->widget_B->setPalette(palette);
     ui->widget_C->setPalette(palette);
 
-    //TODO: 价格待定
     int price = stoi(flight->Price);
+    QDate currentDate = QDate().currentDate();
+    QDate flightDate = QDate::fromString(QString::fromLocal8Bit(flight->Date), "yyyy-MM-dd");
+    int diff = currentDate.daysTo(flightDate);
+    //相差日期过大就减钱
+    if(diff >= 4)
+    {
+        price = std::max((int)(price / 2), (int)(price * (4.0 / diff)));
+    }
 
     //加载全部信息
     ui->label_from->setText(QString::fromLocal8Bit(flight->Origin));
@@ -44,6 +54,22 @@ AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) 
     ui->label_price_A->setText("￥" + QString::number((int)(price * 2.121 + 12)));
     ui->label_price_B->setText("￥" + QString::number((int)(price * 1.741 + 2)));
     ui->label_price_C->setText("￥" + QString::number((int)(price)));
+
+    connect(ui->label_buy_A, &ClickableLabel::clicked, [=]()
+    {
+        //TODO
+//        ui->
+    });
+
+    connect(ui->label_buy_B, &ClickableLabel::clicked, [=]()
+    {
+
+    });
+
+    connect(ui->label_buy_C, &ClickableLabel::clicked, [=]()
+    {
+
+    });
 }
 
 AirlinesDetailWidget::~AirlinesDetailWidget()

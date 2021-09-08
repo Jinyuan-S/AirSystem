@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include "Admin.h"
+#include <QSqlDatabase>
 
 namespace Ui {
 class AdminMainWidget;
@@ -18,7 +19,12 @@ public:
     ~AdminMainWidget();
 
 private:
+    QSqlDatabase *db;
     Ui::AdminMainWidget *ui;
+    Admin *admin;
+    void airlineInit();
+    void orderInit();
+    void changeSortFliter();
 };
 
 #endif // ADMINMAINWIDGET_H

@@ -1,9 +1,11 @@
 #include "mainwidget.h"
 #include "ui_mainwidget.h"
+#include "Inquiry.h"
 #include <QPushButton>
 #include <QDebug>
 #include <QMessageBox>
 #include <vector>
+#include "cartwidget.h"
 
 MainWidget::MainWidget(QWidget *parent, Buyer *buyerTemp) :
     QWidget(parent),
@@ -19,6 +21,7 @@ MainWidget::MainWidget(QWidget *parent, Buyer *buyerTemp) :
 
     buyer = buyerTemp;
 
+    cWidget = new CartWidget();
     order = new Order();
 
     //1.设置自动填充背景
@@ -96,6 +99,7 @@ MainWidget::~MainWidget()
 //购买初始化
 void MainWidget::buyInit()
 {
+
     //初始化dateEdit
     ui->dateEdit->setDate(QDate().currentDate());
     ui->dateEdit1->setDate(QDate().currentDate());
@@ -123,6 +127,32 @@ void MainWidget::buyInit()
     });
     connect(ui->pushButton_number_complete, &QPushButton::clicked, [=](){
         newQueryWidget(1);
+    });
+
+    //热门航班初始化
+    Inquiry *inq = new Inquiry();
+    vector<Flight> fliVec;
+    QDate date = QDate().currentDate();
+    string dateStr = std::string(date.toString("yyyy-MM-dd").toLocal8Bit());
+    inq->recommand(dateStr, fliVec);
+    ui->scrollArea_2->setWidgetResizable(false);
+    qDebug() << "flight 大小" << fliVec.size();
+    //370是item宽度 10是宽度间的间隙 120是item长度 10是长度间的间隙 50是最底下多留点地
+    ui->scrollAreaWidgetContents_3->resize((370 + 10), fliVec.size() * (120 + 10) + 50);
+    //添加航班
+    for(auto i = fliVec.begin(); i != fliVec.end(); ++i)
+    {
+        AirlinesItem *item = new AirlinesItem(ui->scrollAreaWidgetContents, &*i);
+        item->setParent(ui->scrollAreaWidgetContents_3);
+        item->move(5, (i - fliVec.begin()) * (120 + 10) + 10); //5让item和左边有点间隙
+        item->show();
+        qDebug() << item->geometry();
+    }
+
+    //购物车
+    connect(ui->label_cart, &ClickableLabel::clicked, [=](){
+        cWidget->setWindowModality(Qt::ApplicationModal);
+        cWidget->show();
     });
 }
 

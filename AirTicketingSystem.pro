@@ -22,6 +22,8 @@ SOURCES += \
     adminmainwidget.cpp \
     airlinesdetailwidget.cpp \
     airlinesitem.cpp \
+    cartitem.cpp \
+    cartwidget.cpp \
     clickablelabel.cpp \
     main.cpp \
     loginwidget.cpp \
@@ -46,6 +48,8 @@ HEADERS += \
     adminmainwidget.h \
     airlinesdetailwidget.h \
     airlinesitem.h \
+    cartitem.h \
+    cartwidget.h \
     clickablelabel.h \
     loginwidget.h \
     mainwidget.h \
@@ -69,6 +73,8 @@ FORMS += \
     adminmainwidget.ui \
     airlinesdetailwidget.ui \
     airlinesitem.ui \
+    cartitem.ui \
+    cartwidget.ui \
     loginwidget.ui \
     mainwidget.ui \
     mainwidgetminepart.ui \

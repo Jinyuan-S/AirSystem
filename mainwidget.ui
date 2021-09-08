@@ -1512,7 +1512,7 @@
              </font>
             </property>
             <property name="text">
-             <string>航班查询</string>
+             <string>航班查询及购买</string>
             </property>
            </widget>
           </item>
@@ -2676,11 +2676,37 @@
                   <x>0</x>
                   <y>0</y>
                   <width>418</width>
-                  <height>291</height>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_9"/>
                </widget>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_7" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>385</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="ClickableLabel" name="label_cart">
+                  <property name="text">
+                   <string>购物车 &gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -3191,6 +3217,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ClickableLabel</class>
+   <extends>QLabel</extends>
+   <header>clickablelabel.h</header>
+  </customwidget>
   <customwidget>
    <class>MainWidgetMinePart</class>
    <extends>QWidget</extends>
