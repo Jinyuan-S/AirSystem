@@ -26,7 +26,7 @@ public:
 	bool renew(Children_order& co);
 	
 	//根据机型查找起飞地目的地：返回vector：origin,destination,time_on,time_off,tomorrow
-	void where2where(vector<string>airline, vector<vector<string>> res);
+    void where2where(vector<string>airline, vector<vector<string>> &res);
 
 
 private:

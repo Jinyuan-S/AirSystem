@@ -126,6 +126,21 @@ void MainWidget::buyInit()
     });
 }
 
+void MainWidget::newQueryWidget(int type)  //这里从输入框里提取信息
+{
+    QueryWidget *widget = new QueryWidget(nullptr, type);
+    if(type == 0)
+    {
+        widget->setFromAndTo(ui->lineEdit_from->text(), ui->lineEdit_to->text(), ui->dateEdit->date());
+    }
+    else
+    {
+        widget->setNumber(ui->lineEdit_num->text(), ui->dateEdit->date());
+    }
+    widget->setWindowModality(Qt::ApplicationModal);
+    widget->show();
+}
+
 //订单初始化
 void MainWidget::orderInit()
 {
@@ -167,19 +182,4 @@ void MainWidget::mineInit()
     ui->widget_3->setBuyer(buyer);
 }
 
-
-void MainWidget::newQueryWidget(int type)  //TODO: 这里要航班的信息
-{
-    QueryWidget *widget = new QueryWidget(nullptr, type);
-    if(type == 0)
-    {
-        widget->setFromAndTo(ui->lineEdit_from->text(), ui->lineEdit_to->text(), ui->dateEdit->date());
-    }
-    else
-    {
-        widget->setNumber(ui->lineEdit_num->text(), ui->dateEdit->date());
-    }
-    widget->setWindowModality(Qt::ApplicationModal);
-    widget->show();
-}
 

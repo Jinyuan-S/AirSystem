@@ -6,6 +6,7 @@
 #include <QTime>
 #include <QMouseEvent>
 #include "airlinesdetailwidget.h"
+#include "Flight.h"
 
 namespace Ui {
 class AirlinesItem;
@@ -16,7 +17,7 @@ class AirlinesItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit AirlinesItem(QWidget *parent = nullptr);
+    explicit AirlinesItem(QWidget *parent = nullptr, Flight *flightTemp = nullptr);
     ~AirlinesItem();
 
 private:
@@ -30,6 +31,7 @@ private:
     QString flightType;
     QString totalTime;
     QString price;
+    Flight *flight;
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event);

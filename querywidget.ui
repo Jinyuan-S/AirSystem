@@ -1097,38 +1097,17 @@
          <string>筛选条件</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="5" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>到</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>航空公司</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="2">
           <widget class="QComboBox" name="comboBox"/>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>舱位</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
+         <item row="4" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
             <string>从</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_4">
            <property name="maximumSize">
             <size>
@@ -1144,11 +1123,42 @@
          <item row="1" column="2">
           <widget class="QComboBox" name="comboBox_2"/>
          </item>
-         <item row="3" column="2">
-          <widget class="QTimeEdit" name="timeEdit"/>
+         <item row="6" column="2">
+          <widget class="QTimeEdit" name="timeEdit_to"/>
          </item>
-         <item row="5" column="2">
-          <widget class="QTimeEdit" name="timeEdit_2"/>
+         <item row="4" column="2">
+          <widget class="QTimeEdit" name="timeEdit_from"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>机型</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>到</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>航空公司</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>舱位</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QComboBox" name="comboBox_3"/>
          </item>
         </layout>
        </widget>
@@ -1172,14 +1182,14 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <item row="3" column="0">
-          <widget class="QRadioButton" name="radioButton_3">
+          <widget class="QRadioButton" name="radioButton_priceLow">
            <property name="text">
             <string>价格由低到高</string>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QRadioButton" name="radioButton">
+          <widget class="QRadioButton" name="radioButton_timeEarly">
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -1192,7 +1202,7 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QRadioButton" name="radioButton_2">
+          <widget class="QRadioButton" name="radioButton_priceHigh">
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -1205,7 +1215,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QRadioButton" name="radioButton_4">
+          <widget class="QRadioButton" name="radioButton_timeLate">
            <property name="text">
             <string>起飞时间由晚到早</string>
            </property>

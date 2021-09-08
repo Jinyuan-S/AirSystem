@@ -16,28 +16,28 @@ OrdersDetailWidget::OrdersDetailWidget(QWidget *parent, Mother_order *orderTemp)
 {
     ui->setupUi(this);
     setWindowTitle("订单具体信息");
-    qDebug() << "OrdersDetail";
+//    qDebug() << "OrdersDetail";
 
-    qDebug() << "details temp NOW!";
-    qDebug() << orderTemp;
-    qDebug() << QString::fromLocal8Bit(orderTemp->Contain);
-    qDebug() << QString::fromLocal8Bit(orderTemp->Is_paid);
-    qDebug() << QString::fromLocal8Bit(orderTemp->Is_cancel);
-    qDebug() << QString::fromLocal8Bit(orderTemp->Time);
-    qDebug() << QString::fromLocal8Bit(orderTemp->Sub1);
-    qDebug() << QString::fromLocal8Bit(orderTemp->Sub5);
+//    qDebug() << "details temp NOW!";
+//    qDebug() << orderTemp;
+//    qDebug() << QString::fromLocal8Bit(orderTemp->Contain);
+//    qDebug() << QString::fromLocal8Bit(orderTemp->Is_paid);
+//    qDebug() << QString::fromLocal8Bit(orderTemp->Is_cancel);
+//    qDebug() << QString::fromLocal8Bit(orderTemp->Time);
+//    qDebug() << QString::fromLocal8Bit(orderTemp->Sub1);
+//    qDebug() << QString::fromLocal8Bit(orderTemp->Sub5);
     motherOrder = new Mother_order();
     *motherOrder = *orderTemp;
     order = new Order();
 
-    qDebug() << "details motherOrder NOW!";
-    qDebug() << motherOrder;
-    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
+//    qDebug() << "details motherOrder NOW!";
+//    qDebug() << motherOrder;
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
 
     //connect 支付功能
     connect(ui->label_pay, &ClickableLabel::clicked, [=](){
@@ -50,11 +50,11 @@ OrdersDetailWidget::OrdersDetailWidget(QWidget *parent, Mother_order *orderTemp)
             if(order->renew(*motherOrder))
             {
                 QMessageBox::information(this, "订单信息", "支付成功！");
-                qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel) << "beforeCancel";
-                qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid) << "beforePaid";
+//                qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel) << "beforeCancel";
+//                qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid) << "beforePaid";
                 basicInit();
-                qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel) << "afterCancel";
-                qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid) << "afterPaid";
+//                qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel) << "afterCancel";
+//                qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid) << "afterPaid";
             }
             else
             {
@@ -90,15 +90,15 @@ OrdersDetailWidget::~OrdersDetailWidget()
 
 void OrdersDetailWidget::basicInit()
 {
-    qDebug() << "detailsUpdating NOW!";
-    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
-    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
+//    qDebug() << "detailsUpdating NOW!";
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_paid);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Is_cancel);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Time);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Sub1);
+//    qDebug() << QString::fromLocal8Bit(motherOrder->Sub5);
 
-    qDebug() << "OrdersBasicInit";
+//    qDebug() << "OrdersBasicInit";
 
 
 
@@ -116,7 +116,7 @@ void OrdersDetailWidget::basicInit()
     ui->label_price->setText("￥" + QString::fromLocal8Bit(motherOrder->Money));
 
 
-    qDebug() << "OrdersBasicStatus";
+//    qDebug() << "OrdersBasicStatus";
     //订单状态显示
     QPalette palette;
     if(motherOrder->Is_cancel == "1")
@@ -150,15 +150,15 @@ void OrdersDetailWidget::basicInit()
         palette.setColor(QPalette::WindowText, QColor(17, 165, 17));
         ui->label_status->setPalette(palette);
     }
-    qDebug() << "OrdersBasicPersonB";
+//    qDebug() << "OrdersBasicPersonB";
     qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
 
-    qDebug() << "OrdersBasicPersonA";
+//    qDebug() << "OrdersBasicPersonA";
     qDebug() << QString::fromLocal8Bit(motherOrder->Contain);
 
     //订单号显示
     ui->label_num->setText("订单号：" + QString::fromLocal8Bit(motherOrder->Mother));
-    qDebug() << "OrdersBasicPerson";
+//    qDebug() << "OrdersBasicPerson";
 
     //下单时间显示
     ui->label_time->setText("下单时间：" + QString::fromLocal8Bit(motherOrder->Time));
@@ -170,16 +170,38 @@ void OrdersDetailWidget::basicInit()
     qstr += "人";
     ui->label_total->setText(qstr);
 
-    qDebug() << "OrdersBasicPerson";
+//    qDebug() << "OrdersBasicPerson";
 
     childrenInit();
 }
 
 void OrdersDetailWidget::childrenInit()
 {
+    qDebug() << "childernInit NOW!!";
 //    int personNum = stoi(motherOrder->Contain);
     vector<Children_order> childVec;
     int childNum = order->get_sub_order(*motherOrder, childVec);
+    vector<std::string> childNumberVec;
+    vector<vector<std::string>> childFromAndToVec;
+    qDebug() << "begin";
+    for(auto child : childVec)
+    {
+        qDebug() << QString::fromLocal8Bit(child.Children);
+    }
+    qDebug() << "end";
+    for(auto i = childVec.begin(); i != childVec.end(); ++i)
+    {
+        childNumberVec.push_back(i->Airline);
+        qDebug() << QString::fromLocal8Bit(*(childNumberVec.end() - 1));
+    }
+    order->where2where(childNumberVec, childFromAndToVec);
+    for(auto i : childFromAndToVec)
+    {
+        qDebug() << QString::fromLocal8Bit(i.at(0));
+        qDebug() << QString::fromLocal8Bit(i.at(1));
+        qDebug() << QString::fromLocal8Bit(i.at(2));
+        qDebug() << QString::fromLocal8Bit(i.at(3));
+    }
 
     //把不需要的widget都隐藏
     if(childNum == 1)
@@ -189,6 +211,7 @@ void OrdersDetailWidget::childrenInit()
         ui->widget_a3->hide();
         ui->widget_a4->hide();
         ui->widget_a5->hide();
+        resize(500, 500);
     }
     else if(childNum == 2)
     {
@@ -197,6 +220,7 @@ void OrdersDetailWidget::childrenInit()
         ui->widget_a3->hide();
         ui->widget_a4->hide();
         ui->widget_a5->hide();
+        resize(800, 500);
     }
     else if(childNum == 3)
     {
@@ -205,6 +229,7 @@ void OrdersDetailWidget::childrenInit()
         ui->widget_a3->show();
         ui->widget_a4->hide();
         ui->widget_a5->hide();
+        resize(1100, 500);
     }
     else if(childNum == 4)
     {
@@ -213,6 +238,7 @@ void OrdersDetailWidget::childrenInit()
         ui->widget_a3->show();
         ui->widget_a4->show();
         ui->widget_a5->hide();
+        resize(1100, 700);
     }
     else if(childNum == 5)
     {
@@ -221,9 +247,10 @@ void OrdersDetailWidget::childrenInit()
         ui->widget_a3->show();
         ui->widget_a4->show();
         ui->widget_a5->show();
+        resize(1100, 700);
     }
 
-    //加载子订单信息, TODO:目的地显示
+    //加载子订单信息, 并显示起降地、起降时间
     QPalette palette;
     palette.setBrush(QPalette::Window, QBrush(QPixmap(":/main/images/edging270_170.jpg")));
     if(childNum >= 1)
@@ -234,6 +261,10 @@ void OrdersDetailWidget::childrenInit()
         ui->label_price1->setText("￥" + QString::fromLocal8Bit(childVec.at(0).Money));
         ui->label_seat1->setText("座位:" + QString::fromLocal8Bit(childVec.at(0).Seat));
         ui->label_date1->setText("日期:" + QString::fromLocal8Bit(childVec.at(0).Date));
+        ui->label_from1->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(0)));
+        ui->label_to1->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(1)));
+        ui->label_fromTime1->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(2)));
+        ui->label_toTime1->setText(QString::fromLocal8Bit(childFromAndToVec.at(0).at(3)));
         ui->widget_a1->setPalette(palette);
     }
     if(childNum >= 2)
@@ -244,6 +275,10 @@ void OrdersDetailWidget::childrenInit()
         ui->label_price1_2->setText("￥" + QString::fromLocal8Bit(childVec.at(1).Money));
         ui->label_seat1_2->setText("座位:" + QString::fromLocal8Bit(childVec.at(1).Seat));
         ui->label_date1_2->setText("日期:" + QString::fromLocal8Bit(childVec.at(1).Date));
+        ui->label_from1_2->setText(QString::fromLocal8Bit(childFromAndToVec.at(1).at(0)));
+        ui->label_to1_2->setText(QString::fromLocal8Bit(childFromAndToVec.at(1).at(1)));
+        ui->label_fromTime1_2->setText(QString::fromLocal8Bit(childFromAndToVec.at(1).at(2)));
+        ui->label_toTime1_2->setText(QString::fromLocal8Bit(childFromAndToVec.at(1).at(3)));
         ui->widget_a2->setPalette(palette);
     }
     if(childNum >= 3)
@@ -254,6 +289,10 @@ void OrdersDetailWidget::childrenInit()
         ui->label_price1_3->setText("￥" + QString::fromLocal8Bit(childVec.at(2).Money));
         ui->label_seat1_3->setText("座位:" + QString::fromLocal8Bit(childVec.at(2).Seat));
         ui->label_date1_3->setText("日期:" + QString::fromLocal8Bit(childVec.at(2).Date));
+        ui->label_from1_3->setText(QString::fromLocal8Bit(childFromAndToVec.at(2).at(0)));
+        ui->label_to1_3->setText(QString::fromLocal8Bit(childFromAndToVec.at(2).at(1)));
+        ui->label_fromTime1_3->setText(QString::fromLocal8Bit(childFromAndToVec.at(2).at(2)));
+        ui->label_toTime1_3->setText(QString::fromLocal8Bit(childFromAndToVec.at(2).at(3)));
         ui->widget_a3->setPalette(palette);
     }
     if(childNum >= 4)
@@ -264,6 +303,10 @@ void OrdersDetailWidget::childrenInit()
         ui->label_price1_4->setText("￥" + QString::fromLocal8Bit(childVec.at(3).Money));
         ui->label_seat1_4->setText("座位:" + QString::fromLocal8Bit(childVec.at(3).Seat));
         ui->label_date1_4->setText("日期:" + QString::fromLocal8Bit(childVec.at(3).Date));
+        ui->label_from1_4->setText(QString::fromLocal8Bit(childFromAndToVec.at(3).at(0)));
+        ui->label_to1_4->setText(QString::fromLocal8Bit(childFromAndToVec.at(3).at(1)));
+        ui->label_fromTime1_4->setText(QString::fromLocal8Bit(childFromAndToVec.at(3).at(2)));
+        ui->label_toTime1_4->setText(QString::fromLocal8Bit(childFromAndToVec.at(3).at(3)));
         ui->widget_a4->setPalette(palette);
     }
     if(childNum >= 5)
@@ -274,6 +317,10 @@ void OrdersDetailWidget::childrenInit()
         ui->label_price1_5->setText("￥" + QString::fromLocal8Bit(childVec.at(4).Money));
         ui->label_seat1_5->setText("座位:" + QString::fromLocal8Bit(childVec.at(4).Seat));
         ui->label_date1_5->setText("日期:" + QString::fromLocal8Bit(childVec.at(4).Date));
+        ui->label_from1_5->setText(QString::fromLocal8Bit(childFromAndToVec.at(4).at(0)));
+        ui->label_to1_5->setText(QString::fromLocal8Bit(childFromAndToVec.at(4).at(1)));
+        ui->label_fromTime1_5->setText(QString::fromLocal8Bit(childFromAndToVec.at(4).at(2)));
+        ui->label_toTime1_5->setText(QString::fromLocal8Bit(childFromAndToVec.at(4).at(3)));
         ui->widget_a5->setPalette(palette);
     }
 }
