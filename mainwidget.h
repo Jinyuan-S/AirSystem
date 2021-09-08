@@ -34,6 +34,9 @@ private:
     void buyInit();
     void orderInit();
     void mineInit();
+    void addCart(vector<Children_order> orders);
+signals:
+    void added(vector<Children_order> vec);
 };
 
 #endif // MAINWIDGET_H

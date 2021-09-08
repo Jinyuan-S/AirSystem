@@ -6,6 +6,7 @@
 #include <QSqlDatabase>
 #include <QSqlTableModel>
 #include <string>
+#include "addflightwidget.h"
 
 AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
     QWidget(parent),
@@ -39,19 +40,6 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
         {
             if(ui->widget_3->changeToNormal())
             {
-                ui->stackedWidget->setCurrentIndex(1);
-            }
-        }
-        else
-        {
-            ui->stackedWidget->setCurrentIndex(1);
-        }
-    });
-    connect(ui->pushButton_flight, &QPushButton::clicked, [=](){//当切换到其他页面时，个人页面询问是否更改
-        if(ui->widget_3->statusOfLabel == 1)
-        {
-            if(ui->widget_3->changeToNormal())
-            {
                 ui->stackedWidget->setCurrentIndex(2);
             }
         }
@@ -60,9 +48,106 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
             ui->stackedWidget->setCurrentIndex(2);
         }
     });
+
+    connect(ui->pushButton_order2, &QPushButton::clicked, [=](){
+        if(ui->widget_3->statusOfLabel == 1)
+        {
+            if(ui->widget_3->changeToNormal())
+            {
+                ui->stackedWidget->setCurrentIndex(1);
+            }
+        }
+        else
+        {
+            ui->stackedWidget->setCurrentIndex(1);
+        }
+    });
+
+    connect(ui->pushButton_flight, &QPushButton::clicked, [=](){//当切换到其他页面时，个人页面询问是否更改
+        if(ui->widget_3->statusOfLabel == 1)
+        {
+            if(ui->widget_3->changeToNormal())
+            {
+                ui->stackedWidget->setCurrentIndex(3);
+            }
+        }
+        else
+        {
+            ui->stackedWidget->setCurrentIndex(3);
+        }
+    });
     connect(ui->pushButton_mine, &QPushButton::clicked, [=](){
         ui->stackedWidget->setCurrentIndex(0);
     });
+
+    //初始把一些radio选中以及默认值
+    ui->radioButton_all->setChecked(true);
+    ui->radioButton->setChecked(true);
+    ui->label_from->setEnabled(false);
+    ui->label_to->setEnabled(false);
+    ui->dateEdit_from->setEnabled(false);
+    ui->dateEdit_to->setEnabled(false);
+    ui->dateEdit_from->setDate(QDate().currentDate());
+    ui->dateEdit_to->setDate(QDate().currentDate());
+    connect(ui->radioButton_spe, &QRadioButton::toggled, [=](){
+        if(ui->radioButton_spe->isChecked() == true)
+        {
+            ui->label_from->setEnabled(true);
+            ui->label_to->setEnabled(true);
+            ui->dateEdit_from->setEnabled(true);
+            ui->dateEdit_to->setEnabled(true);
+        }
+        else
+        {
+            ui->label_from->setEnabled(false);
+            ui->label_to->setEnabled(false);
+            ui->dateEdit_from->setEnabled(false);
+            ui->dateEdit_to->setEnabled(false);
+        }
+    });
+
+    connect(ui->radioButton, &QRadioButton::toggled, [=](){
+        airlineInit();
+    });
+
+    connect(ui->radioButton_2, &QRadioButton::toggled, [=](){
+       airlineInit();
+    });
+
+    connect(ui->radioButton_3, &QRadioButton::toggled, [=](){
+       airlineInit();
+    });
+
+    connect(ui->radioButton_all, &QRadioButton::toggled, [=](){
+       airlineInit();
+    });
+
+    connect(ui->radioButton_his, &QRadioButton::toggled, [=](){
+       airlineInit();
+    });
+
+    connect(ui->radioButton_spe, &QRadioButton::toggled, [=](){
+       airlineInit();
+    });
+
+    connect(ui->radioButton_no, &QRadioButton::toggled, [=](){
+       airlineInit();
+    });
+
+    connect(ui->dateEdit_from, &QDateEdit::editingFinished, [=](){
+        airlineInit();
+    });
+
+    connect(ui->dateEdit_to, &QDateEdit::editingFinished, [=](){
+        airlineInit();
+    });
+
+    connect(ui->label_add, &ClickableLabel::clicked, [=](){
+        AddFlightWidget *fWidget  = new AddFlightWidget();
+        fWidget->setWindowModality(Qt::ApplicationModal);
+        fWidget->show();
+    });
+
 
     //初始化数据库
     *db = QSqlDatabase::addDatabase("QMYSQL");
@@ -76,6 +161,10 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
 
     airlineInit();
     orderInit();
+
+
+    //筛选条件后更改订单统计
+
 
     //3.我的部分
     ui->widget_3->setAdmin(admin);
@@ -94,10 +183,82 @@ void AdminMainWidget::airlineInit()
     QString qstr = QString::fromLocal8Bit(admin->Company);
     model->setFilter("company = '" + qstr + "'");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    if(ui->radioButton->isChecked() == true)
+    {
+        model->setSort(14, Qt::DescendingOrder); //总人数
+    }
+    else if(ui->radioButton_2->isChecked() == true)
+    {
+        model->setSort(15, Qt::DescendingOrder); //上座率
+    }
+    else
+    {
+        model->setSort(16, Qt::DescendingOrder); //票价总收入
+    }
     model->select(); //选取整个表的所有行
     model->removeColumn(0); //隐藏第1行
-    ui->tableView_flight->setModel(model);
-    ui->tableView_flight->show();
+    model->removeColumns(18, 4); //隐藏第18 - 21行
+    QDate date = QDate().currentDate();
+    QTime time = QTime().currentTime();
+    QString dateStr = date.toString("yyyy-MM-dd");
+    QString timeStr = time.toString("hh:mm:ss");
+    QString dateFrom = ui->dateEdit_from->date().toString("yyyy-MM-dd");
+    QString dateTo = ui->dateEdit_to->date().toString("yyyy-MM-dd");
+
+    if(ui->radioButton_all->isChecked() == true)
+    {
+        //without filter
+    }
+    else if(ui->radioButton_his->isChecked() == true)
+    {
+        qDebug() << "(('date'<" + dateStr + ") OR ('time_on'<'" + timeStr + "' AND 'date'=" + dateStr + "))";
+        model->setFilter("'date'<" + dateStr + " OR ('time_on'<'" + timeStr + "' AND 'date'=" + dateStr + ")"); //历史
+    }
+    else if(ui->radioButton_no->isChecked() == true)
+    {
+        qDebug() << "(('date'>" + dateStr + ") OR ('time_on'>'" + timeStr + "' AND 'date'=" + dateStr + "))";
+        model->setFilter("'date'>" + dateStr + " OR ('time_on'>'" + timeStr + "' AND 'date'=" + dateStr + ")"); //未来
+    }
+    else
+    {
+        qDebug() << "(('date'>=" + dateFrom + ") AND 'date'<=" + dateTo + ")";
+        model->setFilter("'date'>=" + dateFrom + " AND 'date'<=" + dateTo + ")");
+    }
+
+    ui->tableView_order->clearSpans();
+    ui->tableView_order->setModel(model);
+    ui->tableView_order->show();
+    QStringList strList = QStringList() << "航班号" << "始发地" << "目的地" << "航空公司" << "起飞时间" << "到达时间" << "是否跨天"
+                                        << "机型" << "头等舱剩余" << "商务舱剩余" << "经济舱剩余"
+                                        << "头等舱已售" << "商务舱已售" << "经济舱已售"
+                                        << "已购票人数" << "上座率(%)" << "总收入" << "日期";
+    for(auto i = strList.begin(); i != strList.end(); ++i)
+    {
+        model->setHeaderData((i - strList.begin()), Qt::Orientation::Horizontal, *i);
+    }
+}
+
+void AdminMainWidget::airlineSortFliter()
+{
+    QSqlTableModel *model = new QSqlTableModel(this, *db);
+    model->setTable("air");
+    QString qstr = QString::fromLocal8Bit(admin->Company);
+    model->setFilter("company = '" + qstr + "'");
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->setSort(15, Qt::DescendingOrder);
+    model->select(); //选取整个表的所有行
+    model->removeColumn(0); //隐藏第1行
+    model->removeColumns(18, 4); //隐藏第1行
+    ui->tableView_order->setModel(model);
+    ui->tableView_order->show();
+    QStringList strList = QStringList() << "航班号" << "始发地" << "目的地" << "航空公司" << "起飞时间" << "到达时间" << "是否跨天"
+                                        << "机型" << "头等舱剩余" << "商务舱剩余" << "经济舱剩余"
+                                        << "头等舱已售" << "商务舱已售" << "经济舱已售"
+                                        << "已购买人次" << "准点率(%)" << "总收入" << "日期";
+    for(auto i = strList.begin(); i != strList.end(); ++i)
+    {
+        model->setHeaderData((i - strList.begin()), Qt::Orientation::Horizontal, *i);
+    }
 }
 
 void AdminMainWidget::orderInit()
@@ -112,7 +273,7 @@ void AdminMainWidget::orderInit()
     model->removeColumns(8, 9); //隐藏各种上座信息
     model->removeColumn(9); //隐藏准点率
     QStringList strList = QStringList() << "航班号" << "始发地" << "目的地" << "航空公司" << "起飞时间" << "到达时间" << "是否跨天"
-                                        << "机型" << "日期" << "基准价格" << "飞行员1";
+                                        << "机型" << "日期" << "基准价格" << "飞行员1" << "飞行员2";
     for(auto i = strList.begin(); i != strList.end(); ++i)
     {
         model->setHeaderData((i - strList.begin()), Qt::Orientation::Horizontal, *i);

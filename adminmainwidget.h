@@ -25,6 +25,7 @@ private:
     void airlineInit();
     void orderInit();
     void changeSortFliter();
+    void airlineSortFliter();
 };
 
 #endif // ADMINMAINWIDGET_H

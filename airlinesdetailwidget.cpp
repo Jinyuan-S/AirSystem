@@ -1,9 +1,9 @@
 #include "airlinesdetailwidget.h"
 #include "ui_airlinesdetailwidget.h"
+#include "buyaddpersondialog.h"
 
 #include <QDate>
 #include <algorithm>
-
 
 AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) :
     QWidget(parent),
@@ -14,6 +14,9 @@ AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) 
     *flight = *flightTemp;
 
     setWindowTitle("航班具体信息及购票");
+
+    ui->label_pilot1->hide();
+    ui->label_pilot2->hide();
 
     //初始化背景图片
     QPalette palette;
@@ -26,6 +29,7 @@ AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) 
     QDate currentDate = QDate().currentDate();
     QDate flightDate = QDate::fromString(QString::fromLocal8Bit(flight->Date), "yyyy-MM-dd");
     int diff = currentDate.daysTo(flightDate);
+
     //相差日期过大就减钱
     if(diff >= 4)
     {
@@ -55,20 +59,79 @@ AirlinesDetailWidget::AirlinesDetailWidget(QWidget *parent, Flight *flightTemp) 
     ui->label_price_B->setText("￥" + QString::number((int)(price * 1.741 + 2)));
     ui->label_price_C->setText("￥" + QString::number((int)(price)));
 
+
+
     connect(ui->label_buy_A, &ClickableLabel::clicked, [=]()
     {
-        //TODO
-//        ui->
+        BuyAddPersonDialog *bDialog = new BuyAddPersonDialog(nullptr, *flight, "A");
+        connect(bDialog, &BuyAddPersonDialog::addedPerson, [=](vector<string> personStr, vector<string> seatStr){
+            auto i = personStr.begin();
+            auto j = seatStr.begin();
+            vector<Children_order> childVec;
+            for(/*nothing here*/; i != personStr.end() && j != seatStr.end(); ++i, ++j)
+            {
+                Children_order childOrder;
+                childOrder.Who = *i;
+                childOrder.Airline = flight->Airline;
+                childOrder.Date = flight->Date;
+                childOrder.Seat = *j;
+                childOrder.Cabin = "A";
+                childOrder.Money = std::to_string((int)(price * 2.121 + 12));
+                childVec.push_back(childOrder);
+            }
+            emit added(childVec);
+            close();
+        });
+        bDialog->exec();
     });
 
     connect(ui->label_buy_B, &ClickableLabel::clicked, [=]()
     {
-
+        BuyAddPersonDialog *bDialog = new BuyAddPersonDialog(nullptr, *flight, "B");
+        connect(bDialog, &BuyAddPersonDialog::addedPerson, [=](vector<string> personStr, vector<string> seatStr){
+            auto i = personStr.begin();
+            auto j = seatStr.begin();
+            vector<Children_order> childVec;
+            for(/*nothing here*/; i != personStr.end() && j != seatStr.end(); ++i, ++j)
+            {
+                Children_order childOrder;
+                childOrder.Who = *i;
+                childOrder.Airline = flight->Airline;
+                childOrder.Date = flight->Date;
+                childOrder.Seat = *j;
+                childOrder.Cabin = "B";
+                childOrder.Money = std::to_string((int)(price * 1.741 + 2));
+                childVec.push_back(childOrder);
+            }
+            emit added(childVec);
+            close();
+        });
+        bDialog->exec();
     });
 
     connect(ui->label_buy_C, &ClickableLabel::clicked, [=]()
     {
-
+        BuyAddPersonDialog *bDialog = new BuyAddPersonDialog(nullptr, *flight, "C");
+        connect(bDialog, &BuyAddPersonDialog::addedPerson, [=](vector<string> personStr, vector<string> seatStr){
+            auto i = personStr.begin();
+            auto j = seatStr.begin();
+            vector<Children_order> childVec;
+            for(/*nothing here*/; i != personStr.end() && j != seatStr.end(); ++i, ++j)
+            {
+                Children_order childOrder;
+                childOrder.Who = *i;
+                childOrder.Airline = flight->Airline;
+                childOrder.Date = flight->Date;
+                childOrder.Seat = *j;
+                childOrder.Cabin = "C";
+                childOrder.Money = std::to_string((int)(price));
+                childVec.push_back(childOrder);
+            }
+            emit added(childVec);
+            qDebug() << "AirlinesDetail Signals Emit!";
+            close();
+        });
+        bDialog->exec();
     });
 }
 

@@ -184,7 +184,7 @@ void OrdersDetailWidget::childrenInit()
     vector<std::string> childNumberVec;
     vector<vector<std::string>> childFromAndToVec;
     qDebug() << "begin";
-    for(auto child : childVec)
+    for(auto &child : childVec)
     {
         qDebug() << QString::fromLocal8Bit(child.Children);
     }
@@ -256,7 +256,7 @@ void OrdersDetailWidget::childrenInit()
     if(childNum >= 1)
     {
         ui->label_air1->setText("--" + QString::fromLocal8Bit(childVec.at(0).Airline) + "->");
-        ui->label_cabin1->setText(QString::fromLocal8Bit(childVec.at(0).Cabin));
+        ui->label_cabin1->setText(whichCabin(QString::fromLocal8Bit(childVec.at(0).Cabin)));
         ui->label_pass1->setText(QString::fromLocal8Bit(childVec.at(0).Who));
         ui->label_price1->setText("￥" + QString::fromLocal8Bit(childVec.at(0).Money));
         ui->label_seat1->setText("座位:" + QString::fromLocal8Bit(childVec.at(0).Seat));
@@ -270,7 +270,7 @@ void OrdersDetailWidget::childrenInit()
     if(childNum >= 2)
     {
         ui->label_air1_2->setText("--" + QString::fromLocal8Bit(childVec.at(1).Airline) + "->");
-        ui->label_cabin1_2->setText(QString::fromLocal8Bit(childVec.at(1).Cabin));
+        ui->label_cabin1_2->setText(whichCabin(QString::fromLocal8Bit(childVec.at(1).Cabin)));
         ui->label_pass1_2->setText(QString::fromLocal8Bit(childVec.at(1).Who));
         ui->label_price1_2->setText("￥" + QString::fromLocal8Bit(childVec.at(1).Money));
         ui->label_seat1_2->setText("座位:" + QString::fromLocal8Bit(childVec.at(1).Seat));
@@ -284,7 +284,7 @@ void OrdersDetailWidget::childrenInit()
     if(childNum >= 3)
     {
         ui->label_air1_3->setText("--" + QString::fromLocal8Bit(childVec.at(2).Airline) + "->");
-        ui->label_cabin1_3->setText(QString::fromLocal8Bit(childVec.at(2).Cabin));
+        ui->label_cabin1_3->setText(whichCabin(QString::fromLocal8Bit(childVec.at(2).Cabin)));
         ui->label_pass1_3->setText(QString::fromLocal8Bit(childVec.at(2).Who));
         ui->label_price1_3->setText("￥" + QString::fromLocal8Bit(childVec.at(2).Money));
         ui->label_seat1_3->setText("座位:" + QString::fromLocal8Bit(childVec.at(2).Seat));
@@ -298,7 +298,7 @@ void OrdersDetailWidget::childrenInit()
     if(childNum >= 4)
     {
         ui->label_air1_4->setText("--" + QString::fromLocal8Bit(childVec.at(3).Airline) + "->");
-        ui->label_cabin1_4->setText(QString::fromLocal8Bit(childVec.at(3).Cabin));
+        ui->label_cabin1_4->setText(whichCabin(QString::fromLocal8Bit(childVec.at(3).Cabin)));
         ui->label_pass1_4->setText(QString::fromLocal8Bit(childVec.at(3).Who));
         ui->label_price1_4->setText("￥" + QString::fromLocal8Bit(childVec.at(3).Money));
         ui->label_seat1_4->setText("座位:" + QString::fromLocal8Bit(childVec.at(3).Seat));
@@ -312,7 +312,7 @@ void OrdersDetailWidget::childrenInit()
     if(childNum >= 5)
     {
         ui->label_air1_5->setText("--" + QString::fromLocal8Bit(childVec.at(0).Airline) + "->");
-        ui->label_cabin1_5->setText(QString::fromLocal8Bit(childVec.at(4).Cabin));
+        ui->label_cabin1_5->setText(whichCabin(QString::fromLocal8Bit(childVec.at(4).Cabin)));
         ui->label_pass1_5->setText(QString::fromLocal8Bit(childVec.at(4).Who));
         ui->label_price1_5->setText("￥" + QString::fromLocal8Bit(childVec.at(4).Money));
         ui->label_seat1_5->setText("座位:" + QString::fromLocal8Bit(childVec.at(4).Seat));
@@ -331,4 +331,20 @@ void OrdersDetailWidget::closeEvent(QCloseEvent *event)
     close();
 //    QMessageBox::information(this, "asd", "sdfdfsfsd");
 //    event->accept();
+}
+
+QString OrdersDetailWidget::whichCabin(QString str)
+{
+    if(str == "A")
+    {
+        return "头等舱";
+    }
+    else if(str == "B")
+    {
+        return "商务舱";
+    }
+    else
+    {
+        return "经济舱";
+    }
 }

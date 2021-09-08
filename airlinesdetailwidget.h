@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include "Flight.h"
+#include <Children_order.h>
+#include <vector>
+using std::vector;
 
 namespace Ui {
 class AirlinesDetailWidget;
@@ -21,6 +24,8 @@ private:
     Flight *flight;
     Ui::AirlinesDetailWidget *ui;
 
+signals:
+    void added(vector<Children_order> vec);
 };
 
 #endif // AIRLINESDETAILWIDGET_H

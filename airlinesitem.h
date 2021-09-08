@@ -36,6 +36,9 @@ private:
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event);
+
+signals:
+    void added(vector<Children_order> vec);
 };
 
 #endif // AIRLINESITEM_H

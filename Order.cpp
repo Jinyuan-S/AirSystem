@@ -1,4 +1,5 @@
 #include "Order.h"
+#include <QDebug>
 int Order::get_all_order(string& id, vector<Mother_order>& vec) {
 	//SELECT * FROM mother_order WHERE who='zhangsan1';
 	string head = "SELECT * FROM mother_order WHERE who='";
@@ -124,22 +125,30 @@ bool Order::add_order(Mother_order& mo, vector<Children_order>& vec) {
 		a = "UPDATE air SET total_fare='" + ttfare + tl;
 		db.query((char*)a.c_str());
 
-		sv.push_back(vec[j].Children);
+        //SELECT children FROM children_order WHERE who='' AND airline='' AND date='';
+        string fuck = "SELECT children FROM children_order WHERE who='" + vec[j].Who + "' AND airline='" + vec[j].Airline + "' AND date='" + vec[j].Date + "';";
+        vector<vector<string>> cc;
+        db.fetch_data((char*)fuck.c_str(), cc);
+        sv.push_back(cc[0][0]);
     }
+    int k = j;
 	while (j < 5) {
 		sv.push_back("empty");
 		j++;
 	}
-	mo.Contain = j;
+    mo.Contain = std::to_string(k);
 	mo.Sub1 = sv[0];
 	mo.Sub2 = sv[1];
 	mo.Sub3 = sv[2];
 	mo.Sub4 = sv[3];
 	mo.Sub5 = sv[4];
+    qDebug() << "Sub1" << QString::fromLocal8Bit(mo.Sub1);
+    qDebug() << "Sub2" << QString::fromLocal8Bit(mo.Sub2);
 
+    qDebug() << "Sub5" << QString::fromLocal8Bit(mo.Sub5);
 	//INSERT INTO mother_order(mother,who,time,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES();
-	string head = "INSERT INTO mother_order(who,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES(";
-	string tail = ");";
+    string head = "INSERT INTO mother_order(who,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES('";
+    string tail = "');";
 	string sql = head + mo.Who + "','" + mo.Is_cancel + "','" + mo.Is_paid + "','" +mo.Money + "','" 
 		+ mo.Contain + "','" + mo.Sub1 + "','" + mo.Sub2 + "','" + mo.Sub3 + "','" + mo.Sub4 + "','" + mo.Sub5 + tail;
 	db.query((char*)sql.c_str());

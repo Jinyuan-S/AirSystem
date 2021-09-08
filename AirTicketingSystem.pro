@@ -19,9 +19,11 @@ CONFIG += c++1y
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addflightwidget.cpp \
     adminmainwidget.cpp \
     airlinesdetailwidget.cpp \
     airlinesitem.cpp \
+    buyaddpersondialog.cpp \
     cartitem.cpp \
     cartwidget.cpp \
     clickablelabel.cpp \
@@ -45,9 +47,11 @@ SOURCES += \
     Inquiry.cpp
 
 HEADERS += \
+    addflightwidget.h \
     adminmainwidget.h \
     airlinesdetailwidget.h \
     airlinesitem.h \
+    buyaddpersondialog.h \
     cartitem.h \
     cartwidget.h \
     clickablelabel.h \
@@ -70,9 +74,11 @@ HEADERS += \
     Inquiry.h
 
 FORMS += \
+    addflightwidget.ui \
     adminmainwidget.ui \
     airlinesdetailwidget.ui \
     airlinesitem.ui \
+    buyaddpersondialog.ui \
     cartitem.ui \
     cartwidget.ui \
     loginwidget.ui \

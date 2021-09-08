@@ -199,6 +199,10 @@ void QueryWidget::addFlight(vector<Flight> &flightVec)
         qDebug() << j;
         AirlinesItem *item = new AirlinesItem(ui->scrollAreaWidgetContents, &*i);
         flightWidgetVec.push_back(item);
+        connect(item, &AirlinesItem::added, [=](vector<Children_order> vec){
+            qDebug() << "MainWidget Slot Begin!";
+            emit added(vec);
+        });
         item->setParent(ui->scrollAreaWidgetContents);
         item->move(5, j * (120 + 10) + 10); //5让item和左边有点间隙
         item->show();

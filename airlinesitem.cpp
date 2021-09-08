@@ -101,6 +101,7 @@ AirlinesItem::AirlinesItem(QWidget *parent, Flight *flightTemp) :
         ui->label_plus1->hide();
     }
 
+
 }
 
 AirlinesItem::~AirlinesItem()
@@ -124,6 +125,12 @@ void AirlinesItem::mouseReleaseEvent(QMouseEvent *event)
             detailWidget = new AirlinesDetailWidget(nullptr, flight);
             detailWidget->setWindowModality(Qt::ApplicationModal);
             detailWidget->show();
+            //若detail添加订单，则传递信号
+            connect(detailWidget, &AirlinesDetailWidget::added, [=](vector<Children_order> vec){
+                qDebug() << "AirlinesItem Signals Emit!";
+                emit added(vec);
+//                close();
+            });
         }
 
     }

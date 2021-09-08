@@ -19,9 +19,10 @@ MainWidget::MainWidget(QWidget *parent, Buyer *buyerTemp) :
         close();
     }
 
-    buyer = buyerTemp;
+    buyer = new Buyer();
+    *buyer = *buyerTemp;
 
-    cWidget = new CartWidget();
+    cWidget = new CartWidget(nullptr, buyer);
     order = new Order();
 
     //1.设置自动填充背景
@@ -121,7 +122,7 @@ void MainWidget::buyInit()
     });
 
 
-    //connect 把完成和进入查询界面连接起来
+    //把完成和**进入查询界面**连接起来 connect
     connect(ui->pushButton_city_complete, &QPushButton::clicked, [=](){
         newQueryWidget(0);
     });
@@ -143,6 +144,11 @@ void MainWidget::buyInit()
     for(auto i = fliVec.begin(); i != fliVec.end(); ++i)
     {
         AirlinesItem *item = new AirlinesItem(ui->scrollAreaWidgetContents, &*i);
+        //航班添加就更新购物车
+        connect(item, &AirlinesItem::added, [=](vector<Children_order> vec){
+            qDebug() << "MainWidget Slot Begin!";
+            addCart(vec);
+        });
         item->setParent(ui->scrollAreaWidgetContents_3);
         item->move(5, (i - fliVec.begin()) * (120 + 10) + 10); //5让item和左边有点间隙
         item->show();
@@ -153,12 +159,25 @@ void MainWidget::buyInit()
     connect(ui->label_cart, &ClickableLabel::clicked, [=](){
         cWidget->setWindowModality(Qt::ApplicationModal);
         cWidget->show();
+        cWidget->resize(500, 400);
+    });
+
+    connect(cWidget, &CartWidget::closed, [=](){
+        ui->stackedWidget->setCurrentIndex(0);
+        orderInit();
     });
 }
 
 void MainWidget::newQueryWidget(int type)  //这里从输入框里提取信息
 {
     QueryWidget *widget = new QueryWidget(nullptr, type);
+
+    //查询框添加航班就加到购物车里
+    connect(widget, &QueryWidget::added, [=](vector<Children_order> vec){
+        qDebug() << "MainWidget Slot From QueryWidget Begin!";
+        addCart(vec);
+    });
+
     if(type == 0)
     {
         widget->setFromAndTo(ui->lineEdit_from->text(), ui->lineEdit_to->text(), ui->dateEdit->date());
@@ -189,6 +208,8 @@ void MainWidget::orderInit()
         //420是item宽度 11是宽度间的间隙 200是item长度 10是长度间的间隙 50是最底下多留点地
         ui->scrollAreaWidgetContents->resize((420 + 11), orderNum * (200 + 10) + 50);
         qDebug() << ui->scrollAreaWidgetContents->geometry();
+        qDebug() << "Order Num" << orderNum;
+        qDebug() << "size" << motherVec.size();
         for(int i = 0; i < orderNum; ++i)
         {
             qDebug() << QString::fromLocal8Bit(motherVec.at(i).Contain);
@@ -197,12 +218,13 @@ void MainWidget::orderInit()
             qDebug() << QString::fromLocal8Bit(motherVec.at(i).Sub1);
             qDebug() << QString::fromLocal8Bit(motherVec.at(i).Sub5);
             OrdersItem *item = new OrdersItem(ui->scrollAreaWidgetContents, &motherVec.at(i));
+            item->show();
 //            item->setParent(ui->scrollAreaWidgetContents);
-    //        qDebug() << item->geometry();
+            qDebug() << i << "now" << item->geometry();
             item->move(5, i * (200 + 10) + 10); //5让item和左边有点间隙
         }
     }
-
+    repaint();
 }
 
 
@@ -210,6 +232,12 @@ void MainWidget::orderInit()
 void MainWidget::mineInit()
 {
     ui->widget_3->setBuyer(buyer);
+}
+
+void MainWidget::addCart(vector<Children_order> orders)
+{
+    qDebug() << "MainWidget Slot REALLY Begin!";
+    cWidget->addOrder(orders);
 }
 
 

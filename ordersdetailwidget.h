@@ -25,6 +25,7 @@ private:
     void basicInit();
     void childrenInit();
     Ui::OrdersDetailWidget *ui;
+    QString whichCabin(QString str);
 
 protected:
     void closeEvent(QCloseEvent *event);

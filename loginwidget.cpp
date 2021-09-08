@@ -432,14 +432,14 @@ void LoginWidget::loginComplete()
     else
     {
         //TODO: delete this
-        buyer->ID = "zhangsan1";
-        buyer->Password = "123456";
-        person->buyer_login(buyer->ID, buyer->Password, *buyer);
-        MainWidget *mainW = new MainWidget(nullptr, buyer);
-        mainW->show();
-        this->close();
+//        buyer->ID = "zhangsan1";
+//        buyer->Password = "123456";
+//        person->buyer_login(buyer->ID, buyer->Password, *buyer);
+//        MainWidget *mainW = new MainWidget(nullptr, buyer);
+//        mainW->show();
+//        this->close();
         //TODO: add this
-//        QMessageBox::warning(this, "账户登录", "请填写您的账号和密码！");
+        QMessageBox::warning(this, "账户登录", "请填写您的账号和密码！");
     }
 }
 

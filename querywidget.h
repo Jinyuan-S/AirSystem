@@ -31,7 +31,8 @@ private:
     void deleteFlight();
     void changeSortFilter();
     void returnToNormal();
-
+signals:
+    void added(vector<Children_order> vec);
 };
 
 #endif // QUERYWIDGET_H

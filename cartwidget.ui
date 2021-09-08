@@ -79,7 +79,7 @@
          </font>
         </property>
         <property name="text">
-         <string>总金额: ￥100</string>
+         <string>总金额: ￥0</string>
         </property>
        </widget>
       </item>
@@ -90,7 +90,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>283</width>
+          <width>315</width>
           <height>20</height>
          </size>
         </property>

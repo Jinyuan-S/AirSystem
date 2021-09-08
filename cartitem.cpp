@@ -15,6 +15,8 @@ CartItem::CartItem(QWidget *parent, vector<Children_order> *order) :
     ui->widget_5->hide();
     ui->widget_6->hide();
 
+    ui->label_del->hide();
+
     ui->label_total->setText("共" + QString::number(size) + "人");
 
     //加载每一位乘客的具体信息
@@ -24,7 +26,7 @@ CartItem::CartItem(QWidget *parent, vector<Children_order> *order) :
         Children_order cOrder = order->at(0);
         ui->label_p1->setText("乘客1:" + QString::fromLocal8Bit(cOrder.Who));
         ui->label_cabin1->setText(whichCabin(cOrder.Cabin));
-        ui->label_seat1->setText(whichCabin(cOrder.Seat));
+        ui->label_seat1->setText(QString::fromLocal8Bit(cOrder.Seat));
     }
     if(size >= 2)
     {
@@ -32,7 +34,7 @@ CartItem::CartItem(QWidget *parent, vector<Children_order> *order) :
         Children_order cOrder = order->at(1);
         ui->label_p1_2->setText("乘客2:" + QString::fromLocal8Bit(cOrder.Who));
         ui->label_cabin1_2->setText(whichCabin(cOrder.Cabin));
-        ui->label_seat1_2->setText(whichCabin(cOrder.Seat));
+        ui->label_seat1_2->setText(QString::fromLocal8Bit(cOrder.Seat));
     }
     if(size >= 3)
     {
@@ -40,7 +42,7 @@ CartItem::CartItem(QWidget *parent, vector<Children_order> *order) :
         Children_order cOrder = order->at(2);
         ui->label_p1_3->setText("乘客3:" + QString::fromLocal8Bit(cOrder.Who));
         ui->label_cabin1_3->setText(whichCabin(cOrder.Cabin));
-        ui->label_seat1_3->setText(whichCabin(cOrder.Seat));
+        ui->label_seat1_3->setText(QString::fromLocal8Bit(cOrder.Seat));
     }
     if(size >= 4)
     {
@@ -48,7 +50,7 @@ CartItem::CartItem(QWidget *parent, vector<Children_order> *order) :
         Children_order cOrder = order->at(3);
         ui->label_p1_4->setText("乘客4:" + QString::fromLocal8Bit(cOrder.Who));
         ui->label_cabin1_4->setText(whichCabin(cOrder.Cabin));
-        ui->label_seat1_4->setText(whichCabin(cOrder.Seat));
+        ui->label_seat1_4->setText(QString::fromLocal8Bit(cOrder.Seat));
     }
     if(size >= 5)
     {
@@ -56,7 +58,7 @@ CartItem::CartItem(QWidget *parent, vector<Children_order> *order) :
         Children_order cOrder = order->at(4);
         ui->label_p1_5->setText("乘客5:" + QString::fromLocal8Bit(cOrder.Who));
         ui->label_cabin1_5->setText(whichCabin(cOrder.Cabin));
-        ui->label_seat1_5->setText(whichCabin(cOrder.Seat));
+        ui->label_seat1_5->setText("座位:" + QString::fromLocal8Bit(cOrder.Seat));
     }
 
     Children_order first = order->at(0);

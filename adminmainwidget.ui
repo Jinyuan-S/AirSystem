@@ -481,12 +481,51 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="MainWidgetMinePart" name="widget_3" native="true"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_4">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>等线</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>订单查看</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_3">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>1</height>
+             </size>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -510,7 +549,7 @@
              </font>
             </property>
             <property name="text">
-             <string>订单管理</string>
+             <string>订单统计</string>
             </property>
            </widget>
           </item>
@@ -521,28 +560,35 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <widget class="QRadioButton" name="radioButton_4">
+              <widget class="QRadioButton" name="radioButton_all">
                <property name="text">
-                <string>所有订单</string>
+                <string>所有航班</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_5">
+              <widget class="QRadioButton" name="radioButton_his">
                <property name="text">
-                <string>历史订单</string>
+                <string>历史航班</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_6">
+              <widget class="QRadioButton" name="radioButton_no">
+               <property name="text">
+                <string>未起飞航班</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_spe">
                <property name="text">
                 <string>特定时段</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="label_from">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -555,10 +601,10 @@
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit"/>
+              <widget class="QDateEdit" name="dateEdit_from"/>
              </item>
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="label_to">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -571,7 +617,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_2"/>
+              <widget class="QDateEdit" name="dateEdit_to"/>
              </item>
             </layout>
            </widget>
@@ -665,7 +711,7 @@
            <widget class="QTableView" name="tableView_flight"/>
           </item>
           <item>
-           <widget class="ClickableLabel" name="label_2">
+           <widget class="ClickableLabel" name="label_add">
             <property name="text">
              <string>添加航班 &gt;</string>
             </property>
@@ -1132,7 +1178,14 @@
          <item>
           <widget class="QPushButton" name="pushButton_order">
            <property name="text">
-            <string>订单管理</string>
+            <string>订单统计</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_order2">
+           <property name="text">
+            <string>订单查看</string>
            </property>
           </widget>
          </item>
