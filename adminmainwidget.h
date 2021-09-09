@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include "Admin.h"
+#include "flightsavewidget.h"
 #include <QSqlDatabase>
 
 namespace Ui {
@@ -25,6 +26,7 @@ private:
     void airlineInit();
     void orderInit();
     void orderAllInit();
+    FlightSaveWidget *fWidget;
 //    void changeSortFliter();
 //    void airlineSortFliter();
 };

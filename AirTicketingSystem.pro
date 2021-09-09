@@ -27,6 +27,8 @@ SOURCES += \
     cartitem.cpp \
     cartwidget.cpp \
     clickablelabel.cpp \
+    flightsaveitem.cpp \
+    flightsavewidget.cpp \
     main.cpp \
     loginwidget.cpp \
     mainwidget.cpp \
@@ -44,7 +46,8 @@ SOURCES += \
     Mother_order.cpp \
     Order.cpp \
     Flight.cpp \
-    Inquiry.cpp
+    Inquiry.cpp \
+    File.cpp
 
 HEADERS += \
     addflightwidget.h \
@@ -55,6 +58,8 @@ HEADERS += \
     cartitem.h \
     cartwidget.h \
     clickablelabel.h \
+    flightsaveitem.h \
+    flightsavewidget.h \
     loginwidget.h \
     mainwidget.h \
     mainwidgetminepart.h \
@@ -71,7 +76,8 @@ HEADERS += \
     Mother_order.h \
     Order.h \
     Flight.h \
-    Inquiry.h
+    Inquiry.h \
+    File.h
 
 FORMS += \
     addflightwidget.ui \
@@ -81,6 +87,8 @@ FORMS += \
     buyaddpersondialog.ui \
     cartitem.ui \
     cartwidget.ui \
+    flightsaveitem.ui \
+    flightsavewidget.ui \
     loginwidget.ui \
     mainwidget.ui \
     mainwidgetminepart.ui \

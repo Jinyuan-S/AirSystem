@@ -8,6 +8,7 @@
 #include <string>
 #include <map>
 #include <utility>
+#include <QMessageBox>
 using std::make_pair;
 using std::map;
 #include "addflightwidget.h"
@@ -20,6 +21,8 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
 
     //初始化标题
     setWindowTitle("航空管理系统");
+
+    //航班临时保存
 
     //初始化自动设置背景
     this->setAutoFillBackground(true);
@@ -148,11 +151,69 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
         airlineInit();
     });
 
+    fWidget = new FlightSaveWidget();
+    AddFlightWidget *addFliWidget  = new AddFlightWidget(nullptr, QString::fromLocal8Bit(admin->Company));
     connect(ui->label_add, &ClickableLabel::clicked, [=](){
-        AddFlightWidget *fWidget  = new AddFlightWidget();
+        addFliWidget->setWindowModality(Qt::ApplicationModal);
+        addFliWidget->show();
+    });
+
+    connect(ui->label_save, &ClickableLabel::clicked, [=](){
         fWidget->setWindowModality(Qt::ApplicationModal);
         fWidget->show();
+        static bool rep = 0;
+        if(rep == 0)
+        {
+            rep = 1;
+            fWidget->resize(500, 500);
+        }
+        else
+        {
+            rep = 0;
+            fWidget->resize(501, 501);
+        }
     });
+
+//    connect(addFliWidget, &AddFlightWidget::saved, [=](){
+//        Flight flight;
+//        addFliWidget->saveFlight(flight);
+//        addFliWidget->close();
+//        fWidget->flightVec.push_back(flight);
+//    });
+//    connect(addFliWidget, &AddFlightWidget::commited, addFliWidget, &AddFlightWidget::close);
+//    connect(addFliWidget, &AddFlightWidget::commited, addFliWidget, [=](){
+//        //TODO: 添加航班
+//    });
+
+    connect(addFliWidget, &AddFlightWidget::saved, [=](){
+        Flight flight;
+        bool Ok = addFliWidget->saveFlight(flight);
+        if(Ok)
+        {
+            fWidget->flightVec.push_back(flight);
+            addFliWidget->close();
+        }
+        else
+        {
+            QMessageBox::warning(addFliWidget, "航班添加", "请填写所有信息或检查航班号与航空公司是否对应！");
+        }
+    });
+
+    connect(addFliWidget, &AddFlightWidget::commited, [=](){
+        Flight flight;
+        bool Ok = addFliWidget->saveFlight(flight);
+        if(Ok)
+        {
+            addFliWidget->close();
+            //TODO: 添加航班
+            qDebug() << "添加航班";
+        }
+        else
+        {
+            QMessageBox::warning(addFliWidget, "航班添加", "请填写所有信息或检查航班号与航空公司是否对应！");
+        }
+    });
+
 
 
     //初始化数据库
@@ -212,6 +273,7 @@ void AdminMainWidget::airlineInit()
     if(ui->radioButton_all->isChecked() == true)
     {
         //without filter
+        model->setFilter("company='" + qstr + "'");
     }
     else if(ui->radioButton_his->isChecked() == true)
     {

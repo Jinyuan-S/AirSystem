@@ -34,7 +34,11 @@ private:
     void buyInit();
     void orderInit();
     void mineInit();
-    void addCart(vector<Children_order> orders);
+    bool addCart(vector<Children_order> orders);
+
+protected:
+    void closeEvent(QCloseEvent *event);
+
 signals:
     void added(vector<Children_order> vec);
 };

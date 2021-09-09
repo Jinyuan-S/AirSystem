@@ -94,6 +94,7 @@ OrdersItem::OrdersItem(QWidget *parent, Mother_order *orderTemp) :
             {
                 QMessageBox::information(this, "订单信息", "取消成功！");
                 updateOrderInUi();
+                emit canceled();
             }
             else
             {

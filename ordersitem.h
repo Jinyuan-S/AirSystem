@@ -26,6 +26,9 @@ private:
     OrdersDetailWidget *detailWidget;
     Mother_order *motherOrder;
     Order *order;
+
+signals:
+    void canceled();
 };
 
 #endif // ORDERSITEM_H

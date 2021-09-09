@@ -86,6 +86,10 @@ MainWidget::MainWidget(QWidget *parent, Buyer *buyerTemp) :
         ui->stackedWidget->setCurrentIndex(1);
     });
 
+    connect(ui->pushButton_refresh, &QPushButton::clicked, [=](){
+        orderInit();
+    });
+
     buyInit();
     orderInit();
     mineInit();
@@ -148,6 +152,7 @@ void MainWidget::buyInit()
         connect(item, &AirlinesItem::added, [=](vector<Children_order> vec){
             qDebug() << "MainWidget Slot Begin!";
             addCart(vec);
+//            if(!ret) QMessageBox::warning(this, "购物车", "您今天购买订单超过上限5个，请重新添加！");
         });
         item->setParent(ui->scrollAreaWidgetContents_3);
         item->move(5, (i - fliVec.begin()) * (120 + 10) + 10); //5让item和左边有点间隙
@@ -186,6 +191,7 @@ void MainWidget::newQueryWidget(int type)  //这里从输入框里提取信息
     connect(widget, &QueryWidget::added, [=](vector<Children_order> vec){
         qDebug() << "MainWidget Slot From QueryWidget Begin!";
         addCart(vec);
+//        if(!ret) QMessageBox::warning(this, "购物车", "您今天购买订单超过上限5个，请重新添加！");
     });
 
     if(type == 0)
@@ -207,6 +213,7 @@ void MainWidget::orderInit()
     //添加订单
     std::vector<Mother_order> motherVec;
     int orderNum = order->get_all_order(buyer->ID, motherVec);
+    qDebug() << "MainWidget orderInit" << orderNum;
     if(orderNum == 0)
     {
         ui->label_noOrder->show();
@@ -229,6 +236,16 @@ void MainWidget::orderInit()
             qDebug() << QString::fromLocal8Bit(motherVec.at(i).Sub5);
             OrdersItem *item = new OrdersItem(ui->scrollAreaWidgetContents, &motherVec.at(i));
             item->show();
+            connect(item, &OrdersItem::canceled, [=](){
+                QDate orderDate = QDate().fromString(QString::fromLocal8Bit(motherVec.at(i).Time.substr(0, 10)), "yyyy-MM-dd");
+                qDebug() << "orderTime is" << QString::fromLocal8Bit(motherVec.at(i).Time);
+                qDebug() << "dateTime.date is" << orderDate;
+                if(orderDate == QDate().currentDate())
+                {
+                    cWidget->five -= stoi(motherVec.at(i).Contain);
+                    qDebug() << "five is" << cWidget->five;
+                }
+            });
 //            item->setParent(ui->scrollAreaWidgetContents);
             qDebug() << i << "now" << item->geometry();
             item->move(5, i * (200 + 10) + 10); //5让item和左边有点间隙
@@ -244,10 +261,20 @@ void MainWidget::mineInit()
     ui->widget_3->setBuyer(buyer);
 }
 
-void MainWidget::addCart(vector<Children_order> orders)
+bool MainWidget::addCart(vector<Children_order> orders)
 {
     qDebug() << "MainWidget Slot REALLY Begin!";
-    cWidget->addOrder(orders);
+    return cWidget->addOrder(orders);
 }
 
 
+void MainWidget::closeEvent(QCloseEvent *event)
+{
+    qDebug() << "recording Five";
+    Write *write = new Write(buyer->ID + ".txt");
+    Write *write2 = new Write(buyer->ID + ".txt");
+    write2->append(string(QDate().currentDate().toString("yyyy-MM-dd").toLocal8Bit()));
+    write2->append(to_string(cWidget->five));
+    delete write;
+    delete write2;
+}
