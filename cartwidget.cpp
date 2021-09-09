@@ -42,12 +42,19 @@ CartWidget::CartWidget(QWidget *parent, Buyer *buyer) :
 
             //把票价添加一下
             motherOrder.Money = std::to_string(priceTot);
-            qDebug() << QString::fromLocal8Bit(motherOrder.Money);
+            qDebug() << "MONEY" << QString::fromLocal8Bit(motherOrder.Money);
+
+            //试一下
+//            string strTemp;
+//            int retTemp = order->cannot(tempChildOrderVec[0], strTemp);
+//            qDebug() << "cart " << retTemp << "==" << QString::fromLocal8Bit(strTemp);
 
             //买票判定
             int rec;
             Children_order recOrder;
+            qDebug() << "cart add_order begin!";
             int ret = order->add_order(motherOrder, tempChildOrderVec, rec, recOrder);
+            qDebug() << "cart add_order end!";
 //            返回值：
 //                0：成功购买
 //                1：当前正在飞机上

@@ -49,7 +49,7 @@ public:
 		3：来不及从新加航班目的地赶往下一班航班出发地
 	
 	*/
-	int cannot(Children_order& co, string& conflit);
+    int cannot(Children_order& co);
 
 private:
 	Database db;

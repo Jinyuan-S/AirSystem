@@ -24,8 +24,9 @@ private:
     Admin *admin;
     void airlineInit();
     void orderInit();
-    void changeSortFliter();
-    void airlineSortFliter();
+    void orderAllInit();
+//    void changeSortFliter();
+//    void airlineSortFliter();
 };
 
 #endif // ADMINMAINWIDGET_H
