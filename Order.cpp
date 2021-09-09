@@ -1,5 +1,5 @@
 #include "Order.h"
-#include <QDebug>
+
 int Order::get_all_order(string& id, vector<Mother_order>& vec) {
 	//SELECT * FROM mother_order WHERE who='zhangsan1';
 	string head = "SELECT * FROM mother_order WHERE who='";
@@ -74,20 +74,8 @@ int Order::add_order(Mother_order& mo, vector<Children_order>& vec, int& conf_id
 	string conflict = "empty";
 	int w = 0;  //记录下标
 	for (auto i = vec.begin(); i != vec.end(); i++, w++) {
-		int err = cannot((*i), conflict);
+		int err = cannot((*i));
 		if (err) {
-			//SELECT * FROM children_order WHERE children='';
-			string sql = "SELECT * FROM children_order WHERE children='" + conflict + "';";
-			vector<vector<string>> res;
-			db.fetch_data((char*)sql.c_str(), res);
-			conf.Children = res[0][0];
-			conf.Who = res[0][1];
-			conf.Airline = res[0][2];
-			conf.Date = res[0][3];
-			conf.Seat = res[0][4];
-			conf.Cabin = res[0][5];
-			conf.Money = res[0][6];
-			
 			conf_idx = w;  //记录下标
 			return err;
 		}
@@ -99,9 +87,9 @@ int Order::add_order(Mother_order& mo, vector<Children_order>& vec, int& conf_id
 	vector<string> sv;
 	for (auto i = vec.begin(); i != vec.end(); i++, j++) {
 		//INSERT INTO children_order(who,airline,date,seat,cabin,money) VALUES('li1234','shit','2021-9-02','C1','A','100');
-		string head = "INSERT INTO children_order(who,airline,date,seat,cabin,money) VALUES('";
+		string head = "INSERT INTO children_order(who,airline,date,seat,cabin,money,com) VALUES('";
 		string tail = "');";
-		string sql = head + vec[j].Who + "','" + vec[j].Airline + "','" + vec[j].Date + "','" + vec[j].Seat + "','" + vec[j].Cabin + "','" + vec[j].Money + tail;
+		string sql = head + vec[j].Who + "','" + vec[j].Airline + "','" + vec[j].Date + "','" + vec[j].Seat + "','" + vec[j].Cabin + "','" + vec[j].Money + "','" + vec[j].Airline.substr(0,2) + tail;
 		db.query((char*)sql.c_str());
 		
 		//SELECT A_remain,A_sold,total_buyer,total_fare FROM air WHERE airline='CA8214' AND date='9.2';
@@ -164,10 +152,7 @@ int Order::add_order(Mother_order& mo, vector<Children_order>& vec, int& conf_id
 	mo.Sub3 = sv[2];
 	mo.Sub4 = sv[3];
 	mo.Sub5 = sv[4];
-    qDebug() << "Sub1" << QString::fromLocal8Bit(mo.Sub1);
-    qDebug() << "Sub2" << QString::fromLocal8Bit(mo.Sub2);
-
-    qDebug() << "Sub5" << QString::fromLocal8Bit(mo.Sub5);
+  
     //INSERT INTO mother_order(mother,who,time,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES();
 	string head = "INSERT INTO mother_order(who,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES('";
     string tail = "');";
@@ -225,17 +210,8 @@ void Order::where2where(vector<string>airline, vector<vector<string>> &res) {
 }
 
 bool Order::cmp_timei(vector<string> f1, vector<string> f2) {
-	//s1<s2返回ture(从小到大）
-	int p = stoi(f1[3].substr(0, 2));
-	int q = stoi(f2[3].substr(0, 2));
-	if (p > q) return false;
-	else if (p < q) return true;
-	else {
-		int m = stoi(f1[3].substr(3, 2));
-		int n = stoi(f2[3].substr(3, 2));
-		if (m > n) return false;
-		else return true;  //没有做等于的判定，可能出bug
-	}
+	//s1<s2返回ture(从小到大）hh:mm:ss
+	return(to_minute(f1[3]) < to_minute(f2[3]));
 }
 
 
@@ -339,7 +315,7 @@ int Order::cannot(Children_order& co) {
 }
 
 
-inline int Order::to_minute(string& time) {
+int Order::to_minute(string& time) {
 	string m = time.substr(0, 2);  //小时
 	return (std::stoi(m) * 60 + std::stoi(time.substr(3, 2))); //上一次航班的总分钟
 }
