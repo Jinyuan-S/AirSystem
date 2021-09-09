@@ -48,8 +48,8 @@ public:
 		2：不能及时从上一趟航班将落地赶到新加航班起飞地
 		3：来不及从新加航班目的地赶往下一班航班出发地
 	
-	*/
-	int cannot(Children_order& co);
+    */
+    int cannot(Children_order& co);
 
 private:
 	Database db;

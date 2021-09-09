@@ -6,6 +6,10 @@
 #include <QSqlDatabase>
 #include <QSqlTableModel>
 #include <string>
+#include <map>
+#include <utility>
+using std::make_pair;
+using std::map;
 #include "addflightwidget.h"
 
 AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
@@ -106,36 +110,38 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
         }
     });
 
+//    QGroupBox
+
     connect(ui->radioButton, &QRadioButton::toggled, [=](){
-        airlineInit();
+        if(ui->radioButton->isChecked() == true) airlineInit();
     });
 
     connect(ui->radioButton_2, &QRadioButton::toggled, [=](){
-       airlineInit();
+       if(ui->radioButton_2->isChecked() == true) airlineInit();
     });
 
     connect(ui->radioButton_3, &QRadioButton::toggled, [=](){
-       airlineInit();
+       if(ui->radioButton_3->isChecked() == true) airlineInit();
     });
 
     connect(ui->radioButton_all, &QRadioButton::toggled, [=](){
-       airlineInit();
+       if(ui->radioButton_all->isChecked() == true) airlineInit();
     });
 
     connect(ui->radioButton_his, &QRadioButton::toggled, [=](){
-       airlineInit();
+       if(ui->radioButton_his->isChecked() == true) airlineInit();
     });
 
     connect(ui->radioButton_spe, &QRadioButton::toggled, [=](){
-       airlineInit();
+       if(ui->radioButton_spe->isChecked() == true) airlineInit();
     });
 
     connect(ui->radioButton_no, &QRadioButton::toggled, [=](){
-       airlineInit();
+       if(ui->radioButton_no->isChecked() == true) airlineInit();
     });
 
     connect(ui->dateEdit_from, &QDateEdit::editingFinished, [=](){
-        airlineInit();
+       airlineInit();
     });
 
     connect(ui->dateEdit_to, &QDateEdit::editingFinished, [=](){
@@ -161,10 +167,7 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
 
     airlineInit();
     orderInit();
-
-
-    //筛选条件后更改订单统计
-
+    orderAllInit();
 
     //3.我的部分
     ui->widget_3->setAdmin(admin);
@@ -178,10 +181,11 @@ AdminMainWidget::~AdminMainWidget()
 
 void AdminMainWidget::airlineInit()
 {
+    //航班信息
     QSqlTableModel *model = new QSqlTableModel(this, *db);
     model->setTable("air");
     QString qstr = QString::fromLocal8Bit(admin->Company);
-    model->setFilter("company = '" + qstr + "'");
+//    model->setFilter("company = '" + qstr + "'");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     if(ui->radioButton->isChecked() == true)
     {
@@ -211,18 +215,18 @@ void AdminMainWidget::airlineInit()
     }
     else if(ui->radioButton_his->isChecked() == true)
     {
-        qDebug() << "(('date'<" + dateStr + ") OR ('time_on'<'" + timeStr + "' AND 'date'=" + dateStr + "))";
-        model->setFilter("'date'<" + dateStr + " OR ('time_on'<'" + timeStr + "' AND 'date'=" + dateStr + ")"); //历史
+        qDebug() << "((date<'" + dateStr + "') OR (time_on<'" + timeStr + "' AND date='" + dateStr + "'))" + " AND company='" + qstr + "'";
+        model->setFilter("((date<'" + dateStr + "') OR (time_on<'" + timeStr + "' AND date='" + dateStr + "'))" + " AND company='" + qstr + "'"); //历史
     }
     else if(ui->radioButton_no->isChecked() == true)
     {
-        qDebug() << "(('date'>" + dateStr + ") OR ('time_on'>'" + timeStr + "' AND 'date'=" + dateStr + "))";
-        model->setFilter("'date'>" + dateStr + " OR ('time_on'>'" + timeStr + "' AND 'date'=" + dateStr + ")"); //未来
+        qDebug() << "date>'" + dateStr + "' OR (time_on>'" + timeStr + "' AND date='" + dateStr + "')" + " AND company='" + qstr + "'";
+        model->setFilter("(date>'" + dateStr + "' OR (time_on>'" + timeStr + "' AND date='" + dateStr + "'))" + " AND company='" + qstr + "'"); //未来
     }
     else
     {
-        qDebug() << "(('date'>=" + dateFrom + ") AND 'date'<=" + dateTo + ")";
-        model->setFilter("'date'>=" + dateFrom + " AND 'date'<=" + dateTo + ")");
+        qDebug() << "((date>='" + dateFrom + "') AND date<='" + dateTo + "')" + " AND company='" + qstr + "'";
+        model->setFilter("((date>='" + dateFrom + "') AND date<='" + dateTo + "')" + " AND company='" + qstr + "'");
     }
 
     ui->tableView_order->clearSpans();
@@ -238,35 +242,13 @@ void AdminMainWidget::airlineInit()
     }
 }
 
-void AdminMainWidget::airlineSortFliter()
-{
-    QSqlTableModel *model = new QSqlTableModel(this, *db);
-    model->setTable("air");
-    QString qstr = QString::fromLocal8Bit(admin->Company);
-    model->setFilter("company = '" + qstr + "'");
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(15, Qt::DescendingOrder);
-    model->select(); //选取整个表的所有行
-    model->removeColumn(0); //隐藏第1行
-    model->removeColumns(18, 4); //隐藏第1行
-    ui->tableView_order->setModel(model);
-    ui->tableView_order->show();
-    QStringList strList = QStringList() << "航班号" << "始发地" << "目的地" << "航空公司" << "起飞时间" << "到达时间" << "是否跨天"
-                                        << "机型" << "头等舱剩余" << "商务舱剩余" << "经济舱剩余"
-                                        << "头等舱已售" << "商务舱已售" << "经济舱已售"
-                                        << "已购买人次" << "准点率(%)" << "总收入" << "日期";
-    for(auto i = strList.begin(); i != strList.end(); ++i)
-    {
-        model->setHeaderData((i - strList.begin()), Qt::Orientation::Horizontal, *i);
-    }
-}
-
 void AdminMainWidget::orderInit()
 {
+    //订单 in 航班
     QSqlTableModel *model = new QSqlTableModel(this, *db);
     model->setTable("air");
     QString qstr = QString::fromLocal8Bit(admin->Company);
-    model->setFilter("company = '" + qstr + "'");
+    model->setFilter("company='" + qstr + "'");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select(); //选取整个表的所有行
     model->removeColumn(0); //隐藏第1行
@@ -280,10 +262,37 @@ void AdminMainWidget::orderInit()
     }
     ui->tableView_flight->setModel(model);
     ui->tableView_flight->show();
-
 }
 
-void AdminMainWidget::changeSortFliter()
+void AdminMainWidget::orderAllInit()
 {
-
+    //订单
+    QSqlTableModel *model = new QSqlTableModel(this, *db);
+    model->setTable("children_order");
+    QString qstrOrigin = QString::fromLocal8Bit(admin->Company);
+    QString qstr;
+    map<QString, QString> mapAir;
+    mapAir.insert(make_pair("中国国航", "CA"));
+    mapAir.insert(make_pair("东方航空", "MU"));
+    mapAir.insert(make_pair("首都航空", "JD"));
+    mapAir.insert(make_pair("南方航空", "CZ"));
+    mapAir.insert(make_pair("海南航空", "HU"));
+    mapAir.insert(make_pair("河北航空", "NS"));
+    mapAir.insert(make_pair("吉祥航空", "HO"));
+    mapAir.insert(make_pair("山东航空", "SC"));
+    mapAir.insert(make_pair("厦门航空", "MF"));
+    auto iter = mapAir.find(qstrOrigin);
+    if(iter != mapAir.end()) qstr = iter->second;
+    qDebug() << "mapAir Find" << qstr;
+    model->setFilter("com='" + qstr + "'");
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->select(); //选取整个表的所有行
+    model->removeColumn(7); //隐藏第8行航空公司
+    QStringList strList = QStringList() << "订单号" << "购买人姓名" << "航班号" << "日期" << "座位号" << "舱位(A头等舱, B商务舱, C经济舱)" << "付款金额";
+    for(auto i = strList.begin(); i != strList.end(); ++i)
+    {
+        model->setHeaderData((i - strList.begin()), Qt::Orientation::Horizontal, *i);
+    }
+    ui->tableView_orderAll->setModel(model);
+    ui->tableView_orderAll->show();
 }

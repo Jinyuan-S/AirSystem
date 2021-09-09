@@ -159,7 +159,17 @@ void MainWidget::buyInit()
     connect(ui->label_cart, &ClickableLabel::clicked, [=](){
         cWidget->setWindowModality(Qt::ApplicationModal);
         cWidget->show();
-        cWidget->resize(500, 400);
+        static bool two = 0;
+        if(two == 0)
+        {
+            cWidget->resize(500, 400);
+            two = 1;
+        }
+        else
+        {
+            cWidget->resize(501, 401);
+            two = 0;
+        }
     });
 
     connect(cWidget, &CartWidget::closed, [=](){
