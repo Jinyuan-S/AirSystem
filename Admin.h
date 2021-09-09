@@ -24,6 +24,8 @@ public:
     
     //判断飞行员
     int fly(Flight& flt, int& which);
+    //添加航班0：正常，1：航班已存在，2：飞行员冲突
+    int add_flight(Flight f);
     
 
 private:

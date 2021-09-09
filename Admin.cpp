@@ -253,96 +253,32 @@ int Admin::fly2(Flight& flt) {
 
 
 
+int Admin::add_flight(Flight f) {
+	//SELECT airline FROM air WHERE airline='CA111';
+	string s1 = "SELECT airline FROM air WHERE airline='"+ f.Airline +"' AND date='"+ f.Date +"';";
+	if (db.query((char*)s1.c_str())) {
+		return 1; //该航班已经存在
+	}
+	else {
+		int which = 0;
+		int plt = fly(f, which);
+		if (!plt) {
+			return 2; //飞行员冲突
+		}
+		else {
+			string sql = "INSERT INTO air(airline,origin,destination,company,time_on,time_off,tomorrow,model,A_remain,B_remain,C_remain,A_sold,B_sold,C_sold,total_buyer,total_fare,date,rate,price,pilot1,pilot2) VALUES('"
+				+ f.Airline +"','" + f.Origin + "','"+ f.Destination + "','"+f.Company + "','"+f.Time_on + "','"+f.Time_off + "','"+ f.Tomorrow + "','"+f.Model + "','"+f.A_remain + "','"+f.B_remain + "','"+f.C_remain + "','"+f.A_sold + "','"+f.B_sold + "','"+f.C_sold + "','"+f.Total_buyer + "','"+f.Total_fare + "','"+f.Date + "','"+f.Rate + "','"+f.Price + "','"+f.Pilot1 + "','"+f.Pilot2+ "');";
+			db.query((char*)sql.c_str());
+			return 0;
+		}
+	}
+}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//int Admin::whether1(Flight& f) {    //还没改pilot2的问题，先改flight里的问题。
-//	//SELECT time_on,time_off FROM air WHERE pilot='苗轩全';
-//
-//	string s3 = "SELECT time_on,time_off,tomorrow FROM air WHERE pilot1='" + f.Pilot1 + "';";
-//	string s4 = "SELECT time_on,time_off,tomorrow FROM air WHERE airline='" + f.Airline + "';";
-//	if (!db.query((char*)s3.c_str()))
-//		return 1; //找不到返回1
-//	else if (!db.query((char*)s4.c_str()))
-//		return 3; //航班重复返回3
-//	else {
-//		string tmp = f.Time_off; 
-//
-//		if (f.Tomorrow == "1") { //+24
-//			string h = tmp.substr(0, 2);
-//			string m = tmp.substr(2, 3);
-//
-//			h = std::to_string(std::stoi(h) + 24);
-//
-//			tmp = h + m;
-//		}
-//		vector<vector<string>> t;
-//		db.fetch_data((char*)s3.c_str(), t);
-//
-//		for (auto j = t.begin(); j != t.end(); j++) {
-//
-//			(*j)[0] = (*j)[0].substr(0, 5);//hh:mm
-//			(*j)[1] = (*j)[0].substr(0, 5);
-//
-//			if ((*j)[2] == "1") {  //+24
-//				string h = (*j)[1].substr(0, 2);
-//				string m = (*j)[1].substr(2, 3);
-//
-//				h = std::to_string(std::stoi(h) + 24);
-//
-//				(*j)[1] = h + m;
-//			}
-//		}
-//
-//		auto i = t.begin();
-//		while ((*i)[1] < f.Time_on && i != t.end())  i++;
-//		if (i == t.end()) {
-//
-//			//INSERT INTO air(airline,origin,destination,company,time_on,time_off,tomorrow,model,A_remain,B_remain,C_remain,date,price,pilot) VALUES();
-//			string s1 = "INSERT INTO air(airline,origin,destination,company,time_on,time_off,tomorrow,model,A_remain,B_remain,C_remain,date,price,pilot) VALUES('";
-//			string s2 = "');";
-//			string sql = s1 + f.Airline + "','" + f.Origin + "','" + f.Destination + "','" + f.Company + "','" + f.Time_on + "','" + f.Time_off + "','" + f.Tomorrow + "','"
-//				+ f.Model + "','" + f.A_remain + "','" + f.B_remain + "','" + f.C_remain + "','" + f.Date + "','" + f.Price + "','" + f.Pilot + s2;
-//
-//			db.query((char*)sql.c_str());
-//
-//			return 0;
-//		}
-//		else {
-//			if (tmp < (*i)[0]) {
-//
-//				//INSERT INTO air(airline,origin,destination,company,time_on,time_off,tomorrow,model,A_remain,B_remain,C_remain,date,price,pilot) VALUES();
-//				string s1 = "INSERT INTO air(airline,origin,destination,company,time_on,time_off,tomorrow,model,A_remain,B_remain,C_remain,date,price,pilot) VALUES('";
-//				string s2 = "');";
-//				string sql = s1 + f.Airline + "','" + f.Origin + "','" + f.Destination + "','" + f.Company + "','" + f.Time_on + "','" + f.Time_off + "','" + f.Tomorrow + "','"
-//					+ f.Model + "','" + f.A_remain + "','" + f.B_remain + "','" + f.C_remain + "','" + f.Date + "','" + f.Price + "','" + f.Pilot + s2;
-//
-//				db.query((char*)sql.c_str());
-//
-//				return 0;
-//			}
-//			else return 2;  //冲突
-//		}
-//
-//
-//	}
-//	
-//}
 
 
 //void Admin::order_by_attendance(string& begin, string& end, vector<Flight>& res) {
