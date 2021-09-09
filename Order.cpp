@@ -1,5 +1,5 @@
 #include "Order.h"
-#include <QDebug>
+
 int Order::get_all_order(string& id, vector<Mother_order>& vec) {
 	//SELECT * FROM mother_order WHERE who='zhangsan1';
 	string head = "SELECT * FROM mother_order WHERE who='";
@@ -74,20 +74,8 @@ int Order::add_order(Mother_order& mo, vector<Children_order>& vec, int& conf_id
 	string conflict = "empty";
 	int w = 0;  //记录下标
 	for (auto i = vec.begin(); i != vec.end(); i++, w++) {
-		int err = cannot((*i), conflict);
+		int err = cannot((*i));
 		if (err) {
-			//SELECT * FROM children_order WHERE children='';
-			string sql = "SELECT * FROM children_order WHERE children='" + conflict + "';";
-			vector<vector<string>> res;
-			db.fetch_data((char*)sql.c_str(), res);
-			conf.Children = res[0][0];
-			conf.Who = res[0][1];
-			conf.Airline = res[0][2];
-			conf.Date = res[0][3];
-			conf.Seat = res[0][4];
-			conf.Cabin = res[0][5];
-			conf.Money = res[0][6];
-			
 			conf_idx = w;  //记录下标
 			return err;
 		}
@@ -99,9 +87,9 @@ int Order::add_order(Mother_order& mo, vector<Children_order>& vec, int& conf_id
 	vector<string> sv;
 	for (auto i = vec.begin(); i != vec.end(); i++, j++) {
 		//INSERT INTO children_order(who,airline,date,seat,cabin,money) VALUES('li1234','shit','2021-9-02','C1','A','100');
-		string head = "INSERT INTO children_order(who,airline,date,seat,cabin,money) VALUES('";
+		string head = "INSERT INTO children_order(who,airline,date,seat,cabin,money,com) VALUES('";
 		string tail = "');";
-		string sql = head + vec[j].Who + "','" + vec[j].Airline + "','" + vec[j].Date + "','" + vec[j].Seat + "','" + vec[j].Cabin + "','" + vec[j].Money + tail;
+		string sql = head + vec[j].Who + "','" + vec[j].Airline + "','" + vec[j].Date + "','" + vec[j].Seat + "','" + vec[j].Cabin + "','" + vec[j].Money + "','" + vec[j].Airline.substr(0,2) + tail;
 		db.query((char*)sql.c_str());
 		
 		//SELECT A_remain,A_sold,total_buyer,total_fare FROM air WHERE airline='CA8214' AND date='9.2';
@@ -164,10 +152,7 @@ int Order::add_order(Mother_order& mo, vector<Children_order>& vec, int& conf_id
 	mo.Sub3 = sv[2];
 	mo.Sub4 = sv[3];
 	mo.Sub5 = sv[4];
-    qDebug() << "Sub1" << QString::fromLocal8Bit(mo.Sub1);
-    qDebug() << "Sub2" << QString::fromLocal8Bit(mo.Sub2);
-
-    qDebug() << "Sub5" << QString::fromLocal8Bit(mo.Sub5);
+  
     //INSERT INTO mother_order(mother,who,time,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES();
 	string head = "INSERT INTO mother_order(who,is_cancel,is_paid,money,contain,sub1,sub2,sub3,sub4,sub5) VALUES('";
     string tail = "');";
@@ -225,21 +210,12 @@ void Order::where2where(vector<string>airline, vector<vector<string>> &res) {
 }
 
 bool Order::cmp_timei(vector<string> f1, vector<string> f2) {
-	//s1<s2返回ture(从小到大）
-	int p = stoi(f1[3].substr(0, 2));
-	int q = stoi(f2[3].substr(0, 2));
-	if (p > q) return false;
-	else if (p < q) return true;
-	else {
-		int m = stoi(f1[3].substr(3, 2));
-		int n = stoi(f2[3].substr(3, 2));
-		if (m > n) return false;
-		else return true;  //没有做等于的判定，可能出bug
-	}
+	//s1<s2返回ture(从小到大）hh:mm:ss
+	return(to_minute(f1[3]) < to_minute(f2[3]));
 }
 
 
-int Order::cannot(Children_order& co, string& conflict) {
+int Order::cannot(Children_order& co) {
 	//SELECT * FROM children_order WHERE who='li1234' AND date='2021-09-05';
 	string s1 = "SELECT * FROM children_order WHERE who='" + co.Who + "' AND date='" + co.Date + "';";
 	if (!db.query((char*)s1.c_str()))
@@ -252,87 +228,94 @@ int Order::cannot(Children_order& co, string& conflict) {
 		vector<string> coinfo;  //新加订单信息
 		db.fetch_data((char*)s3.c_str(), coinfotmp);  //拿到新加订单的航班信息
 		coinfo = coinfotmp[0];
+
+		//int co_on = to_minute(coinfo[2]);  //要添加航班的起飞时间min
+		//int co_off = to_minute(coinfo[3]);  //要添加航班的降落信息min
 	
+		vector<vector<string>> airinfo;
 		for (auto i = v1.begin(); i != v1.end(); i++) {
 			//SELECT origin,destination,time_on,time_off,tomorrow,date FROM air WHERE airline='CA111' AND date='2021-8-26';
-			string s2 = "SELECT origin,destination,time_on,time_off,tomorrow,date,airline FROM air WHERE airline='" + (*i)[2] +"' AND date='" + (*i)[3] +"';";
-			vector<vector<string>> airinfo; //拿到此人当天所有航班信息
-			db.fetch_data((char*)s2.c_str(), airinfo);
+			string s2 = "SELECT origin,destination,time_on,time_off,tomorrow,date,airline FROM air WHERE airline='" + (*i)[2] + "' AND date='" + (*i)[3] + "';";
+			vector<vector<string>> info; //拿到这个订单的航班信息
+			db.fetch_data((char*)s2.c_str(), info);
+			airinfo.push_back(info[0]);
+		}
+		for (auto j = airinfo.begin(); j != airinfo.end(); j++) {
+			if ((*j)[4] == "1") { //tomorrow = 1 +24
+			string h = (*j)[3].substr(0, 2);
+			string m = (*j)[3].substr(2, 6);
 
-			for (auto j = airinfo.begin(); j != airinfo.end(); j++) {
-				if ((*j)[4] == "1") { //tomorrow = 1 +24
-				string h = (*j)[3].substr(0, 2);
-				string m = (*j)[3].substr(2, 6);
+			h = std::to_string(std::stoi(h) + 24);
 
-				h = std::to_string(std::stoi(h) + 24);
-
-				(*j)[3] = h + m;   //还是hh:mm:ss的形式
-				}
-
+			(*j)[3] = h + m;   //还是hh:mm:ss的形式
 			}
-			sort(airinfo.begin(), airinfo.end(), cmp_timei); //按照降落时间从小到大排序
+			//(*j)[2] = to_minute((*j)[2]);  //timeon转成min
+			//(*j)[3] = to_minute((*j)[3]);  //timeoff转成min
+		}
+		sort(airinfo.begin(), airinfo.end(), cmp_timei); //按照降落时间从小到大排序,还是string hh:mm:ss的形式
 
-			auto k = airinfo.begin();
-			while ((*i)[3] < coinfo[2]) i++;
-			if (i == airinfo.end()) { //继续判断新订单起飞地和上一个订单目的地时间够不够飞
+		auto k = airinfo.begin();
+		while (to_minute((*k)[3]) < to_minute(coinfo[2])) k++; //*k3:timeoff(string)  coinfo2:timeon（string）
+		if (k == airinfo.end()) { //继续判断新订单起飞地和上一个订单目的地时间够不够飞
 
-				//string last_destination = airinfo.back()[1];
-				int dur = between(airinfo.back()[1], coinfo[0]); //拿到两个城市间距离（分钟）
-				//最后一班降落时间 airinfo.back()[3]
-				int last_time = to_minute(airinfo.back()[3]); //上一次航班的总分钟（不加距离）
-				//新航班起飞时间coinfo[2]
-				int new_time = to_minute(coinfo[2]); //新加航班的总分钟
+			//string last_destination = airinfo.back()[1];
+			int dur = between(airinfo.back()[1], coinfo[0]); //拿到两个城市间距离（分钟）
+			//最后一班降落时间 airinfo.back()[3]
+			int last_time = to_minute(airinfo.back()[3]) + dur; //上一次航班的总分钟（加距离）
+			//新航班起飞时间coinfo[2]
+			int new_time = to_minute(coinfo[2]); //新加航班的总分钟
 				
-				if (last_time < new_time) {
-					int last_time_dur = last_time + dur;
-					if (last_time_dur > new_time) {
-						conflict = get_conflict(airinfo.back()[6], airinfo.back()[5]);
-						return 2; //不能及时赶到目的地
-					}
-					else return 0; //这波终于他妈的可以飞了
-				}
-				else {
-					//airline = airinfo.back[6]   date = airinfo.back[5]
-					conflict = get_conflict(airinfo.back()[6], airinfo.back()[5]);
-					return 1; //当前正在飞机上
-				}
-
+			if (last_time > new_time) {
+				//airinfo.back()[6]:airline     airinfo.back()[5]:date
+				//conflict = get_conflict(airinfo.back()[6], airinfo.back()[5]);
+				return 2; //不能及时赶到目的地
+					
 			}
 			else {
-				//新加航班落地时间：coinfo[3]
-				//新加航班后一个航班的起飞时间：(*i)[2]
-				//新加航班降落地点：coinfo[1]
-				//新加航班后一个航班的起飞地点：(*i)[0]
-
-				int new_time = to_minute(coinfo[3]);
-				int next_time = to_minute((*i)[2]);
-				if (next_time > new_time) {
-					int new_time_dur = to_minute(coinfo[3]) + between(coinfo[1], (*i)[0]); //加距离
-					if (new_time_dur > new_time) {
-						conflict = get_conflict((*i)[6], (*i)[5]); //返回冲突订单号
-						return 3; //来不及从新加航班目的地赶往下一班航班出发地
-					}
-					else return 0; // 可以飞
-					
-				}
-				else {
-					conflict = get_conflict((*i)[6], (*i)[5]); //返回冲突订单号
-					return 1;
-				}
-
+	
+				return 0; //可以飞
 			}
 
+		}
+		else {
+
+			//新加航班降落地点：coinfo[1]
+			//新加航班后一个航班的起飞地点：(*k)[0]
+
+			int new_time = to_minute(coinfo[3]); //新加航班落地时间：coinfo[3]
+			int next_time = to_minute((*k)[2]); //新加航班后一个航班的起飞时间：(*k)[2]
+			int new_ori = to_minute(coinfo[2]); //新加航班起飞时间：coinfo[2]
+			int last_ld = to_minute((*(k - 1))[3]); //新加航班前一个航班的落地时间：(*(k-1))[3]
 			
+			if (next_time > new_time) {  
+				int dur1 = between(coinfo[1], (*k)[0]);
+				int new_time_dur = to_minute(coinfo[3]) + dur1; //加距离
+				if (new_time_dur > new_time) {
+
+					return 3; //来不及从新加航班目的地赶往下一班航班出发地
+				}
+				else {//判断前一个航班落地到新加航班起飞能不能飞
+					if ((last_ld + dur1) > new_ori) {
+						return 2; //
+					}
+					else return 0;
+
+				}
+					
+			}
+			else {
+
+				return 1; //在飞机上
+			}
+
 		}
 
-
 	}
-	
 
 }
 
 
-inline int Order::to_minute(string& time) {
+int Order::to_minute(string& time) {
 	string m = time.substr(0, 2);  //小时
 	return (std::stoi(m) * 60 + std::stoi(time.substr(3, 2))); //上一次航班的总分钟
 }

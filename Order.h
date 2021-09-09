@@ -49,14 +49,14 @@ public:
 		3：来不及从新加航班目的地赶往下一班航班出发地
 	
 	*/
-	int cannot(Children_order& co, string& conflit);
+	int cannot(Children_order& co);
 
 private:
 	Database db;
 	//比较函数，按照落地时间比较大小（从小到大)
 	static bool cmp_timei(vector<string> f1, vector<string> f2);
 	//将hh:mm:ss的形式转化成分钟
-	inline int to_minute(string& time);
+	static inline int to_minute(string& time);
 	//查询两个地方之间的距离（分钟）
 	inline int between(string& ori, string& des);
 	//通过航班号和日期在children_order中寻找订单号children
