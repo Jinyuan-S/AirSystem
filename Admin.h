@@ -35,7 +35,7 @@ private:
 
     inline void tail(string& sql, vector<Flight> res); //«Î«Ûsql”Ôæ‰£¨»°µ√vector<Flight>
 
-    static bool cmp_time_inc(vector<string> f1, vector<string> f2);
+    static bool cmp_time_i(vector<string> f1, vector<string> f2);
     inline int between(string& ori, string& des);
     inline int to_minute(string& time);
     
