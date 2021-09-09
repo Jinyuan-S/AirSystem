@@ -214,7 +214,7 @@ void Order::where2where(vector<string>airline, vector<vector<string>> &res) {
 
 bool Order::cmp_timei(vector<string> f1, vector<string> f2) {
 	//s1<s2返回ture(从小到大）hh:mm:ss
-	return(to_minute(f1[3]) < to_minute(f2[3]));
+	return(std::stoi(f1[3]) < std::stoi(f2[3]));
 }
 
 
@@ -274,8 +274,109 @@ int Order::cannot(Children_order& co) {
             }
         }
     }
-
 }
+
+//int Order::cannot(Children_order& co) {
+//	//SELECT * FROM children_order WHERE who='li1234' AND date='2021-09-05';
+//	string s1 = "SELECT * FROM children_order WHERE who='" + co.Who + "' AND date='" + co.Date + "';";
+//	if (!db.query((char*)s1.c_str()))
+//		return 0; //如果当日没有任何订单就可以买
+//	else {
+//		vector<vector<string>> v1;
+//		db.fetch_data((char*)s1.c_str(), v1);  //拿到该乘客当日所有订单
+//		string s3 = "SELECT origin,destination,time_on,time_off,tomorrow,date FROM air WHERE airline='" + co.Airline + "' AND date='" + co.Date + "';";
+//		vector<vector<string>> coinfotmp;
+//		vector<string> coinfo;  //新加订单信息
+//		db.fetch_data((char*)s3.c_str(), coinfotmp);  //拿到新加订单的航班信息
+//		coinfo = coinfotmp[0];
+//
+//		//int co_on = to_minute(coinfo[2]);  //要添加航班的起飞时间min
+//		//int co_off = to_minute(coinfo[3]);  //要添加航班的降落信息min
+//	
+//		vector<vector<string>> airinfo;
+//		for (auto i = v1.begin(); i != v1.end(); i++) {
+//			//SELECT origin,destination,time_on,time_off,tomorrow,date FROM air WHERE airline='CA111' AND date='2021-8-26';
+//			string s2 = "SELECT origin,destination,time_on,time_off,tomorrow,date,airline FROM air WHERE airline='" + (*i)[2] + "' AND date='" + (*i)[3] + "';";
+//			vector<vector<string>> info; //拿到这个订单的航班信息
+//			db.fetch_data((char*)s2.c_str(), info);
+//			airinfo.push_back(info[0]);
+//		}
+//		for (auto j = airinfo.begin(); j != airinfo.end(); j++) {
+//			if ((*j)[4] == "1") { //tomorrow = 1 +24
+//			string h = (*j)[3].substr(0, 2);
+//			string m = (*j)[3].substr(2, 6);
+//
+//			h = std::to_string(std::stoi(h) + 24);
+//
+//			(*j)[3] = h + m;   //还是hh:mm:ss的形式
+//			}
+//			//(*j)[2] = to_minute((*j)[2]);  //timeon转成min
+//			//(*j)[3] = to_minute((*j)[3]);  //timeoff转成min
+//		}
+//		sort(airinfo.begin(), airinfo.end(), cmp_timei); //按照降落时间从小到大排序,还是string hh:mm:ss的形式
+//
+//		auto k = airinfo.begin();
+//		while (to_minute((*k)[3]) < to_minute(coinfo[2])) k++; //*k3:timeoff(string)  coinfo2:timeon（string）
+//		if (k == airinfo.end()) { //继续判断新订单起飞地和上一个订单目的地时间够不够飞
+//
+//			//string last_destination = airinfo.back()[1];
+//			int dur = between(airinfo.back()[1], coinfo[0]); //拿到两个城市间距离（分钟）
+//			//最后一班降落时间 airinfo.back()[3]
+//			int last_time = to_minute(airinfo.back()[3]) + dur; //上一次航班的总分钟（加距离）
+//			//新航班起飞时间coinfo[2]
+//			int new_time = to_minute(coinfo[2]); //新加航班的总分钟
+//				
+//			if (last_time > new_time) {
+//				//airinfo.back()[6]:airline     airinfo.back()[5]:date
+//				//conflict = get_conflict(airinfo.back()[6], airinfo.back()[5]);
+//				return 2; //不能及时赶到目的地
+//					
+//			}
+//			else {
+//	
+//				return 0; //可以飞
+//			}
+//
+//		}
+//		else {
+//
+//			//新加航班降落地点：coinfo[1]
+//			//新加航班后一个航班的起飞地点：(*k)[0]
+//
+//			int new_time = to_minute(coinfo[3]); //新加航班落地时间：coinfo[3]
+//			int next_time = to_minute((*k)[2]); //新加航班后一个航班的起飞时间：(*k)[2]
+//
+//			if (next_time > new_time) {  
+//				int dur1 = between(coinfo[1], (*k)[0]);
+//				int new_time_dur = to_minute(coinfo[3]) + dur1; //加距离
+//				if (new_time_dur > new_time) {
+//
+//					return 3; //来不及从新加航班目的地赶往下一班航班出发地
+//				}
+//				else {//判断前一个航班落地到新加航班起飞能不能飞
+//					if (k != airinfo.begin()) { //如果是第一个就不取（i-1）避免空指针访问
+//						int last_ld = to_minute((*(k - 1))[3]); //新加航班前一个航班的落地时间：(*(k-1))[3]
+//						int new_ori = to_minute(coinfo[2]); //新加航班起飞时间：coinfo[2]
+//						if ((last_ld + dur1) > new_ori) {
+//							return 2; //
+//						}
+//						else return 0;
+//					}
+//					else return 0;
+//
+//				}
+//					
+//			}
+//			else {
+//
+//				return 1; //在飞机上
+//			}
+//
+//		}
+//
+//	}
+//
+//}
 
 
 int Order::to_minute(string& time) {

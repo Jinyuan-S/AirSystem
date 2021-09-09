@@ -24,6 +24,8 @@ public:
     
     //判断飞行员
     int fly(Flight& flt, int& which);
+    //添加航班0：正常，1：航班已存在，2：飞行员冲突
+    int add_flight(Flight f);
     
 
 private:
@@ -35,7 +37,7 @@ private:
 
     inline void tail(string& sql, vector<Flight> res); //请求sql语句，取得vector<Flight>
 
-    static bool cmp_time_inc(vector<string> f1, vector<string> f2);
+    static bool cmp_time_i(vector<string> f1, vector<string> f2);
     inline int between(string& ori, string& des);
     inline int to_minute(string& time);
     
