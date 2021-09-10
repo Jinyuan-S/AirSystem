@@ -1,13 +1,12 @@
 #include "flightsavewidget.h"
 #include "ui_flightsavewidget.h"
 
-FlightSaveWidget::FlightSaveWidget(QWidget *parent, vector<Flight> fliTempVec, QString companyTemp) :
+FlightSaveWidget::FlightSaveWidget(QWidget *parent, QString companyTemp) :
     QWidget(parent),
     ui(new Ui::FlightSaveWidget)
 {
     ui->setupUi(this);
     company = companyTemp;
-    flightVec = fliTempVec;
     updateUI();
 }
 
@@ -23,6 +22,7 @@ void FlightSaveWidget::updateUI()
         i->setParent(nullptr);
         i->deleteLater();
     }
+    itemVec.clear();
 
     ui->scrollArea->setWidgetResizable(false);
     //添加购物车Item

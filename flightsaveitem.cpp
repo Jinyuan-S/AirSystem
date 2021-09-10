@@ -2,6 +2,7 @@
 #include "ui_flightsaveitem.h"
 #include <addflightwidget.h>
 #include <QMessageBox>
+#include <Admin.h>
 
 FlightSaveItem::FlightSaveItem(QWidget *parent, Flight *flight, QString company) :
     QWidget(parent),
@@ -33,10 +34,25 @@ FlightSaveItem::FlightSaveItem(QWidget *parent, Flight *flight, QString company)
         bool Ok = fWidget->saveFlight(*flight);
         if(Ok)
         {
-            fWidget->close();
-            ui->label_edit->hide();
-            ui->label_added->show();
-            //TODO: 添加航班
+            int ret = Admin().add_flight(*flight);
+            if(ret == 0)
+            {
+                qDebug() << "添加航班";
+                ui->label_edit->hide();
+                ui->label_added->show();
+                fWidget->close();
+                QMessageBox::information(fWidget, "航班添加", "添加完成！");
+                fWidget->close();
+            }
+            else if(ret == 1)
+            {
+                QMessageBox::warning(fWidget, "航班添加", "该航班已存在！");
+            }
+            else
+            {
+                QMessageBox::warning(fWidget, "航班添加", "该航班的飞行员时间安排冲突！");
+            }
+
             qDebug() << "添加航班";
         }
         else

@@ -1,3 +1,45 @@
+5333.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #pragma once
 #include "Buyer.h"
 #include "Database.h"
@@ -23,7 +65,8 @@ public:
     //前端需要提供：airline,origin,destination,company,time_on,time_off,tomorrow,model,A_remain,B_remain,C_remain,date,price,pilot
     
     //判断飞行员
-    int fly(Flight& flt, int& which);
+    int fly(Flight flt, int& which);
+    int fly(Flight& flt);
     //添加航班0：正常，1：航班已存在，2：飞行员冲突
     int add_flight(Flight f);
     
@@ -42,5 +85,7 @@ private:
     inline int to_minute(string& time);
     
     //判断第二个飞行员，如果可以返回0
-    int fly2(Flight& flt);
+    int fly2(Flight flt);
+    bool isChanged = 0;
+    string ttt = "0";
 };

@@ -151,7 +151,7 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
         airlineInit();
     });
 
-    fWidget = new FlightSaveWidget();
+    fWidget = new FlightSaveWidget(nullptr, QString::fromLocal8Bit(admin->Company));
     AddFlightWidget *addFliWidget  = new AddFlightWidget(nullptr, QString::fromLocal8Bit(admin->Company));
     connect(ui->label_add, &ClickableLabel::clicked, [=](){
         addFliWidget->setWindowModality(Qt::ApplicationModal);
@@ -204,9 +204,23 @@ AdminMainWidget::AdminMainWidget(QWidget *parent, Admin *adminTemp) :
         bool Ok = addFliWidget->saveFlight(flight);
         if(Ok)
         {
-            addFliWidget->close();
-            //TODO: 添加航班
-            qDebug() << "添加航班";
+            int ret = Admin().add_flight(flight);
+            if(ret == 0)
+            {
+                qDebug() << "添加航班";
+                QMessageBox::information(addFliWidget, "航班添加", "添加完成！");
+                addFliWidget->close();
+//                airlineInit();
+            }
+            else if(ret == 1)
+            {
+                QMessageBox::warning(addFliWidget, "航班添加", "该航班已存在！");
+            }
+            else
+            {
+                QMessageBox::warning(addFliWidget, "航班添加", "该航班的飞行员时间安排冲突！");
+            }
+
         }
         else
         {

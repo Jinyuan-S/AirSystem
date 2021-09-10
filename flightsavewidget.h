@@ -16,7 +16,7 @@ class FlightSaveWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit FlightSaveWidget(QWidget *parent = nullptr, vector<Flight> fliTempVec = vector<Flight>(), QString companyTemp = "");
+    explicit FlightSaveWidget(QWidget *parent = nullptr, QString companyTemp = "");
     ~FlightSaveWidget();
     vector<Flight> flightVec;
     void updateUI();
