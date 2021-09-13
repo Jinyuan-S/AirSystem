@@ -4,8 +4,21 @@
 
 ---
 
+## v2021.9.9.2
+**about：fully completed**
+
+**already have：**
+full features
+
+\
+**Todo：**
+
+nothing
+
+---
+
 ## v2021.9.9.1
-**about：user mode fully completed, added admin mode(needs bug fixing)
+**about：user mode fully completed, added admin mode(needs bug fixing)**
 
 **already have：**
 
